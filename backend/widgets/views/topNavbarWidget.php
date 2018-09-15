@@ -68,16 +68,18 @@
 					</ul>
 				</li>
 				<?php
-    $menuItems[] = [
-                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post']
-                ];
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-    ?>
+				if (!Yii::$app->user->isGuest){ 
+				    $menuItems[] = [
+				                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+				                    'url' => ['/site/logout'],
+				                    'linkOptions' => ['data-method' => 'post']
+				                ];
+				    echo Nav::widget([
+				        'options' => ['class' => 'navbar-nav navbar-right'],
+				        'items' => $menuItems,
+				    ]);
+				}
+				    ?>
 				<li>
 					<a href="#">
 						<p>Log out</p>

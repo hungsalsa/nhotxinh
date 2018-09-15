@@ -7,8 +7,8 @@ use Yii;
 /**
  * This is the model class for table "tbl_manufactures".
  *
- * @property int $id
- * @property string $name
+ * @property int $idMan
+ * @property string $ManName
  * @property string $title
  * @property string $slug
  * @property string $image
@@ -38,10 +38,10 @@ class Manufactures extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'title', 'slug', 'active', 'description', 'created_at', 'updated_at', 'user_id'], 'required'],
+            [['ManName', 'title', 'slug', 'active', 'description', 'created_at', 'updated_at', 'user_id'], 'required'],
             [['order', 'parent_id', 'created_at', 'updated_at', 'user_id'], 'integer'],
             [['content', 'description', 'keyword'], 'string'],
-            [['name', 'title', 'slug', 'image'], 'string', 'max' => 255],
+            [['ManName', 'title', 'slug', 'image'], 'string', 'max' => 255],
             [['active'], 'string', 'max' => 4],
         ];
     }
@@ -52,8 +52,8 @@ class Manufactures extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
+            'idMan' => 'Id Man',
+            'ManName' => 'Man Name',
             'title' => 'Title',
             'slug' => 'Slug',
             'image' => 'Image',
@@ -67,5 +67,21 @@ class Manufactures extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'user_id' => 'User ID',
         ];
+    }
+
+    public $data;
+    public function getManufacturesParent($parent = 0,$level = '')
+    {
+        $result = Manufactures::find()->asArray()->where('parent_id =:parent',['parent'=>$parent])->all();
+        $level .='--| ';
+        foreach ($result as $key=>$value) {
+            if($parent == 0){
+                $level='';
+            }
+            $this->data[$value['idMan']] = $level.$value['ManName'];
+            self::getManufacturesParent($value['idMan'],$level);
+        }
+
+        return $this->data;
     }
 }

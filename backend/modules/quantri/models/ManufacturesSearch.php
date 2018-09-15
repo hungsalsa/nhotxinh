@@ -18,8 +18,8 @@ class ManufacturesSearch extends Manufactures
     public function rules()
     {
         return [
-            [['id', 'order', 'parent_id', 'created_at', 'updated_at', 'user_id'], 'integer'],
-            [['name', 'title', 'slug', 'image', 'active', 'content', 'description', 'keyword'], 'safe'],
+            [['idMan', 'order', 'parent_id', 'created_at', 'updated_at', 'user_id'], 'integer'],
+            [['ManName', 'title', 'slug', 'image', 'active', 'content', 'description', 'keyword'], 'safe'],
         ];
     }
 
@@ -59,7 +59,7 @@ class ManufacturesSearch extends Manufactures
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'idMan' => $this->idMan,
             'order' => $this->order,
             'parent_id' => $this->parent_id,
             'created_at' => $this->created_at,
@@ -67,7 +67,7 @@ class ManufacturesSearch extends Manufactures
             'user_id' => $this->user_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query->andFilterWhere(['like', 'ManName', $this->ManName])
             ->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'slug', $this->slug])
             ->andFilterWhere(['like', 'image', $this->image])

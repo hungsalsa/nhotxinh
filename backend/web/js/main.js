@@ -35,7 +35,7 @@ tinymce.init({
   selector: "textarea.content",
     theme: "modern",
     width: "",
-    height: 300,
+    height: 150,
     plugins: [
          "code advlist autolink link image lists charmap print preview hr anchor pagebreak",
          "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking spellchecker",
@@ -52,6 +52,7 @@ tinymce.init({
     // filemanager_crossdomain: true,
     external_filemanager_path: host[0]+"filemanager/",
     external_plugins: { "filemanager" : host[0]+"filemanager/plugin.min.js"},
+    filemanager_access_key:"dfc78fb912939b31a2798211ae7e950c" ,
   
    image_advtab: true,
 
@@ -73,5 +74,9 @@ tinymce.init({
 
 	$('#product-start_sale').datepicker();
 	$('#product-end_sale').datepicker();
+
+  $("#imageFile").click(function (event) {
+    $("#myModal").modal();
+  })
 
 });

@@ -1,4 +1,5 @@
 <?php
+
 $time = time();
 $config = include 'config/config.php';
 //TODO switch to array

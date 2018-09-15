@@ -2,7 +2,11 @@
     <div class="sidebar-wrapper">
     	<div class="logo">
     		<a href="###" class="simple-text">
-    			Creative Tim
+                <?php 
+        			if (!Yii::$app->user->isGuest){
+                        echo Yii::$app->user->identity->fullname;
+                    }
+                ?>
     		</a>
     	</div>
 
@@ -40,6 +44,7 @@
                     </div>
                     <a href="<?= Yii::$app->homeUrl ?>quantri/productcategory" class="list-group-item menudropdown" data-parent="#menu1">Danh mục sản phẩm</a>
                     <a href="<?= Yii::$app->homeUrl ?>quantri/product" class="list-group-item menudropdown" data-parent="#menu1">Sản phẩm</a>
+                    <a href="<?= Yii::$app->homeUrl ?>quantri/manufactures" class="list-group-item menudropdown" data-parent="#menu1">Nhà sản xuất</a>
                 </div>
             </li>
             <li>
@@ -48,6 +53,7 @@
     				<p>Quản lý ảnh</p>
     			</a>
     		</li>
+
     		<li>
     			<a href="typography.html">
     				<i class="pe-7s-news-paper"></i>

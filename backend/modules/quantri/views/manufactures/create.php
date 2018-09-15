@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\modules\quantri\models\Manufactures */
 
-$this->title = 'Create Manufactures';
+$this->title = 'Tạo mới nhà sản xuất';
 $this->params['breadcrumbs'][] = ['label' => 'Manufactures', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'dataManufac' => $dataManufac,
     ]) ?>
 
 </div>

@@ -5,6 +5,7 @@ namespace backend\modules\quantri\controllers;
 use Yii;
 use backend\modules\quantri\models\Product;
 use backend\modules\quantri\models\Productcategory;
+use backend\modules\quantri\models\Manufactures;
 use backend\modules\quantri\models\ProductSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -65,12 +66,24 @@ class ProductController extends Controller
      */
     public function actionCreate()
     {
+
+
+//         $username = 'admin';
+//      $salt = 'pkHWEe0Vj6vdZ18rfE898DlmKH90kz1G';
+//      $akey = md5($username.$salt);
+// echo $akey;die;
         $model = new Product();
 
         $category = new Productcategory();
         $dataCat = $category->getCategoryParent();
         if(empty($dataCat)){
             $dataCat = array();
+        }
+
+        $manufactures = new Manufactures();
+        $dataManufac = $manufactures->getManufacturesParent();
+        if(empty($dataManufac)){
+            $dataManufac = array();
         }
 
         $model->created_at = time();
@@ -84,6 +97,7 @@ class ProductController extends Controller
         return $this->render('create', [
             'model' => $model,
             'dataCat' => $dataCat,
+            'dataManufac' => $dataManufac,
         ]);
     }
 

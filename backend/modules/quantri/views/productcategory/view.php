@@ -15,8 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->idCate], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->idCate], [
+        <?= Html::a('Chỉnh sửa', ['update', 'id' => $model->idCate], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('danh sách', ['index'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Xóa', ['delete', 'id' => $model->idCate], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -28,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idCate',
+            // 'idCate',
             'title',
             'cateName',
             'slug',

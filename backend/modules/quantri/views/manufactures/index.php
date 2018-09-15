@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel backend\modules\quantri\models\ManufacturesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Manufactures';
+$this->title = 'Danh sách nhà sản xuất';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="manufactures-index">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Manufactures', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Thêm mới', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -26,8 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'name',
+            // 'idMan',
+            'ManName',
             'title',
             'slug',
             'image',

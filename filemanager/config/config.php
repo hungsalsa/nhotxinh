@@ -27,7 +27,7 @@ date_default_timezone_set('Europe/Rome');
 |
 */
 
-define('USE_ACCESS_KEYS', false); // TRUE or FALSE
+define('USE_ACCESS_KEYS', true); // TRUE or FALSE
 
 /*
 |--------------------------------------------------------------------------
@@ -141,7 +141,7 @@ $config = array(
 	|
 	*/
 
-	'access_keys' => array(),
+	'access_keys' => array('dfc78fb912939b31a2798211ae7e950c'),
 
 	//--------------------------------------------------------------------------------------------------------
 	// YOU CAN COPY AND CHANGE THESE VARIABLES INTO FOLDERS config.php FILES TO CUSTOMIZE EACH FOLDER OPTIONS

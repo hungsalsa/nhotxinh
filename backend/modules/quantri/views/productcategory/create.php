@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\modules\quantri\models\Productcategory */
 
-$this->title = 'Create Productcategory';
+$this->title = 'Thêm mới danh mục sản phẩm';
 $this->params['breadcrumbs'][] = ['label' => 'Productcategories', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -66,12 +66,21 @@ class ManufacturesController extends Controller
     {
         $model = new Manufactures();
 
+        $dataManufac = $model->getManufacturesParent();
+        if(empty($dataManufac)){
+            $dataManufac = array();
+        }
+        $model->created_at = time();
+        $model->updated_at = time();
+        
+        $model->user_id = Yii::$app->user->id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->idMan]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'dataManufac' => $dataManufac,
         ]);
     }
 
@@ -87,7 +96,7 @@ class ManufacturesController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->idMan]);
         }
 
         return $this->render('update', [

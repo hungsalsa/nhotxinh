@@ -40,9 +40,9 @@ class Productcategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'cateName', 'active', 'created_at', 'updated_at', 'user_id'], 'required'],
+            [['title', 'cateName', 'active', 'created_at', 'updated_at', 'user_id'], 'required','message'=>'{attribute} không được để trống'],
             [['keyword', 'description', 'content', 'short_introduction'], 'string'],
-            [['order', 'product_parent_id', 'created_at', 'updated_at', 'user_id'], 'integer'],
+            [['order', 'product_parent_id', 'created_at', 'updated_at', 'user_id'], 'integer','message'=>'{attribute} không phải là số'],
             [['title', 'cateName', 'slug', 'image'], 'string', 'max' => 255],
             [['home_page', 'active'], 'string', 'max' => 4],
         ];
@@ -55,21 +55,21 @@ class Productcategory extends \yii\db\ActiveRecord
     {
         return [
             'idCate' => 'Id Cate',
-            'title' => 'Title',
-            'cateName' => 'Cate Name',
-            'slug' => 'Slug',
-            'keyword' => 'Keyword',
+            'title' => 'Tiêu đề danh mục',
+            'cateName' => 'Tên danh mục sp',
+            'slug' => 'đường dẫn',
+            'keyword' => 'Từ khóa',
             'description' => 'Description',
-            'content' => 'Content',
-            'short_introduction' => 'Short Introduction',
-            'home_page' => 'Home Page',
-            'image' => 'Image',
-            'order' => 'Order',
-            'active' => 'Active',
-            'product_parent_id' => 'Product Parent ID',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-            'user_id' => 'User ID',
+            'content' => 'Chi tiết',
+            'short_introduction' => 'Giới thiệu ngắn',
+            'home_page' => 'Hiện ở trang chủ',
+            'image' => 'Ảnh',
+            'order' => 'Sắp xếp',
+            'active' => 'Kích hoạt',
+            'product_parent_id' => 'Danh mục cha',
+            'created_at' => 'Ngày tạo',
+            'updated_at' => 'Ngày chỉnh sửa',
+            'user_id' => 'user',
         ];
     }
 
