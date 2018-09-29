@@ -69,20 +69,6 @@ class Categories extends \yii\db\ActiveRecord
         ];
     }
 
-    // public $data;
-    // public function getCategoryParent($parent = 1, $level ="")
-    // {
-    //     $result = Categories::find()->asArray()->where('parent_id = :parent',['parent'=>$parent])->all();
-    //     $level .= "-";
-    //     foreach ($result as $value) {
-    //         if ($parent == 1) {
-    //             $level="";
-    //         }
-    //         $this->data[$value['id']] = $level.$value['id'];
-    //         self::getCategoryParent($value['id'], $level);
-    //     }
-    //     return $this->data;
-    // }
 
     public $data;
     public function getCategoryParent($parent = 0, $level =""){

@@ -47,6 +47,7 @@ class ProductcategorySearch extends Productcategory
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['created_at' => SORT_DESC,'cateName'=>SORT_ASC]]
         ]);
 
         $this->load($params);

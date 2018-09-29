@@ -88,13 +88,12 @@ AppAsset::register($this);
       	$user =  Yii::$app->user->identity->username;
       	$auth_key =  Yii::$app->user->identity->auth_key;
       	?>
-        <iframe  width="90%" height="450" frameborder="0"
+        <iframe  width="100%" height="450" frameborder="0"
             src="../../../filemanager/dialog.php?type=1&field_id=imageFile&akey=<?= md5($user.$auth_key) ?>">
         </iframe>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -103,7 +102,7 @@ AppAsset::register($this);
 <?php $this->endBody() ?>
 <?php if(Yii::$app->session->hasFlash('messeage')): ?>
 <script type="text/javascript">
-	demo.initChartist();
+	// demo.initChartist();
 
 	$.notify({
 		icon: 'pe-7s-gift',

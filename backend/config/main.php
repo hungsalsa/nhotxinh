@@ -20,6 +20,9 @@ return [
         'auth' => [
             'class' => 'backend\modules\auth\Module',
         ],
+        'setting' => [
+            'class' => 'backend\modules\setting\setting',
+        ],
     ],
     'components' => [
         

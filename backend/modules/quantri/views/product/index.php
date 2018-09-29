@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel backend\modules\quantri\models\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Products';
+$this->title = 'Danh sách sản phẩm';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-index">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Thêm mới SP', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -26,8 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'pro_name',
+            // 'id',
+            // 'pro_name',
+            [
+               'attribute' => 'pro_name',
+               'format' => 'raw',
+               'value'=>function ($data) {
+                return Html::a(Html::encode($data->pro_name),Yii::$app->homeUrl.'quantri/product/update?id='.$data->id);
+                },
+            ],
             'title',
             'slug',
             'keyword:ntext',
@@ -44,21 +51,39 @@ $this->params['breadcrumbs'][] = $this->title;
             //'hot',
             //'best_seller',
             //'new',
-            //'manufacturer_id',
+            'manufacturer_id',
             //'guarantee',
-            //'models_id',
+            'product_type_id',
+            'models_id',
             //'views',
             //'code',
-            //'image',
+            'image',
             //'images_list',
             //'tags',
-            //'product_category_id',
+            'product_category_id',
             //'related_articles',
             //'created_at',
             //'updated_at',
             //'user_id',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header' => 'Action',
+                'headerOptions' => ['class' => 'col-md-1 text-center'],
+                'contentOptions' => ['class' => 'text-center'],
+                'template' => '{my_button}', 
+                'buttons' => [
+                    'my_button' => function ($url, $model, $key) {
+                        return Html::a('Thêm ảnh', ['my-action', 'id'=>$model->id]);
+                    },
+                ]
+            ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header' => 'Action',
+                'headerOptions' => ['class' => 'col-md-1 text-center'],
+                'contentOptions' => ['class' => 'text-center'],
+            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?>

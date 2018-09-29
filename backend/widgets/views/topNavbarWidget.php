@@ -81,8 +81,8 @@
 				}
 				    ?>
 				<li>
-					<a href="#">
-						<p>Log out</p>
+					<a target="_blank" href="<?= Yii::$app->request->hostInfo ?>">
+						<p>Xem website</p>
 					</a>
 				</li>
 				<li class="separator hidden-lg"></li>

@@ -87,6 +87,38 @@ class SiteController extends Controller
                 'model' => $model,
             ]);
         }
+
+
+
+        if (!\Yii::$app->user->isGuest) {
+        return $this->goHome();
+    }
+
+// $model = new LoginForm();
+// if ($model->load(Yii::$app->request->post()) && $model->login()) {
+// //check user roles, is user is Admin? 
+//     if (\Yii::$app->user->can('Admin'))
+//     {
+//         // yes he is Admin, so redirect page 
+//         // return $this->goBack();
+//          return $this->redirect(['quantri/productcategory']);
+//     }
+//     else // if he is not an Admin then what :P
+//     {   // put him out :P Automatically logout. 
+//         Yii::$app->user->logout();
+//         // set error on login page. 
+//         \Yii::$app->getSession()->setFlash('error', 'You are not authorized to login Admin\'s penal.<br /> Please use valid Username & Password.<br />Please contact Administrator for details.');
+//         //redirect again page to login form.
+//         return $this->redirect(['site/login']);
+//     }
+
+// } else {
+// return $this->render('login', [
+//     'model' => $model,
+// ]);
+// }
+
+
     }
 
     /**

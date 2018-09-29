@@ -1,9 +1,10 @@
 <?php
 
-namespace app\widgets;
+namespace frontend\widgets;
 
 use yii\base\Widget;
 use yii\helpers\Html;
+use frontend\models\Menus;
 
 class navBarWidget extends Widget
 {
@@ -17,6 +18,10 @@ class navBarWidget extends Widget
 
     public function run()
     {
-         return $this->render('navBarWidget');
+    	$menu = new Menus();
+    	$dataMenu = $menu->getMenusByParent();
+    	// echo '<pre>';
+    	// print_r($dataMenu);die;
+         return $this->render('navBarWidget',['dataMenu'=>$dataMenu]);
     }
 }

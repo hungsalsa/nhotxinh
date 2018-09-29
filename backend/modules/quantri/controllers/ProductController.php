@@ -6,6 +6,8 @@ use Yii;
 use backend\modules\quantri\models\Product;
 use backend\modules\quantri\models\Productcategory;
 use backend\modules\quantri\models\Manufactures;
+use backend\modules\quantri\models\Producttype;
+use backend\modules\quantri\models\Models;
 use backend\modules\quantri\models\ProductSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -66,12 +68,6 @@ class ProductController extends Controller
      */
     public function actionCreate()
     {
-
-
-//         $username = 'admin';
-//      $salt = 'pkHWEe0Vj6vdZ18rfE898DlmKH90kz1G';
-//      $akey = md5($username.$salt);
-// echo $akey;die;
         $model = new Product();
 
         $category = new Productcategory();
@@ -86,18 +82,43 @@ class ProductController extends Controller
             $dataManufac = array();
         }
 
+        $models = new Models();
+        $dataModel = $models->getModelsParent();
+        if(empty($dataModel)){
+            $dataModel = array();
+        }
+
+        $type_pro = new Producttype();
+        $dataType= $type_pro->getAllProductType();
+        if(empty($dataType)){
+            $dataType = array();
+        }
+
         $model->created_at = time();
         $model->updated_at = time();
         $model->user_id = Yii::$app->user->id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load($post = Yii::$app->request->post()) ) {
+            if ($post['Product']['image']!='') {
+                $model->image = str_replace(Yii::$app->request->hostInfo.'/','',$post['Product']['image']);
+            }
+
+            if (!empty($post['Product']['models_id'])) {
+                $models_ids = $post['Product']['models_id'];
+                $model->models_id = json_encode($models_ids);
+            }
+
+            if($model->save()){
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('create', [
             'model' => $model,
             'dataCat' => $dataCat,
             'dataManufac' => $dataManufac,
+            'dataModel' => $dataModel,
+            'dataType' => $dataType,
         ]);
     }
 
@@ -112,12 +133,66 @@ class ProductController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $category = new Productcategory();
+        $dataCat = $category->getCategoryParent();
+        if(empty($dataCat)){
+            $dataCat = array();
+        }
+
+        $manufactures = new Manufactures();
+        $dataManufac = $manufactures->getManufacturesParent();
+        if(empty($dataManufac)){
+            $dataManufac = array();
+        }
+
+        $models = new Models();
+        $dataModel = $models->getModelsParent();
+        if(empty($dataModel)){
+            $dataModel = array();
+        }
+
+        $type_pro = new Producttype();
+        $dataType= $type_pro->getAllProductType();
+        if(empty($dataType)){
+            $dataType = array();
+        }
+
+        $model->product_type_id = json_decode($model->product_type_id);
+        $model->updated_at = time();
+        $model->user_id = Yii::$app->user->id;
+
+        if ($model->load($post = Yii::$app->request->post()) ) {
+
+            if ($post['Product']['image']!='') {
+                $model->image = str_replace(Yii::$app->request->hostInfo.'/','',$post['Product']['image']);
+            }
+            if (!empty($post['Product']['models_id'])) {
+                $models_ids = $post['Product']['models_id'];
+                $model->models_id = json_encode($models_ids);
+            }
+
+            if (!empty($post['Product']['product_type_id'])) {
+                $product_type_id = $post['Product']['product_type_id'];
+                $model->product_type_id = json_encode($product_type_id);
+            }
+
+            if (!empty($post['Product']['start_sale'])) {
+                $model->start_sale = Yii::$app->formatter->asDate($post['Product']['start_sale'], 'Y-MM-dd');
+            }
+            if (!empty($post['Product']['end_sale'])) {
+                $model->end_sale = Yii::$app->formatter->asDate($post['Product']['end_sale'], 'Y-MM-dd');
+            }
+            if($model->save()){
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'dataCat' => $dataCat,
+            'dataManufac' => $dataManufac,
+            'dataModel' => $dataModel,
+            'dataType' => $dataType,
         ]);
     }
 
@@ -149,5 +224,21 @@ class ProductController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    function utf8_string_array_encode(&$array){
+        $func = function(&$value,&$key){
+            if(is_string($value)){
+                $value = utf8_encode($value);
+            }
+            if(is_string($key)){
+                $key = utf8_encode($key);
+            }
+            if(is_array($value)){
+                utf8_string_array_encode($value);
+            }
+        };
+        array_walk($array,$func);
+        return $array;
     }
 }

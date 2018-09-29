@@ -3,8 +3,16 @@ a.list-group-item.menudropdown.collapsed {
     background: none;
 }
 div.activeform{
-  height: 24px;
+	text-align: center;
+	margin-top: 33px;
+	padding: 0;
 }
 .btn-group-toggle.clickform{
   margin: 22px 0 5px;
 }
+.main-panel .content{padding: 0;}
+.main-panel .content h1{margin: 0 0px 10px;text-align: center;font-size: 30px;font-weight: 500;color: #0014ff;border-bottom: 1px solid;}
+.sidebar-wrapper ul.nav>li.list-group>div.collapse>a.list-group-item {
+    color: #ff0000;
+}
+.sidebar-wrapper ul.nav>li.list-group>div.collapse>div.collapse{margin-left: 10px;width: 95%;}

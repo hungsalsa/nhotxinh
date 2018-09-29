@@ -74,8 +74,21 @@ class ManufacturesController extends Controller
         $model->updated_at = time();
         
         $model->user_id = Yii::$app->user->id;
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idMan]);
+
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //     return $this->redirect(['view', 'id' => $model->idMan]);
+        // }
+        
+        if ($model->load($post = Yii::$app->request->post()) ) {
+            if ($post['Manufactures']['parent_id']=='') {
+                $model->parent_id=0;
+            }
+            if ($post['Manufactures']['image']!='') {
+                $model->image = str_replace(Yii::$app->request->hostInfo,'',$post['Manufactures']['image']);
+            }
+            if($model->save()){
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('create', [
@@ -95,12 +108,29 @@ class ManufacturesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idMan]);
+        $dataManufac = $model->getManufacturesParent();
+        if(empty($dataManufac)){
+            $dataManufac = array();
+        }
+        $model->updated_at = time();
+        
+        $model->user_id = Yii::$app->user->id;
+
+        if ($model->load($post = Yii::$app->request->post()) ) {
+            if ($post['Manufactures']['parent_id']=='') {
+                $model->parent_id=0;
+            }
+            if ($post['Manufactures']['image']!='') {
+                $model->image = str_replace(Yii::$app->request->hostInfo,'',$post['Manufactures']['image']);
+            }
+            if($model->save()){
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'dataManufac' => $dataManufac,
         ]);
     }
 

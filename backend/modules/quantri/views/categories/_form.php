@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
+use kartik\checkbox\CheckboxX;
 /* @var $this yii\web\View */
 /* @var $model backend\modules\quantri\models\Categories */
 /* @var $form yii\widgets\ActiveForm */
@@ -12,40 +13,55 @@ use kartik\select2\Select2;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'cateName')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'cateName',['options'=>['class'=>'col-md-4']])->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'groupId')->dropDownlist($dataGroups,['prompt'=>'-Chọn danh mục']) ?>
-
-    <?php 
-// Normal select with ActiveForm & model
-echo $form->field($model, 'groupId')->widget(Select2::classname(), [
-    'data' => $dataGroups,
-    'language' => 'en',
-    'options' => ['placeholder' => 'Select a state ...'],
-    'pluginOptions' => [
-        'allowClear' => true
-    ],
-]);
+    <?=
+        $form->field($model, 'groupId',['options'=>['class'=>'col-md-4']])->widget(Select2::classname(), [
+            'data' => $dataGroups,
+            'language' => 'en',
+            'options' => ['placeholder' => 'Select a state ...'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
      ?>
 
-    <?= $form->field($model, 'parent_id')->dropDownlist($datacat) ?>
+    <?=
+        $form->field($model, 'parent_id',['options'=>['class'=>'col-md-4']])->widget(Select2::classname(), [
+            'data' => $datacat,
+            'language' => 'en',
+            'options' => ['placeholder' => 'Select a state ...'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
+     ?>
+    <div class="clearfix"></div>
 
-    <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'title',['options'=>['class'=>'col-md-4']])->textInput(['maxlength' => true,'id'=>'title_slug']) ?>
 
-    <?= $form->field($model, 'images')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'link',['options'=>['class'=>'col-md-3']])->textInput(['maxlength' => true,'id'=>'slug_url','placeholder' => 'Tự động sinh nếu để trông']) ?>
 
-    <?= $form->field($model, 'sort')->textInput() ?>
+    <?= $form->field($model, 'images',['options' => ['class' => 'col-md-2']])->textInput(['maxlength' => true,'id'=>'imageFile','placeholder'=>'Click chọn ảnh']) ?>
+    <div class="col-md-1" style="height: 80px">
+        <img src="<?= (isset($model->image))? Yii::$app->request->hostInfo.'/'.$model->image:''?>" id="previewImage" alt="" style="height: 100%">
+    </div>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
+    <?= $form->field($model, 'sort',['options' => ['class' => 'col-md-2']])->textInput() ?>
+    <div class="clearfix"></div>
     <?= $form->field($model, 'keyword')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'descriptions')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'status')->checkbox() ?>
+    <?= $form->field($model, 'status',['options' => ['class' => 'activeform col-md-1']])->widget(CheckboxX::classname(),
+        [
+        'initInputType' => CheckboxX::INPUT_CHECKBOX,
+        'options'=>['value' => $model->status],
+        ])->label(false);
+    ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <div class="form-group" style="float:left;margin:21px">
+      <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

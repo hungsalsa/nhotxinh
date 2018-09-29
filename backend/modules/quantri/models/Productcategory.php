@@ -62,7 +62,7 @@ class Productcategory extends \yii\db\ActiveRecord
             'description' => 'Description',
             'content' => 'Chi tiết',
             'short_introduction' => 'Giới thiệu ngắn',
-            'home_page' => 'Hiện ở trang chủ',
+            'home_page' => 'Hiện ở Home',
             'image' => 'Ảnh',
             'order' => 'Sắp xếp',
             'active' => 'Kích hoạt',

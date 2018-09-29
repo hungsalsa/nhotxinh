@@ -72,7 +72,7 @@ class Manufactures extends \yii\db\ActiveRecord
     public $data;
     public function getManufacturesParent($parent = 0,$level = '')
     {
-        $result = Manufactures::find()->asArray()->where('parent_id =:parent',['parent'=>$parent])->all();
+        $result = Manufactures::find()->asArray()->where('parent_id =:parent AND active =:activ',['parent'=>$parent,'activ'=>1])->all();
         $level .='--| ';
         foreach ($result as $key=>$value) {
             if($parent == 0){

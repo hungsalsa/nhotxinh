@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'image',
             //'order',
             //'active',
-            //'product_parent_id',
+            'product_parent_id',
             //'created_at',
             //'updated_at',
             //'user_id',

@@ -101,8 +101,19 @@ class CategoriesController extends Controller
         $model->updated_at=time();
         $model->userAdd = Yii::$app->user->id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+        if ($model->load($post = Yii::$app->request->post()) ) {
+            if ($post['Categories']['parent_id'] =='') {
+                $model->parent_id = 0;
+            }
+
+            // if (!empty($post['Categories']['models_id'])) {
+            //     $models_ids = $post['Categories']['models_id'];
+            //     $model->models_id = json_encode($models_ids);
+            // }
+
+            if($model->save()){
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('create', [
@@ -133,8 +144,19 @@ class CategoriesController extends Controller
 
         $model->updated_at=time();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load($post = Yii::$app->request->post()) ) {
+            if ($post['Categories']['parent_id'] =='') {
+                $model->parent_id = 0;
+            }
+
+            // if (!empty($post['Categories']['models_id'])) {
+            //     $models_ids = $post['Categories']['models_id'];
+            //     $model->models_id = json_encode($models_ids);
+            // }
+
+            if($model->save()){
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('update', [

@@ -75,8 +75,19 @@ class ProductcategoryController extends Controller
         $model->updated_at = time();
         $model->user_id = Yii::$app->user->id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        /*if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idCate]);
+        }*/
+        if ($model->load($post = Yii::$app->request->post()) ) {
+            if ($post['Productcategory']['product_parent_id']=='') {
+                $model->product_parent_id = 0;
+            }
+            if ($post['Productcategory']['image']!='') {
+                $model->image = str_replace(Yii::$app->request->hostInfo,'',$post['Productcategory']['image']);
+            }
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->idCate]);
+            }
         }
 
         return $this->render('create', [
@@ -104,8 +115,20 @@ class ProductcategoryController extends Controller
         $model->updated_at = time();
         $model->user_id = Yii::$app->user->id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        /*if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idCate]);
+        }*/
+        
+        if ($model->load($post = Yii::$app->request->post()) ) {
+            if ($post['Productcategory']['product_parent_id']=='') {
+                $model->product_parent_id=0;
+            }
+            if ($post['Productcategory']['image']!='') {
+                $model->image = str_replace(Yii::$app->request->hostInfo,'',$post['Productcategory']['image']);
+            }
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->idCate]);
+            }
         }
 
         return $this->render('update', [

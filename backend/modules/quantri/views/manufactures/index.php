@@ -27,11 +27,32 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             // 'idMan',
-            'ManName',
+            // 'ManName',
+            [
+               'attribute' => 'ManName',
+               'format' => 'raw',
+               'value'=>function ($data) {
+                return Html::a(Html::encode($data->ManName),Yii::$app->homeUrl.'quantri/manufactures/view?id='.$data->idMan);
+                },
+            ],
             'title',
             'slug',
             'image',
-            //'active',
+            // 'active',
+            [
+                'class' => 'yii\grid\DataColumn',
+                'attribute' => 'active',
+                'content'=>function($data){
+                    if($data->active == 1) {
+                        return " Kích hoạt ";
+                    }else{
+                        return ' Ẩn ';
+                    }
+                },
+                'headerOptions' => ['class' => 'text-center'],
+                'label' => 'Giới tính',
+                'contentOptions' => ['style' => '', 'class' => 'text-center'],
+            ],
             //'order',
             //'content:ntext',
             //'description:ntext',

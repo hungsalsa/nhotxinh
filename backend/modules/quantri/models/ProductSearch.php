@@ -18,7 +18,7 @@ class ProductSearch extends Product
     public function rules()
     {
         return [
-            [['id', 'price', 'price_sales', 'order', 'manufacturer_id', 'guarantee', 'views', 'product_category_id', 'created_at', 'updated_at', 'user_id'], 'integer'],
+            [['id', 'price', 'price_sales', 'order','product_type_id', 'manufacturer_id', 'guarantee', 'views', 'product_category_id', 'created_at', 'updated_at', 'user_id'], 'integer'],
             [['pro_name', 'title', 'slug', 'keyword', 'description', 'short_introduction', 'content', 'start_sale', 'end_sale', 'active', 'salse', 'hot', 'best_seller', 'new', 'models_id', 'code', 'image', 'images_list', 'tags', 'related_articles'], 'safe'],
         ];
     }
@@ -47,6 +47,7 @@ class ProductSearch extends Product
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['created_at' => SORT_DESC,'pro_name'=>SORT_ASC]]
         ]);
 
         $this->load($params);
@@ -65,6 +66,7 @@ class ProductSearch extends Product
             'end_sale' => $this->end_sale,
             'price_sales' => $this->price_sales,
             'order' => $this->order,
+            'product_type_id' => $this->product_type_id,
             'manufacturer_id' => $this->manufacturer_id,
             'guarantee' => $this->guarantee,
             'views' => $this->views,

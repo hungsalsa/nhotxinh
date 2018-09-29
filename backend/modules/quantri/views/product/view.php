@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model backend\modules\quantri\models\Product */
 
-$this->title = $model->title;
+$this->title = 'Sản phẩm: '.$model->pro_name;
 $this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,8 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Chỉnh sửa', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Danh sách', ['index'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Xóa SP', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -28,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            // 'id',
             'pro_name',
             'title',
             'slug',
@@ -42,8 +43,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'price_sales',
             'order',
             'active',
+            'product_type_id',
             'salse',
-            'hot',
+            // 'hot',
+            [
+                'class' => 'yii\grid\DataColumn',
+                'attribute' => 'hot',
+                'headerOptions' => ['class' => 'col-md-2'],
+                'contentOptions' => ['class' => 'col-md-10'],
+            ],
             'best_seller',
             'new',
             'manufacturer_id',

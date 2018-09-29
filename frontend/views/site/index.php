@@ -1,13 +1,13 @@
 <?php
-use app\widgets\sectionHeroWidget;
-use app\widgets\scrollTabsWidget;
-use app\widgets\wideProductsWidget;
-use app\widgets\wideBannersWidget;
-use app\widgets\featuredProductsWidget;
-use app\widgets\wideBanners2Widget;
-use app\widgets\bestSellerWidget;
-use app\widgets\blogSliderWidget;
-use app\widgets\brandsCarouselWidget;
+use frontend\widgets\sectionHeroWidget;
+use frontend\widgets\newProductWidget;
+use frontend\widgets\wideProductsWidget;
+use frontend\widgets\wideBannersWidget;
+use frontend\widgets\featuredProductsWidget;
+use frontend\widgets\wideBanners2Widget;
+use frontend\widgets\bestSellerWidget;
+use frontend\widgets\blogSliderWidget;
+use frontend\widgets\brandsCarouselWidget;
 /* @var $this yii\web\View */
 
 $this->title = 'Chào mừng đến với nhớt xinh.vn';
@@ -21,9 +21,9 @@ $this->title = 'Chào mừng đến với nhớt xinh.vn';
 		<!-- ============================================== WIDE PRODUCTS ============================================== -->
 		<?= wideProductsWidget::widget() ?>    
 		<!-- ============================================== WIDE PRODUCTS : END ============================================== -->
-		<!-- ============================================== SCROLL TABS ============================================== -->
-		<?= scrollTabsWidget::widget() ?>  
-		<!-- ============================================== SCROLL TABS : END ============================================== -->
+		<!-- ============================================== NEW PRODUCT ============================================== -->
+		<?= newProductWidget::widget() ?>  
+		<!-- ============================================== NEW PRODUCT : END ============================================== -->
 		<!-- ============================================== WIDE BANNERS ============================================== -->
 		<?= wideBannersWidget::widget() ?>  
 

@@ -1,18 +1,18 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\modules\quantri\controllers;
 
 use Yii;
-use app\models\Ban;
-use app\models\BanSearch;
+use backend\modules\quantri\models\Producttype;
+use backend\modules\quantri\models\ProducttypeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * BanController implements the CRUD actions for Ban model.
+ * ProducttypeController implements the CRUD actions for Producttype model.
  */
-class BanController extends Controller
+class ProducttypeController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class BanController extends Controller
     }
 
     /**
-     * Lists all Ban models.
+     * Lists all Producttype models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new BanSearch();
+        $searchModel = new ProducttypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class BanController extends Controller
     }
 
     /**
-     * Displays a single Ban model.
+     * Displays a single Producttype model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,16 +58,16 @@ class BanController extends Controller
     }
 
     /**
-     * Creates a new Ban model.
+     * Creates a new Producttype model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Ban();
+        $model = new Producttype();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -76,7 +76,7 @@ class BanController extends Controller
     }
 
     /**
-     * Updates an existing Ban model.
+     * Updates an existing Producttype model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -87,7 +87,7 @@ class BanController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
@@ -96,7 +96,7 @@ class BanController extends Controller
     }
 
     /**
-     * Deletes an existing Ban model.
+     * Deletes an existing Producttype model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class BanController extends Controller
     }
 
     /**
-     * Finds the Ban model based on its primary key value.
+     * Finds the Producttype model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Ban the loaded model
+     * @return Producttype the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Ban::findOne($id)) !== null) {
+        if (($model = Producttype::findOne($id)) !== null) {
             return $model;
         }
 

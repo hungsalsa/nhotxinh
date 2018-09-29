@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
+use kartik\checkbox\CheckboxX;
 /* @var $this yii\web\View */
 /* @var $model backend\modules\quantri\models\Productcategory */
 /* @var $form yii\widgets\ActiveForm */
@@ -24,26 +25,31 @@ use kartik\select2\Select2;
         ]);
     ?>
 
-    <?= $form->field($model, 'title',['options' => ['class' => 'col-md-4']])->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'title',['options' => ['class' => 'col-md-4']])->textInput(['maxlength' => true,'id'=>'title_slug']) ?>
 
-    <?= $form->field($model, 'slug',['options' => ['class' => 'col-md-4']])->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'slug',['options' => ['class' => 'col-md-4']])->textInput(['maxlength' => true,'id'=>'slug_url']) ?>
 
-    <?= $form->field($model, 'image',['options' => ['class' => 'col-md-4']])->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'order',['options' => ['class' => 'col-md-2']])->textInput(['type' => 'number']) ?>
-
-    <div class="btn-group-toggle col-md-2 clickform">
-      <label class="btn btn-success btn-outline">
-         <?= $form->field($model, 'home_page',['options' => ['class' => 'activeform']])->checkbox() ?>
-      </label>
+    <?= $form->field($model, 'image',['options' => ['class' => 'col-md-2']])->textInput(['maxlength' => true,'id'=>'imageFile','placeholder'=>'Click chọn ảnh']) ?>
+    <div class="col-md-2" style="height: 80px">
+        <img src="<?= (isset($model->image))? $model->image:''?>" id="previewImage" alt="" style="height: 100%">
     </div>
-    <div class="clearfix"></div>
-    <div class="btn-group-toggle col-md-2 clickform">
-      <label class="btn btn-success btn-outline">
-         <?= $form->field($model, 'active',['options' => ['class' => 'activeform']])->checkbox() ?>
-      </label>
-    </div>
+    <?= $form->field($model, 'order',['options' => ['class' => 'col-md-1']])->textInput(['type' => 'number']) ?>
+
+    <?= $form->field($model, 'home_page',['options' => ['class' => 'activeform col-md-2']])->widget(CheckboxX::classname(),
+        [
+        'initInputType' => CheckboxX::INPUT_CHECKBOX,
+        'options'=>['value' => $model->home_page],
+        ])->label(false);
+    ?>
     <?= $form->field($model, 'keyword',['options' => ['class' => 'col-md-10']])->textInput(['rows' => 6]) ?>
+    <?= $form->field($model, 'active',['options' => ['class' => 'activeform col-md-2']])->widget(CheckboxX::classname(),
+        [
+        'initInputType' => CheckboxX::INPUT_CHECKBOX,
+        'options'=>['value' => $model->active],
+        ])->label(false);
+    ?>
+<div class="clearfix"></div>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6,'class'=>'content']) ?>
 

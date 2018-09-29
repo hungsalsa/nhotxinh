@@ -40,7 +40,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         // <!-- JavaScripts placed at the end of the document so the pages load faster -->
-        'vender/js/jquery-1.11.1.min.js',
+        // 'vender/js/jquery-1.11.1.min.js',
         // 'vender/js/jquery.min.js',
         'vender/js/bootstrap.min.js',
         'vender/js/bootstrap-hover-dropdown.min.js',

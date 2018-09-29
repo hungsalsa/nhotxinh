@@ -9,10 +9,11 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
-use app\widgets\topMenuWidget;
-use app\widgets\navBarWidget;
-use app\widgets\mainHeaderWidget;
-use app\widgets\footerWidget;
+use frontend\widgets\topMenuWidget;
+use frontend\widgets\navBarWidget;
+use frontend\widgets\mainHeaderWidget;
+use frontend\widgets\footerWidget;
+use frontend\widgets\brandsCarouselWidget;
 
 // use app\widgets\footerWidget;
 
@@ -53,14 +54,29 @@ AppAsset::register($this);
 
     </header>
     <!-- ============================================== HEADER : END ============================================== -->
-
-    <!-- ============================================== BODY-CONTENT ============================================== -->
-    <div class="body-content" id="top-banner-and-menu">
+    <!-- =========BREADCRUMB========================== -->
+    <div class="breadcrumb">
         <div class="container">
-            <?= $content ?>
-        </div>
-    </div><!-- /#top-banner-and-menu -->
-
+            <div class="breadcrumb-inner">
+                <ul class="list-inline list-unstyled">
+                    <li><a href="#">Home</a></li>
+                    <li class='active'>Smart Phone</li>
+                </ul>
+            </div><!-- /.breadcrumb-inner -->
+        </div><!-- /.container -->
+    </div><!-- /.breadcrumb -->
+    <!-- =========BREADCRUMB :END========================== -->
+    <!-- ============================================== BODY-CONTENT ============================================== -->
+    <div class="body-content outer-top-xs">
+        <div class='container'>
+            <div class="homepage-container">
+                <div class='row single-product outer-bottom-sm'>
+                    <?= $content ?>
+                </div>
+                <?= brandsCarouselWidget::widget() ?>
+            </div>
+        </div><!-- /#top-banner-and-menu -->
+    </div>
     <!-- ============================================== BODY-CONTENT :END ============================================== -->
 
     <!-- ============================================================= FOOTER ============================================================= -->

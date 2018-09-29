@@ -48,6 +48,14 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                // '<alias:product>/<id:\w+>' => 'product/detail/<alias>',
+                // '<controller:\w+>/<id:\d+>/<slug:\w+>' => '<controller>/view',
+                // 'san-pham'=>'product/index',
+                // 'san-pham/chi-tiet/<slug>' => 'user/view/id',
+                // 'san-pham/<id:\d+>/<slug:[-a-zA-Z]+>' => 'product/view',
+                // 'slug/<id:\d+>/<slug>'=>'product/detail/id',
+                'defaultRoute' => '/site/index',
             ],
         ],
         

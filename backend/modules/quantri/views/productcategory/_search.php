@@ -41,6 +41,8 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'order') ?>
 
     <?php // echo $form->field($model, 'active') ?>
+    
+    <?php // echo $form->field($model, 'product_type_id') ?>
 
     <?php // echo $form->field($model, 'product_parent_id') ?>
 

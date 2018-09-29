@@ -1,6 +1,6 @@
 <?php
 
-namespace app\widgets;
+namespace frontend\widgets;
 
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -17,6 +17,6 @@ class wideProductsWidget extends Widget
 
     public function run()
     {
-         return $this->render('index\wideProductsWidget');
+         return $this->render('index/wideProductsWidget');
     }
 }

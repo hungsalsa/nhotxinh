@@ -9,10 +9,10 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
-use app\widgets\topMenuWidget;
-use app\widgets\navBarWidget;
-use app\widgets\mainHeaderWidget;
-use app\widgets\footerWidget;
+use frontend\widgets\topMenuWidget;
+use frontend\widgets\navBarWidget;
+use frontend\widgets\mainHeaderWidget;
+use frontend\widgets\footerWidget;
 
 // use app\widgets\footerWidget;
 
