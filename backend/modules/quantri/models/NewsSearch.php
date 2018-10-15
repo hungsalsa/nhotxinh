@@ -12,14 +12,15 @@ use backend\modules\quantri\models\News;
  */
 class NewsSearch extends News
 {
+    public $cateName;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'category_id', 'hot', 'view', 'sort', 'user_add'], 'integer'],
-            [['name', 'link', 'images', 'htmltitle', 'htmlkeyword', 'htmldescriptions', 'content', 'tag', 'status', 'created_at', 'updated_at'], 'safe'],
+            [['id', 'category_id', 'view', 'sort', 'user_add', 'created_at', 'updated_at'], 'integer'],
+            [['name', 'link', 'images', 'image_detail', 'htmltitle', 'htmlkeyword', 'htmldescriptions', 'short_description', 'content', 'hot', 'related_products', 'related_news', 'status'], 'safe'],
         ];
     }
 
@@ -41,14 +42,18 @@ class NewsSearch extends News
      */
     public function search($params)
     {
-        $query = News::find();
-
+        $query = News::find()->from('tbl_news n');;
         // add conditions that should always apply here
+        $query->joinWith('categories');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
+        $dataProvider->sort->attributes['cateName'] = [
+            'asc' =>['cateName' => SORT_ASC],
+            'desc' => ['cateName' => SORT_DESC]
+        ];
         $this->load($params);
 
         if (!$this->validate()) {
@@ -61,7 +66,6 @@ class NewsSearch extends News
         $query->andFilterWhere([
             'id' => $this->id,
             'category_id' => $this->category_id,
-            'hot' => $this->hot,
             'view' => $this->view,
             'sort' => $this->sort,
             'user_add' => $this->user_add,
@@ -72,11 +76,15 @@ class NewsSearch extends News
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'link', $this->link])
             ->andFilterWhere(['like', 'images', $this->images])
+            ->andFilterWhere(['like', 'image_detail', $this->image_detail])
             ->andFilterWhere(['like', 'htmltitle', $this->htmltitle])
             ->andFilterWhere(['like', 'htmlkeyword', $this->htmlkeyword])
             ->andFilterWhere(['like', 'htmldescriptions', $this->htmldescriptions])
+            ->andFilterWhere(['like', 'short_description', $this->short_description])
             ->andFilterWhere(['like', 'content', $this->content])
-            ->andFilterWhere(['like', 'tag', $this->tag])
+            ->andFilterWhere(['like', 'hot', $this->hot])
+            ->andFilterWhere(['like', 'related_products', $this->related_products])
+            ->andFilterWhere(['like', 'related_news', $this->related_news])
             ->andFilterWhere(['like', 'status', $this->status]);
 
         return $dataProvider;

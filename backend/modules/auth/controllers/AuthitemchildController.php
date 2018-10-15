@@ -4,6 +4,7 @@ namespace backend\modules\auth\controllers;
 
 use Yii;
 use common\modules\auth\models\AuthItemChild;
+use common\modules\auth\models\AuthItem;
 use common\modules\auth\models\AuthItemChildSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -66,6 +67,12 @@ class AuthitemchildController extends Controller
     public function actionCreate()
     {
         $model = new AuthItemChild();
+
+        $authItem = new AuthItem();
+        $dataAuthItem = $authItem->getAllAuthItem();
+
+        // echo '<pre>';print_r($dataAuthItem);
+        // die;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'parent' => $model->parent, 'child' => $model->child]);

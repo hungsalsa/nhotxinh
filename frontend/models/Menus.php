@@ -3,7 +3,7 @@
 namespace frontend\models;
 
 use Yii;
-
+use frontend\models\Productcategory;
 /**
  * This is the model class for table "tbl_menus".
  *
@@ -69,11 +69,14 @@ class Menus extends \yii\db\ActiveRecord
     {
         return Menus::find()->asArray()->where('parent_id =:parent AND status =:Status',['parent'=>$parent,'Status'=>$status])->orderBy(['order' => SORT_ASC]) ->all();
     }
-    public function getLinkType($type)
+    
+    public function getLinkType($type,$idCate)
     {
+        $cate = new Productcategory();
+
         switch ($type) {
             case 1:
-                $link = 'product/listpro/';
+                $link = 'danh-sach/'.$cate->getSlugById($idCate);
                 break;
             case 2:
                 $link = 'categories/listcate/';

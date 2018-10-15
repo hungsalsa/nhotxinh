@@ -8,9 +8,9 @@ use yii\data\ActiveDataProvider;
 use backend\modules\quantri\models\Imgprolist;
 
 /**
- * ImgprolistSearch represents the model behind the search form of `backend\modules\quantri\models\Imgprolist`.
+ * ImgproListSearch represents the model behind the search form of `backend\modules\quantri\models\ImgproList`.
  */
-class ImgprolistSearch extends Imgprolist
+class ImgproListSearch extends Imgprolist
 {
     /**
      * @inheritdoc
@@ -19,7 +19,7 @@ class ImgprolistSearch extends Imgprolist
     {
         return [
             [['id', 'pro_id'], 'integer'],
-            [['image', 'title', 'alt'], 'safe'],
+            [['image', 'title', 'alt', 'status'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ImgprolistSearch extends Imgprolist
      */
     public function search($params)
     {
-        $query = Imgprolist::find();
+        $query = ImgproList::find();
 
         // add conditions that should always apply here
 
@@ -65,7 +65,8 @@ class ImgprolistSearch extends Imgprolist
 
         $query->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'alt', $this->alt]);
+            ->andFilterWhere(['like', 'alt', $this->alt])
+            ->andFilterWhere(['like', 'status', $this->status]);
 
         return $dataProvider;
     }

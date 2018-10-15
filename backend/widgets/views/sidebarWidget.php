@@ -75,16 +75,26 @@
                 </div>
             </li>
             <li class="list-group">
+                <a href="#menu3" class="list-group-item menudropdown collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="hidden-sm-down">Quản lý Tin</span> </a>
+                <div class="collapse" id="menu3">
+                    
+                    <a href="<?= Yii::$app->homeUrl ?>quantri/group" class="list-group-item menudropdown" data-parent="#menu3">Nhóm danh mục</a>
+                    <a href="<?= Yii::$app->homeUrl ?>quantri/categories" class="list-group-item menudropdown" data-parent="#menu3">Danh mục tin tức</a>
+                    <a href="<?= Yii::$app->homeUrl ?>quantri/news" class="list-group-item menudropdown" data-parent="#menu3">Tin tức</a>
+
+                </div>
+            </li>
+            <li class="list-group">
                 <a href="#setting" class="list-group-item menudropdown collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="hidden-sm-down">Setting</span> </a>
                 <div class="collapse" id="setting">
                     
                     <a href="<?= Yii::$app->homeUrl ?>setting/menus" class="list-group-item menudropdown" data-parent="#setting">Menus</a>
-                    <a href="<?= Yii::$app->homeUrl ?>setting/" class="list-group-item menudropdown" data-parent="#setting">Nhà sản xuất</a>
-                    <a href="#" class="list-group-item menudropdown" data-parent="#setting">########</a>
+                    <a href="<?= Yii::$app->homeUrl ?>setting/banner" class="list-group-item menudropdown" data-parent="#setting">Banner</a>
+                    <a href="<?= Yii::$app->homeUrl ?>setting/settingcategory" class="list-group-item menudropdown" data-parent="#setting">Category</a>
                      <a href="#menu2sub3" class="list-group-item menudropdown" data-toggle="collapse" aria-expanded="false">Phân quyền </a>
                     <div class="collapse" id="menu2sub3">
-                        <a href="<?= Yii::$app->homeUrl ?>auth/authitem" class="list-group-item menudropdown" data-parent="#menu2sub3">Các quyền</a>
-                        <a href="<?= Yii::$app->homeUrl ?>auth/authitemchild" class="list-group-item menudropdown" data-parent="#menu2sub3">Gán quyền</a>
+                        <a href="<?= Yii::$app->homeUrl ?>" class="list-group-item menudropdown" data-parent="#menu2sub3">Các quyền</a>
+                        <a href="<?= Yii::$app->homeUrl ?>" class="list-group-item menudropdown" data-parent="#menu2sub3">Gán quyền</a>
                         <a href="<?= Yii::$app->homeUrl ?>quantri/news" class="list-group-item menudropdown" data-parent="#menu2sub3">Tin tức</a>
                         <a href="#menu2sub2sub1" class="list-group-item menudropdown" data-toggle="collapse" aria-expanded="false">Subitem 3 c </a>
                     </div>

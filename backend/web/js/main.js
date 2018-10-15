@@ -55,6 +55,22 @@ tinymce.init({
     filemanager_access_key:"dfc78fb912939b31a2798211ae7e950c" ,
   
    image_advtab: true,
+   image_title: true,
+   image_description: true,
+  image_dimensions: true,
+  image_class_list: [
+      { title: "Responsive", value: "lazy img-responsive img-post" }
+  ],
+  image_list: function (success) {
+      $.ajax({
+          url: "/Image/List",
+          type: "GET",
+          dataType: "json",
+          success: function (data) {
+              success(data);
+          }
+      });
+  },
 
  });
 

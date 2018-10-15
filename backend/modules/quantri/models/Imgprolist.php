@@ -12,6 +12,7 @@ use Yii;
  * @property string $image
  * @property string $title
  * @property string $alt
+ * @property int $status
  */
 class Imgprolist extends \yii\db\ActiveRecord
 {
@@ -29,9 +30,10 @@ class Imgprolist extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pro_id', 'image'], 'required'],
+            [['pro_id', 'image', 'status'], 'required'],
             [['pro_id'], 'integer'],
             [['image', 'title', 'alt'], 'string', 'max' => 255],
+            [['status'], 'string', 'max' => 4],
         ];
     }
 
@@ -46,6 +48,7 @@ class Imgprolist extends \yii\db\ActiveRecord
             'image' => 'Image',
             'title' => 'Title',
             'alt' => 'Alt',
+            'status' => 'Status',
         ];
     }
 }

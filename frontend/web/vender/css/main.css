@@ -79,6 +79,15 @@ img[src="vender/images/blank.gif"] {
   src: url('../fonts/fjalla/fjallaone-regular.eot') format('embedded-opentype'), url('../fonts/fjalla/fjallaone-regular.woff2') format('woff2'), url('../fonts/fjalla/fjallaone-regular.woff') format('woff'), url('../fonts/fjalla/fjallaone-regular.ttf') format('truetype'), url('../fonts/fjalla/fjallaone-regular.svg#FjallaOneRegular') format('svg');
 }
 @font-face {
+  font-family: 'helveticaneue';
+  src: url('../fonts/Helvetica/helveticaneue.ttf') format('truetype');
+  /*src: url('../fonts/fjalla/fjallaone-regular.eot') format('embedded-opentype'), url('../fonts/fjalla/fjallaone-regular.woff2') format('woff2'), url('../fonts/fjalla/fjallaone-regular.woff') format('woff'), url('../fonts/fjalla/fjallaone-regular.ttf') format('truetype'), url('../fonts/fjalla/fjallaone-regular.svg#FjallaOneRegular') format('svg');*/
+}
+@font-face {
+  font-family: 'helveticaneue-bold';
+  src: url('../fonts/Helvetica/helveticaneuebold.ttf') format('truetype');
+}
+@font-face {
   font-family: 'BebasNeueBold';
   src: url('../fonts/bebas/bebasneuebold.eot');
   src: url('../fonts/bebas/bebasneuebold.eot') format('embedded-opentype'), url('../fonts/bebas/bebasneuebold.woff2') format('woff2'), url('../fonts/bebas/bebasneuebold.woff') format('woff'), url('../fonts/bebas/bebasneuebold.ttf') format('truetype'), url('../fonts/bebas/bebasneuebold.svg#BebasNeueBold') format('svg');
@@ -2844,6 +2853,12 @@ a {
   color: #434343;
   font-size: 13px;
 }
+
+.blogHome article.text.short_description {
+    height: 86px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
 .footer .links-social {
   border-top: 1px solid #e5e5e5;
   font-size: 12px;
@@ -4382,6 +4397,11 @@ div#description .product-tab * {
   font-size: 12px;
   color: #666666;
 }
+.blog-page .sidebar .sidebar-module-container .sidebar-widget .blog-post p.description {
+    max-height: 100px;
+    line-height: 18px;
+    overflow: hidden;
+}
 .blog-page .sidebar .sidebar-module-container .sidebar-widget .nav-tabs {
   border-bottom: none;
 }
@@ -5195,4 +5215,7 @@ div#description .product-tab * {
 }
 .body-content .sign-in-page .register-form .form-group {
   margin-bottom: 25px;
+}
+.blog-page section.content * {
+    max-width: 100%;
 }

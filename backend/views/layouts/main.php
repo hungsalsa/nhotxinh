@@ -76,6 +76,7 @@ AppAsset::register($this);
 	</div>
 </div>
 
+<!-- =============Modal bootstrap======================= -->
 <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   <div class="modal-dialog modal-lg" role="document">
      <div class="modal-content">

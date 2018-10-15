@@ -135,25 +135,33 @@ class RbacController extends Controller
          $auth = Yii::$app->authManager;
          // $auth = new DbManager;
 
-        // $group_index = $auth->createPermission('quantri/group/index');
-        // $group_index->description = 'Nhóm ';
-        // $auth->add($group_index);
+        $group_index = $auth->createPermission('quantri/group/index');
+        $group_index->description = 'Nhóm ';
+        $auth->add($group_index);
 
-        // $group_create = $auth->createPermission('quantri/group/create');
-        // $group_create->description = 'Nhóm ';
-        // $auth->add($group_create);
+        $group_create = $auth->createPermission('quantri/group/create');
+        $group_create->description = 'Nhóm ';
+        $auth->add($group_create);
 
-        // $group_view = $auth->createPermission('quantri/group/view');
-        // $group_view->description = 'Chỉnh sửa Nhóm ';
-        // $auth->add($group_view);
+        $group_view = $auth->createPermission('quantri/group/view');
+        $group_view->description = 'Chỉnh sửa Nhóm ';
+        $auth->add($group_view);
 
-        // $group_update = $auth->createPermission('quantri/group/update');
-        // $group_update->description = 'Chỉnh sửa Nhóm ';
-        // $auth->add($group_update);
+        $group_update = $auth->createPermission('quantri/group/update');
+        $group_update->description = 'Chỉnh sửa Nhóm ';
+        $auth->add($group_update);
 
         $group_delete = $auth->createPermission('quantri/group/delete');
         $group_delete->description = 'Xóa Nhóm ';
         $auth->add($group_delete);
+        
+        $author = $auth->createRole('author');
+        // $auth->add($author);
+        $auth->addChild($author, $group_index);
+        $auth->addChild($author, $group_create);
+        $auth->addChild($author, $group_view);
+        $auth->addChild($author, $group_update);
+        $auth->addChild($author, $group_delete);
 
         // add "quantri/categories/index" permission
 //         $categories_index = $auth->createPermission('quantri/categories/index');
@@ -188,10 +196,10 @@ class RbacController extends Controller
 
         // // add "admin" role and give this role the "updatePost" permission
         // // as well as the permissions of the "author" role
-        $admin = $auth->createRole('admin');
+        // $admin = $auth->createRole('admin');
         // $auth->add($admin);
         // $auth->addChild($admin, $updatePost);
-        $auth->addChild($admin, $group_delete);
+        // $auth->addChild($admin, $group_delete);
 
         // // Assign roles to users. 1 and 2 are IDs returned by IdentityInterface::getId()
         // // usually implemented in your User model.

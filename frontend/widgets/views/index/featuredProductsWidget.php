@@ -1,3 +1,4 @@
+<?php use yii\helpers\Url; ?>
 <section class="section featured-product wow fadeInUp">
     <h3 class="section-title">Featured products</h3>
     <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs" data-item="5">
@@ -15,7 +16,7 @@
                         <div class="tag <?= (count($tag_s = json_decode($value['product_type_id'])))? $dataProType[$tag_s[0]] :'' ?>"><span><?= (count($tag_s = json_decode($value['product_type_id'])))? $dataProType[$tag_s[0]] :'' ?></span></div>                      
                     </div><!-- /.product-image -->
                     <div class="product-info text-left">
-                        <h3 class="name"><a href="detail.html"><?= $value['pro_name'] ?></a></h3>
+                        <h3 class="name"><a href="<?= Url::to(['product/view', 'slug' => $value['slug']]) ?>"><?= $value['pro_name'] ?></a></h3>
                         <div class="rating rateit-small"></div>
                         <div class="description"></div>
                         <div class="product-price"> 

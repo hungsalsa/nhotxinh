@@ -9,7 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
-use frontend\widgets\topMenuWidget;
+// use frontend\widgets\topMenuWidget;
 use frontend\widgets\navBarWidget;
 use frontend\widgets\mainHeaderWidget;
 use frontend\widgets\footerWidget;
@@ -41,7 +41,7 @@ AppAsset::register($this);
     <header class="header-style-1 header-style-3">
 
         <!-- ============================================== TOP MENU ============================================== -->
-        <?= topMenuWidget::widget() ?>
+        <?php //topMenuWidget::widget() ?>
         <!-- ============================================== TOP MENU : END ============================================== -->
         <!-- ============================================== MAIN HEADER ============================================== -->
         <?= mainHeaderWidget::widget() ?>

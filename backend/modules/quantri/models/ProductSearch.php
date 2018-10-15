@@ -12,14 +12,15 @@ use backend\modules\quantri\models\Product;
  */
 class ProductSearch extends Product
 {
+    public $cateName;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'price', 'price_sales', 'order','product_type_id', 'manufacturer_id', 'guarantee', 'views', 'product_category_id', 'created_at', 'updated_at', 'user_id'], 'integer'],
-            [['pro_name', 'title', 'slug', 'keyword', 'description', 'short_introduction', 'content', 'start_sale', 'end_sale', 'active', 'salse', 'hot', 'best_seller', 'new', 'models_id', 'code', 'image', 'images_list', 'tags', 'related_articles'], 'safe'],
+            [['id', 'price', 'price_sales', 'order', 'manufacturer_id', 'guarantee', 'views', 'product_category_id', 'created_at', 'updated_at', 'user_id'], 'integer'],
+            [['pro_name', 'title', 'slug', 'keyword', 'description', 'short_introduction', 'content', 'start_sale', 'end_sale', 'active', 'product_type_id', 'salse', 'hot', 'best_seller', 'models_id', 'code', 'image', 'images_list', 'tags', 'related_articles', 'related_products','cateName'], 'safe'],
         ];
     }
 
@@ -41,14 +42,21 @@ class ProductSearch extends Product
      */
     public function search($params)
     {
-        $query = Product::find();
+        $query = Product::find()->from('tbl_product p');
+    // $query->with("Productcategory"); // eager load to reduce number of queries
 
+        
         // add conditions that should always apply here
+        $query->joinWith("categories");
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'=> ['defaultOrder' => ['created_at' => SORT_DESC,'pro_name'=>SORT_ASC]]
         ]);
+
+        $dataProvider->sort->attributes['cateName'] = [
+            'asc' =>['cateName' => SORT_ASC],
+            'desc' => ['cateName' => SORT_DESC]
+        ];
 
         $this->load($params);
 
@@ -62,11 +70,10 @@ class ProductSearch extends Product
         $query->andFilterWhere([
             'id' => $this->id,
             'price' => $this->price,
+            'price_sales' => $this->price_sales,
             'start_sale' => $this->start_sale,
             'end_sale' => $this->end_sale,
-            'price_sales' => $this->price_sales,
             'order' => $this->order,
-            'product_type_id' => $this->product_type_id,
             'manufacturer_id' => $this->manufacturer_id,
             'guarantee' => $this->guarantee,
             'views' => $this->views,
@@ -83,17 +90,19 @@ class ProductSearch extends Product
             ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'short_introduction', $this->short_introduction])
             ->andFilterWhere(['like', 'content', $this->content])
-            ->andFilterWhere(['like', 'active', $this->active])
+            ->andFilterWhere(['like', 'p.active', $this->active])
+            ->andFilterWhere(['like', 'product_type_id', $this->product_type_id])
             ->andFilterWhere(['like', 'salse', $this->salse])
             ->andFilterWhere(['like', 'hot', $this->hot])
             ->andFilterWhere(['like', 'best_seller', $this->best_seller])
-            ->andFilterWhere(['like', 'new', $this->new])
             ->andFilterWhere(['like', 'models_id', $this->models_id])
             ->andFilterWhere(['like', 'code', $this->code])
             ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'images_list', $this->images_list])
+            ->andFilterWhere(['like', 'cateName', $this->cateName])
             ->andFilterWhere(['like', 'tags', $this->tags])
-            ->andFilterWhere(['like', 'related_articles', $this->related_articles]);
+            ->andFilterWhere(['like', 'related_articles', $this->related_articles])
+            ->andFilterWhere(['like', 'related_products', $this->related_products]);
 
         return $dataProvider;
     }

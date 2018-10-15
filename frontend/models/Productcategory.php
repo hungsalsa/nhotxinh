@@ -76,16 +76,13 @@ class Productcategory extends \yii\db\ActiveRecord
 // Phai lam de hien ra cac cate ma co san pham moi nhat cap nhat, hien chua lam
     public function getNewCate($limit=3)
     {
-        return ArrayHelper::map(Productcategory::find()->where('active =:status',['status'=>'1']) ->orderBy(['created_at' => SORT_DESC, ]) ->limit($limit)->all(),'idCate','cateName'); 
+        return ArrayHelper::map(Productcategory::find()->where('active =:status',['status'=>1]) ->orderBy(['created_at' => SORT_DESC, ]) ->limit($limit)->all(),'idCate','cateName'); 
     }
 
     public $data;
     public function getCategoryParent($parent = 0,$level = '')
     {
-        // var_dump($parent);
-        // if(is_null($parent)){ echo 'ok';}
-        // die;
-        $result = Productcategory::find()->asArray()->where('product_parent_id =:parent',['parent'=>$parent])->all();
+        $result = Productcategory::find()->asArray()->where('active =:status AND product_parent_id =:parent',['status'=>1,'parent'=>$parent])->all();
         $level .='--| ';
         foreach ($result as $key=>$value) {
             if($parent == 0){
@@ -96,5 +93,20 @@ class Productcategory extends \yii\db\ActiveRecord
         }
 
         return $this->data;
+    }
+
+    // Hàm trả vềId  theo slug
+    public function getIdByslug($slug)
+    {
+        $data = Productcategory::find()->select(['idCate'])->asArray()->where('active =:status AND slug =:Slug',['status'=>1,'Slug'=>$slug])->one();
+        return $data['idCate'];
+        unset($data);
+    }
+
+    public function getSlugById($idCate)
+    {
+        $data = Productcategory::find()->select(['slug'])->asArray()->where('active =:status AND idCate =:Slug',['status'=>1,'Slug'=>$idCate])->one();
+        return $data['slug'];
+        unset($data);
     }
 }

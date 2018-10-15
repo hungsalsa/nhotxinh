@@ -20,6 +20,8 @@ class AppAsset extends AssetBundle
         'http://fonts.googleapis.com/css?family=Roboto:400,700,300',
         'plugin/css/pe-icon-7-stroke.css',
         'css/jquery-ui.min.css',
+
+        // 'https://use.fontawesome.com/releases/v5.3.1/css/all.css',
         'css/my.css'
     ];
     public $js = [
@@ -32,6 +34,7 @@ class AppAsset extends AssetBundle
         'plugin/js/demo.js',
         'js/jquery-ui.min.js',
         'tinymce/tinymce.min.js',
+        // 'https://use.fontawesome.com/releases/v5.3.1/js/all.js',
         'js/main.js',
     ];
     public $depends = [

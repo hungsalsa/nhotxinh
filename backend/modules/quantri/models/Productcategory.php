@@ -3,7 +3,7 @@
 namespace backend\modules\quantri\models;
 
 use Yii;
-
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "tbl_product_category".
  *
@@ -45,6 +45,7 @@ class Productcategory extends \yii\db\ActiveRecord
             [['order', 'product_parent_id', 'created_at', 'updated_at', 'user_id'], 'integer','message'=>'{attribute} không phải là số'],
             [['title', 'cateName', 'slug', 'image'], 'string', 'max' => 255],
             [['home_page', 'active'], 'string', 'max' => 4],
+            [['cateName', 'slug'], 'unique', 'targetAttribute' => ['cateName', 'slug']],
         ];
     }
 
@@ -76,10 +77,7 @@ class Productcategory extends \yii\db\ActiveRecord
     public $data;
     public function getCategoryParent($parent = 0,$level = '')
     {
-        // var_dump($parent);
-        // if(is_null($parent)){ echo 'ok';}
-        // die;
-        $result = Productcategory::find()->asArray()->where('product_parent_id =:parent',['parent'=>$parent])->all();
+        $result = Productcategory::find()->asArray()->where('active =:active AND product_parent_id =:parent',['active'=>1,'parent'=>$parent])->all();
         $level .='--| ';
         foreach ($result as $key=>$value) {
             if($parent == 0){
@@ -90,5 +88,21 @@ class Productcategory extends \yii\db\ActiveRecord
         }
 
         return $this->data;
+    }
+
+    public function getnameCate($idCate)
+    {
+        return Productcategory::findOne($idCate);
+    }
+
+    public function getAllCat($status = 1)
+    {
+        return ArrayHelper::map(Productcategory::find()->where('active =:active',['active'=>$status])->all(),'idCate','cateName');
+    }
+
+    public function getSlugcate($idCate,$status = 1)
+    {
+       $data = Productcategory::find()->select('slug')->asArray()->where('active =:active AND idCate=:id',['active'=>$status,'id'=>$idCate])->one();
+       return $data['slug'];unset($data);
     }
 }

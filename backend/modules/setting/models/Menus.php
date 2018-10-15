@@ -68,7 +68,7 @@ class Menus extends \yii\db\ActiveRecord
     public $data;
     public function getMenuParent($parent = 0,$level = '')
     {
-        $result = Menus::find()->asArray()->where('parent_id =:parent',['parent'=>$parent])->all();
+        $result = Menus::find()->asArray()->where('status =:Active AND parent_id =:parent',['Active'=>1,'parent'=>$parent])->all();
         $level .='--| ';
         foreach ($result as $key=>$value) {
             if($parent == 0){
@@ -77,7 +77,6 @@ class Menus extends \yii\db\ActiveRecord
             $this->data[$value['id']] = $level.$value['name'];
             self::getMenuParent($value['id'],$level);
         }
-
         return $this->data;
     }
 }

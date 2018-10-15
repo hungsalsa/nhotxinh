@@ -4,6 +4,7 @@ namespace backend\modules\quantri\controllers;
 
 use Yii;
 use backend\modules\quantri\models\Imgprolist;
+use backend\modules\quantri\models\Product;
 use backend\modules\quantri\models\ImgprolistSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -44,6 +45,21 @@ class ImgprolistController extends Controller
         ]);
     }
 
+    public function actionIndexpro($id)
+    {
+        $product = new Product();
+        $proInfo = $product->getProinfo($id);
+        // echo '<pre>';
+        // print_r($proInfo);die;
+        $searchModel = new ImgprolistSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('indexpro', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'proInfo' => $proInfo,
+        ]);
+    }
     /**
      * Displays a single Imgprolist model.
      * @param integer $id
@@ -53,6 +69,13 @@ class ImgprolistController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    public function actionViewpro($id)
+    {
+        return $this->render('viewpro', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -75,6 +98,33 @@ class ImgprolistController extends Controller
         ]);
     }
 
+    public function actionCreatepro($id)
+    {
+        $model = new Imgprolist();
+
+        $product = new Product();
+        $listPro = $product->getAllPro();
+        $proInfo = $product->getProinfo($id);
+        // $pro = array($proInfo['id']=>$proInfo['pro_name']);
+// print_r($pro);die;
+        $model->pro_id = $proInfo['id'];
+
+        if ($model->load($post = Yii::$app->request->post()) ) {
+            if ($post['Imgprolist']['image']!='') {
+                $model->image = str_replace(Yii::$app->request->hostInfo.'/','',$post['Imgprolist']['image']);
+            }
+
+            if($model->save()){
+                return $this->redirect(['index']);
+            }
+        }
+
+        return $this->render('createpro', [
+            'model' => $model,
+            'listPro' => $listPro,
+        ]);
+    }
+
     /**
      * Updates an existing Imgprolist model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -86,12 +136,25 @@ class ImgprolistController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $product = new Product();
+        $listPro = $product->getAllPro();
+        $proInfo = $product->getProinfo($id);
+        // $pro = array($proInfo['id']=>$proInfo['pro_name']);
+        $model->pro_id = $proInfo['id'];
+
+        if ($model->load($post = Yii::$app->request->post()) ) {
+            if ($post['Imgprolist']['image']!='') {
+                $model->image = str_replace(Yii::$app->request->hostInfo.'/','',$post['Imgprolist']['image']);
+            }
+
+            if($model->save()){
+                return $this->redirect(['index']);
+            }
         }
 
-        return $this->render('update', [
+        return $this->render('updatepro', [
             'model' => $model,
+            'listPro' => $listPro,
         ]);
     }
 

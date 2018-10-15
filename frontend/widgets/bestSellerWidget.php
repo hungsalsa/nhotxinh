@@ -21,8 +21,8 @@ class bestSellerWidget extends Widget
     {
     	$proType = new Producttype();
         $dataProType = $proType->getAllProductType();
-
         $idType = array_search('best', $dataProType);
+// echo '<pre>';print_r($dataProType);die;
     	$product = new Product();
     	$productType = $product->getProByType($idType);
          return $this->render('index/bestSellerWidget',['dataproduct'=>$productType]);

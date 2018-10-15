@@ -17,18 +17,6 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'name',['options' => ['class' => 'col-md-4']])->textInput(['maxlength' => true]) ?>
 
-    <?php 
-    // $form->field($model, 'type',['options' => ['class' => 'col-md-3']])->dropDownList($menuType,
-    //     [
-    //         'prompt'    =>'select a ...',
-    //         'onchange' => '
-    //                 $.post("'.Yii::$app->homeUrl.'setting/menus/lists?id='.'"+$(this).val(),function(data){
-    //                     $("select#menus-link_cate").html(data);
-    //                 });'
-    //     ]
-    // ) 
-    ?>
-
      <?php 
     echo $form->field($model, 'type',['options' => ['class' => 'col-md-3']])->widget(Select2::classname(), [
             'data' => $menuType,
@@ -36,11 +24,6 @@ use kartik\select2\Select2;
             'options' => [
                 'placeholder' => 'Select a Type ...',
                 'onchange' => 
-                // '
-                //     $.post("'.Yii::$app->homeUrl.'setting/menus/lists?id='.'"+$(this).val(),function(data){
-                //         $("select#menus-link_cate").html(data);
-                //     });',
-
                     '$.get( "'.Url::toRoute('/setting/menus/lists').'", { id: $(this).val() } )
                                                 .done(function( data ) {
                                                     $( "#'.Html::getInputId($model, 'link_cate').'" ).html( data );
@@ -52,7 +35,6 @@ use kartik\select2\Select2;
             ],
         ]);
     ?>
-
 
     <?= $form->field($model, 'link_cate',['options' => ['class' => 'col-md-2']])->widget(Select2::classname(), [
             'data' => $dataLinkCat,

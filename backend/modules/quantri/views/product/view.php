@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model backend\modules\quantri\models\Product */
 
-$this->title = 'Sản phẩm: '.$model->pro_name;
+$this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Chỉnh sửa', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Danh sách', ['index'], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Xóa SP', ['delete', 'id' => $model->id], [
+        <?= Html::a('Xóa sản phẩm', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            // 'id',
+            'id',
             'pro_name',
             'title',
             'slug',
@@ -38,22 +38,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'short_introduction:ntext',
             'content:ntext',
             'price',
+            'price_sales',
             'start_sale',
             'end_sale',
-            'price_sales',
             'order',
             'active',
             'product_type_id',
             'salse',
-            // 'hot',
-            [
-                'class' => 'yii\grid\DataColumn',
-                'attribute' => 'hot',
-                'headerOptions' => ['class' => 'col-md-2'],
-                'contentOptions' => ['class' => 'col-md-10'],
-            ],
+            'hot',
             'best_seller',
-            'new',
             'manufacturer_id',
             'guarantee',
             'models_id',
@@ -64,6 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'tags',
             'product_category_id',
             'related_articles',
+            'related_products',
             'created_at',
             'updated_at',
             'user_id',

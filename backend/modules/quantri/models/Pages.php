@@ -39,10 +39,10 @@ class Pages extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'status', 'content', 'tag_news', 'created_at', 'updated_at', 'user_id'], 'required'],
+            [['name', 'status', 'content', 'created_at', 'updated_at', 'user_id'], 'required'],
             [['short_introduction', 'description', 'content'], 'string'],
             [['created_at', 'updated_at', 'user_id'], 'integer'],
-            [['name', 'title', 'slug', 'keywords', 'tag_product', 'tag_news'], 'string', 'max' => 255],
+            [['name', 'title', 'slug', 'keywords'], 'string', 'max' => 255],
             [['status'], 'string', 'max' => 4],
         ];
     }
@@ -54,16 +54,16 @@ class Pages extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'title' => 'Title',
-            'slug' => 'Slug',
-            'short_introduction' => 'Short Introduction',
-            'status' => 'Status',
+            'name' => 'Tên trang',
+            'title' => 'Tiêu đề trang web',
+            'slug' => 'Đường dẫn',
+            'short_introduction' => 'Giới thiệu ngắn',
+            'status' => 'Kích hoạt',
             'keywords' => 'Keywords',
             'description' => 'Description',
-            'content' => 'Content',
-            'tag_product' => 'Tag Product',
-            'tag_news' => 'Tag News',
+            'content' => 'Nội dung',
+            'tag_product' => 'Sản phẩm liên quan',
+            'tag_news' => 'Bài viết liên quan',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'user_id' => 'User ID',

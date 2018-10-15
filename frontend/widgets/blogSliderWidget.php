@@ -4,6 +4,7 @@ namespace frontend\widgets;
 
 use yii\base\Widget;
 use yii\helpers\Html;
+use frontend\models\News;
 
 class blogSliderWidget extends Widget
 {
@@ -17,6 +18,8 @@ class blogSliderWidget extends Widget
 
     public function run()
     {
-         return $this->render('index/blogSliderWidget');
+    	$new = new News();
+    	$dataNew = $new->getNewsHome();
+        return $this->render('index/blogSliderWidget',['dataNew'=>$dataNew]);
     }
 }

@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+// use yii\filters\VerbFilter;
 /**
  * Default controller for the `quantri` module
  */

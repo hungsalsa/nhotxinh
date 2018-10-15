@@ -4,6 +4,8 @@ namespace frontend\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\behaviors\SluggableBehavior;
+use frontend\models\Productcategory;
 /**
  * This is the model class for table "tbl_product".
  *
@@ -45,6 +47,31 @@ class Product extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => SluggableBehavior::className(),
+                'attribute' => 'title',
+                'slugAttribute' => 'slug',
+                // 'value' => function ($event) {
+                //     return str_replace(' ', '-', $this->slug);
+                // }
+            ],
+        ];
+    }
+
+    public function getRoute()
+    {
+        return ['product/view', 'id'=>$this->id, 'slug'=>$this->slug];
+    }
+
+    public function getUrl()
+    {
+        return \yii\helpers\Url::to($this->getRoute());
+    }
+
     public static function tableName()
     {
         return 'tbl_product';
@@ -68,6 +95,8 @@ class Product extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    
+
     public function attributeLabels()
     {
         return [
@@ -104,6 +133,12 @@ class Product extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'user_id' => 'User ID',
         ];
+    }
+
+    public function getAllProducts()
+    {
+    
+        return Product::find()->where(['active'=>1])->orderBy(['created_at' => SORT_DESC,'pro_name'=>SORT_ASC])->all();
     }
 
     public function getAllProduct($limit=5,$category=array())
@@ -146,7 +181,7 @@ class Product extends \yii\db\ActiveRecord
 
     public function getProByType($type)
     {
-        $product = $this->getAllProduct(100,array());
+        $product = $this->getAllProducts();
         $list_product = array();
         foreach ($product as $value) {
             $product_type_id = json_decode($value['product_type_id']);
@@ -160,6 +195,40 @@ class Product extends \yii\db\ActiveRecord
     public function getProductById($id)
     {
         return Product::find()->asArray()->where('id =:idPro AND active =:status',['idPro'=>$id,'status'=>1])->one();
+    }
+
+    // Lấy chi tiết 1 sản phẩm theo slug
+    public function getProductBySlug($slug)
+    {
+        return Product::find()->asArray()->where('slug =:Slug AND active =:status',['Slug'=>$slug,'status'=>1])->one();
+    }
+
+    // Lấy danh sách các sản phẩm theo slug cate
+    public function getAllProductBySlug($slug, $status = 1)
+    {
+        return Product::find()->asArray()->where('slug =:Slug AND active =:status',['Slug'=>$slug,'status'=>$status])->all();
+    }
+
+    public function getProductRelated($id = array())
+    {
+        $data = array();
+        foreach ($id as $value) {
+            $data[] = $this->getProductByIdRelated($value);
+        }
+        return $data;
+    }
+
+    private function getProductByIdRelated($id)
+    {
+        return Product::find()->select(['pro_name','title','slug','short_introduction','user_id','updated_at'])->asArray()->where('id =:idPro AND active =:status',['idPro'=>$id,'status'=>1])->one();
+    }
+
+    // Hàm lấy danh sách theo category by Slug
+    public function getAllCateSlug($slug,$status = 1)
+    {
+        $cate = new Productcategory();
+        $id = $cate->getIdByslug($slug);
+        return Product::find()->asArray()->where('product_category_id =:ID AND active =:status',['ID'=>$id,'status'=>$status])->all();
     }
 
 }

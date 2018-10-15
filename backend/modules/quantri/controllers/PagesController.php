@@ -4,6 +4,8 @@ namespace backend\modules\quantri\controllers;
 
 use Yii;
 use backend\modules\quantri\models\Pages;
+use backend\modules\quantri\models\Product;
+use backend\modules\quantri\models\News;
 use backend\modules\quantri\models\PagesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -52,6 +54,7 @@ class PagesController extends Controller
      */
     public function actionView($id)
     {
+        
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -66,16 +69,33 @@ class PagesController extends Controller
     {
         $model = new Pages();
 
+        $product = new Product();
+        $dataProduct = $product->getAllPro();
+        
+        $news = new News();
+        $dataNews = $news->getAllNews();
+
         $model->created_at = time();
         $model->updated_at = time();
         $model->user_id = Yii::$app->user->id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load($post = Yii::$app->request->post()) ) {
+            if ($post['Pages']['tag_product']!='') {
+                $model->tag_product = json_encode($post['Pages']['tag_product']);
+            }
+            if ($post['Pages']['tag_news']!='') {
+                $model->tag_news = json_encode($post['Pages']['tag_news']);
+            }
+
+            if($model->save()){
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('create', [
             'model' => $model,
+            'dataProduct' => $dataProduct,
+            'dataNews' => $dataNews,
         ]);
     }
 
@@ -90,12 +110,40 @@ class PagesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $product = new Product();
+        $dataProduct = $product->getAllPro();
+        
+        $news = new News();
+        $dataNews = $news->getAllNews();
+
+        if($model->tag_product !=''){
+            $model->tag_product = json_decode($model->tag_product);
+        }
+
+        if($model->tag_news !=''){
+            $model->tag_news = json_decode($model->tag_news);
+        }
+
+        $model->updated_at = time();
+        $model->user_id = Yii::$app->user->id;
+
+        if ($model->load($post = Yii::$app->request->post()) ) {
+            if ($post['Pages']['tag_product']!='') {
+                $model->tag_product = json_encode($post['Pages']['tag_product']);
+            }
+            if ($post['Pages']['tag_news']!='') {
+                $model->tag_news = json_encode($post['Pages']['tag_news']);
+            }
+
+            if($model->save()){
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'dataProduct' => $dataProduct,
+            'dataNews' => $dataNews,
         ]);
     }
 

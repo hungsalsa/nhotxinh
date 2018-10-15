@@ -3,11 +3,12 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use kartik\detail\DetailView;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\quantri\models\PagesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pages';
+$this->title = 'Danh sách các trang';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pages-index">
@@ -17,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Pages', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Thêm mới trang', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -26,20 +27,52 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'name',
+            // 'id',
+            [
+               'attribute' => 'name',
+               'format' => 'raw',
+               'value'=>function ($data) {
+                return Html::a(Html::encode($data->name),Yii::$app->homeUrl.'quantri/pages/update?id='.$data->id);
+                },
+            ],
             'title',
-            'slug',
-            'short_introduction:ntext',
-            //'status',
+            // 'slug',
+            // 'short_introduction:ntext',
+            // 'status',
+            [
+                'attribute' => 'status',
+                'value'=>function($data){
+                    if($data->status==1){
+                        return "Kích hoạt";
+                    }else{
+                        return "Không kích hoạt";
+                    }
+                },
+                // 'headerOptions' => ['class' => 'text-center'],
+                'label' => 'Trạng thái',
+            ],
             //'keywords',
             //'description:ntext',
             //'content:ntext',
             //'tag_product',
             //'tag_news',
-            //'created_at',
-            //'updated_at',
-            //'user_id',
+            [
+                'attribute' => 'created_at',
+                'format' => ['date', 'php:H:i d-m-Y']
+            ],
+            [
+                'attribute' => 'updated_at',
+                'format' => ['date', 'php:H:i d-m-Y']
+            ],
+            // 'user_id',
+            // [
+            //     'attribute' => 'users_add',
+            //     'value'=>function($data){
+            //         $user = new User();
+            //         return $user->getUserById($data->users_add);
+            //     },
+            //     // 'headerOptions' => ['class' => 'text-center'],
+            // ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

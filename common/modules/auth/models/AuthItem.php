@@ -3,6 +3,7 @@
 namespace common\modules\auth\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "auth_item".
@@ -109,5 +110,10 @@ class AuthItem extends \yii\db\ActiveRecord
     public function getParents()
     {
         return $this->hasMany(AuthItem::className(), ['name' => 'parent'])->viaTable('auth_item_child', ['child' => 'name']);
+    }
+
+    public function getAllAuthItem()
+    {
+        return ArrayHelper::map(AuthItem::find()->all(),'name','description');
     }
 }

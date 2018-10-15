@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\modules\quantri\models\Pages */
 
-$this->title = 'Create Pages';
+$this->title = 'Thêm mới trang';
 $this->params['breadcrumbs'][] = ['label' => 'Pages', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'dataProduct' => $dataProduct,
+        'dataNews' => $dataNews,
     ]) ?>
 
 </div>

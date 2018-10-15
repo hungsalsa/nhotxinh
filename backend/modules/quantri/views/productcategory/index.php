@@ -26,9 +26,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idCate',
-            'title',
-            'cateName',
+            // 'idCate',
+            // 'title',
+            // 'cateName',
+            [
+               'attribute' => 'cateName',
+               'format' => 'raw',
+               'value'=>function ($data) {
+                return Html::a(Html::encode($data->cateName),Yii::$app->homeUrl.'quantri/productcategory/update?id='.$data->idCate);
+                },
+            ],
             'slug',
             'keyword:ntext',
             //'description:ntext',

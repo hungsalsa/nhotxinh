@@ -1,5 +1,6 @@
 <?php 
 use frontend\models\Product;
+use yii\helpers\Url;
 ?>
 <div id="product-tabs-slider" class="scroll-tabs outer-top-vs wow fadeInUp">
     <div class="more-info-tab clearfix ">
@@ -24,12 +25,12 @@ use frontend\models\Product;
                             <div class="product">       
                                 <div class="product-image">
                                     <div class="image">
-                                        <a href="<?= Yii::$app->homeUrl.'product/detail/'.$value['id'] ?>"><img  src="<?= Yii::$app->homeUrl.$value->image ?>" data-echo="<?= Yii::$app->homeUrl.$value->image ?>" alt="<?= $value->title ?>" width="98%"></a>
+                                        <a href="<?= Url::to(['product/view', 'slug' => $value['slug']]) ?>"><img  src="<?= Yii::$app->homeUrl.$value->image ?>" data-echo="<?= Yii::$app->homeUrl.$value->image ?>" alt="<?= $value->title ?>" width="98%"></a>
                                     </div><!-- /.image -->          
                                     <div class="tag new"><span>new</span></div>                                
                                 </div><!-- /.product-image -->
                                 <div class="product-info text-left">
-                                    <h3 class="name"><a href="<?= Yii::$app->homeUrl.'product/detail/'.$value['id'] ?>"><?= $value->pro_name ?></a></h3>
+                                    <h3 class="name"><a href="<?= Url::to(['product/view', 'slug' => $value['slug']]) ?>"><?= $value->pro_name ?></a></h3>
                                     <div class="rating rateit-small"></div>
                                     <div class="description"></div>
                                     <div class="product-price"> 
@@ -71,7 +72,7 @@ use frontend\models\Product;
         </div><!-- /.tab-pane All Product -->
 <?php 
 $product = new Product();
- ?>     <?php foreach ($dataCat as $keyCat => $valueCat): ?>
+ foreach ($dataCat as $keyCat => $valueCat): ?>
      
  
         <div class="tab-pane" id="cate_<?= $keyCat ?>">
@@ -86,12 +87,12 @@ $product = new Product();
                             <div class="product">       
                                 <div class="product-image">
                                     <div class="image">
-                                        <a href="<?= Yii::$app->homeUrl.'product/detail/'.$valueP['id'] ?>"><img  src="<?= Yii::$app->homeUrl.$valueP['image'] ?>" data-echo="<?= Yii::$app->homeUrl.$valueP['image'] ?>" alt="<?= $valueP['title'] ?>" width="98%"></a>
+                                        <a href="<?= Url::to(['product/view', 'slug' => $valueP['slug']]) ?>"><img  src="<?= Yii::$app->homeUrl.$valueP['image'] ?>" data-echo="<?= Yii::$app->homeUrl.$valueP['image'] ?>" alt="<?= $valueP['title'] ?>" width="98%"></a>
                                     </div><!-- /.image -->          
                                     <div class="tag new"><span>new</span></div>                                
                                 </div><!-- /.product-image -->
                                 <div class="product-info text-left">
-                                    <h3 class="name"><a href="<?= Yii::$app->homeUrl.'product/detail/'.$valueP['id'] ?>"><?= $valueP['pro_name'] ?></a></h3>
+                                    <h3 class="name"><a href="<?= Url::to(['product/view', 'slug' => $valueP['slug']]) ?>"><?= $valueP['pro_name'] ?></a></h3>
                                     <div class="rating rateit-small"></div>
                                     <div class="description"></div>
                                     <div class="product-price"> 

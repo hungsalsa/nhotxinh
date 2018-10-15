@@ -5,6 +5,7 @@ namespace backend\modules\quantri\controllers;
 use Yii;
 use backend\modules\quantri\models\News;
 use backend\modules\quantri\models\Categories;
+use backend\modules\quantri\models\Product;
 use backend\modules\quantri\models\NewsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -44,7 +45,11 @@ class NewsController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
+    public function beforeAction($action) 
+    { 
+        $this->enableCsrfValidation = false; 
+        return parent::beforeAction($action); 
+    }
     /**
      * Displays a single News model.
      * @param integer $id
@@ -72,18 +77,38 @@ class NewsController extends Controller
         if (empty($datacat)) {
             $datacat=array();
         }
+// print_r($datacat);die;
+        $product = new Product();
+        $dataProduct = $product->getAllPro();
+        
+        $dataNews = $model->getAllNews();
 
         $model->created_at=time();
         $model->updated_at=time();
         $model->user_add = Yii::$app->user->id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load($post = Yii::$app->request->post()) ) {
+            if ($post['News']['images']!='') {
+                $model->images = str_replace(Yii::$app->request->hostInfo.'/','',$post['News']['images']);
+            }
+
+            if ($post['News']['related_products']!='') {
+                $model->related_products = json_encode($post['News']['related_products']);
+            }
+            if ($post['News']['related_news']!='') {
+                $model->related_news = json_encode($post['News']['related_news']);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('create', [
             'model' => $model,
             'datacat' => $datacat,
+            'dataProduct' => $dataProduct,
+            'dataNews' => $dataNews,
         ]);
     }
 
@@ -98,12 +123,49 @@ class NewsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $categories = new Categories();
+        $datacat = $categories->getCategoryParent();
+        if (empty($datacat)) {
+            $datacat=array();
+        }
+        $product = new Product();
+        $dataProduct = $product->getAllPro();
+        
+        $dataNews = $model->getAllNews();
+
+        if($model->related_products !=''){
+            $model->related_products = json_decode($model->related_products);
+        }
+
+        if($model->related_news !=''){
+            $model->related_news = json_decode($model->related_news);
+        }
+// print_r($datacat);die;
+        $model->updated_at=time();
+        $model->user_add = Yii::$app->user->id;
+
+        if ($model->load($post = Yii::$app->request->post()) ) {
+            if ($post['News']['images']!='') {
+                $model->images = str_replace(Yii::$app->request->hostInfo.'/','',$post['News']['images']);
+            }
+
+            if ($post['News']['related_products']!='') {
+                $model->related_products = json_encode($post['News']['related_products']);
+            }
+            if ($post['News']['related_news']!='') {
+                $model->related_news = json_encode($post['News']['related_news']);
+            }
+
+            if($model->save()){
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'datacat' => $datacat,
+            'dataProduct' => $dataProduct,
+            'dataNews' => $dataNews,
         ]);
     }
 

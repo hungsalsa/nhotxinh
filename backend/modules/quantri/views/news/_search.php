@@ -34,13 +34,17 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'htmldescriptions') ?>
 
+    <?php // echo $form->field($model, 'short_description') ?>
+
     <?php // echo $form->field($model, 'content') ?>
 
     <?php // echo $form->field($model, 'hot') ?>
 
     <?php // echo $form->field($model, 'view') ?>
 
-    <?php // echo $form->field($model, 'tag') ?>
+     <?php // echo $form->field($model, 'related_products') ?>
+
+    <?php // echo $form->field($model, 'related_news') ?>
 
     <?php // echo $form->field($model, 'sort') ?>
 

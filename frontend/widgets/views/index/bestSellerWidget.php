@@ -1,3 +1,4 @@
+<?php use yii\helpers\Url; ?>
 <section class="section seller-product wow fadeInUp">
     <h3 class="section-title">Sản phẩm bán chạy</h3>
     <div class="row outer-top-xs">
@@ -19,7 +20,7 @@
                                 </div><!-- /.col -->
                                 <div class="col col-xs-6">
                                     <div class="product-info">
-                                        <h3 class="name"  title="<?= $value['pro_name'] ?>"><a href="#"><?= $value['pro_name'] ?></a></h3>
+                                        <h3 class="name"  title="<?= $value['pro_name'] ?>"><a href="<?= Url::to(['product/view', 'slug' => $value['slug']]) ?>"><?= $value['pro_name'] ?></a></h3>
                                         <div class="rating rateit-small"></div>
                                         <div class="product-price"> 
                                             <span class="price">

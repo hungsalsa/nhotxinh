@@ -24,10 +24,12 @@ return [
             'class' => 'backend\modules\setting\setting',
         ],
     ],
+    
     'components' => [
         
         'request' => [
             'csrfParam' => '_csrf-backend',
+            'enableCsrfValidation' => false,
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -59,7 +61,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                  
+                  // 'defaultRoute' => '/quantri/index',
             ],
         ],
         'authManager' => [

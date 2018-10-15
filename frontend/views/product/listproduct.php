@@ -808,17 +808,20 @@ $this->title = 'ádada';
                            <div class="product-image">
                               <div class="image">
                                 
-                                 <a href="<?= Url::to(['product/detail', 'id' => $value['id'], 'slug' => $value['slug']]) ?>"><img  src="<?= Yii::$app->homeUrl ?>vender/images/blank.gif" data-echo="<?= Yii::$app->homeUrl.$value['image'] ?>" alt="<?= 'sad' ?>" width="98%"></a>
+                                 <a href="<?= Url::to(['product/view', 'slug' => $value['slug']]) ?>"><img  src="<?= Yii::$app->homeUrl ?>vender/images/blank.gif" data-echo="<?= Yii::$app->homeUrl.$value['image'] ?>" alt="<?= 'sad' ?>" width="98%"></a>
                               </div>
                               <!-- /.image -->  
                               <?php 
-                                 $product_type_id = json_decode($value['product_type_id']);
-                              ?>        
-                              <div class="tag <?= $dataProType[$product_type_id[array_rand($product_type_id)]] ?>"><span><?= $dataProType[$product_type_id[array_rand($product_type_id)]] ?></span></div>
+                                 $product_type_id = json_decode($value['product_type_id']); 
+                                 if(!empty($product_type_id)){
+                                    $product_type = $dataProType[$product_type_id[array_rand($product_type_id)]];
+                                 }
+                              ?> 
+                              <div class="tag <?= (isset($product_type))? $product_type :'' ?>"><span><?= (isset($product_type))? $product_type :'' ?></span></div>
                            </div>
                            <!-- /.product-image -->
                            <div class="product-info text-left">
-                              <h3 class="name"><a href="<?= Url::to(['product/detail', 'id' => $value['id'], 'slug' => $value['slug']]) ?>"><?= $value['pro_name'] ?></a></h3>
+                              <h3 class="name"><a href="<?= Url::to(['product/view', 'slug' => $value['slug']]) ?>"><?= $value['pro_name'] ?></a></h3>
                               <div class="rating rateit-small"></div>
                               <div class="description"></div>
                               <div class="product-price">   
@@ -855,7 +858,7 @@ $this->title = 'ádada';
          </div>
          <!-- /.tab-pane -->
          <div class="tab-pane"  id="list-container">
-            <div class="category-product  inner-top-vs">
+            <div class="category-product inner-top-vs">
                <?php foreach ($productCat as $value): ?>
                <div class="category-product-inner">
                   <div class="products">
@@ -872,7 +875,7 @@ $this->title = 'ádada';
                            <!-- /.col -->
                            <div class="col col-sm-8 col-lg-8">
                               <div class="product-info">
-                                 <h3 class="name"><a href="<?= Yii::$app->homeUrl.'product/detail/'.$value['id'] ?>"><?= $value['pro_name'] ?></a></h3>
+                                 <h3 class="name"><a href="<?= Yii::$app->homeUrl.'product/view/'.$value['id'] ?>"><?= $value['pro_name'] ?></a></h3>
                                  <div class="rating rateit-small"></div>
                                  <div class="product-price">    
                                     <span class="price">
@@ -896,8 +899,15 @@ $this->title = 'ádada';
                            <!-- /.col -->
                         </div>
                         <!-- /.product-list-row -->
-                        <?php $product_type_id = json_decode($value['product_type_id']); ?> 
-                        <div class="tag <?= $dataProType[$product_type_id[array_rand($product_type_id)]] ?>"><span><?= $dataProType[$product_type_id[array_rand($product_type_id)]] ?></span></div>
+                        <?php 
+                           $product_type_id = json_decode($value['product_type_id']); 
+                           if(!empty($product_type_id)){
+                              $product_type = $dataProType[$product_type_id[array_rand($product_type_id)]];
+                           }
+                        ?> 
+
+                        <div class="tag <?= (isset($product_type))? $product_type:'' ?>"><span><?= (isset($product_type))? $product_type:'' ?></span></div>
+
                      </div>
                      <!-- /.product-list -->
                   </div>
