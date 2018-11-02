@@ -5,6 +5,7 @@ namespace backend\modules\quantri\controllers;
 use Yii;
 use backend\modules\quantri\models\Categories;
 use backend\modules\quantri\models\Group;
+use backend\modules\quantri\models\SeoUrl;
 use backend\modules\quantri\models\CategoriesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -56,6 +57,11 @@ class CategoriesController extends Controller
      * Lists all Categories models.
      * @return mixed
      */
+    public function beforeAction($action) 
+    { 
+        $this->enableCsrfValidation = false; 
+        return parent::beforeAction($action); 
+    }
     public function actionIndex()
     {
         $searchModel = new CategoriesSearch();
@@ -88,6 +94,7 @@ class CategoriesController extends Controller
     public function actionCreate()
     {
         $model = new Categories();
+        $seo = new SeoUrl();
 
         $group = new Group();
         $dataGroups = ArrayHelper::map($group->getAllGroups(),'id','groupsName');
@@ -97,27 +104,33 @@ class CategoriesController extends Controller
             $datacat=array();
         }
 
+        $model->status=true;
         $model->created_at=time();
         $model->updated_at=time();
         $model->userAdd = Yii::$app->user->id;
 
         if ($model->load($post = Yii::$app->request->post()) ) {
+
+            $model->link = $post['SeoUrl']['slug'];
+            $seo->slug = $post['SeoUrl']['slug'];
+
             if ($post['Categories']['parent_id'] =='') {
                 $model->parent_id = 0;
             }
 
-            // if (!empty($post['Categories']['models_id'])) {
-            //     $models_ids = $post['Categories']['models_id'];
-            //     $model->models_id = json_encode($models_ids);
-            // }
-
-            if($model->save()){
+            $isValid = $model->validate();
+            $isValid = $seo->validate() && $isValid;
+            if ($isValid) {
+                $model->save(false);
+                $seo->query = 'new_cate='.$model->id;
+                $seo->save(false);
                 return $this->redirect(['index']);
             }
         }
 
         return $this->render('create', [
             'model' => $model,
+            'seo' => $seo,
             'dataGroups' => $dataGroups,
             'datacat' => $datacat,
         ]);
@@ -134,6 +147,14 @@ class CategoriesController extends Controller
     {
         $model = $this->findModel($id);
 
+        $seo = new SeoUrl();
+        $idSeo = $seo->getSeoID($model->link);
+        if ($idSeo) {
+            $seo = $this->findModelSeo($idSeo);
+        } else {
+            $seo->slug = '';
+        }
+
         $group = new Group();
         $dataGroups = ArrayHelper::map($group->getAllGroups(),'id','groupsName');
 
@@ -144,23 +165,29 @@ class CategoriesController extends Controller
 
         $model->updated_at=time();
 
-        if ($model->load($post = Yii::$app->request->post()) ) {
+        if ($model->load($post = Yii::$app->request->post()) && $seo->load(Yii::$app->request->post())) {
             if ($post['Categories']['parent_id'] =='') {
                 $model->parent_id = 0;
             }
 
-            // if (!empty($post['Categories']['models_id'])) {
-            //     $models_ids = $post['Categories']['models_id'];
-            //     $model->models_id = json_encode($models_ids);
-            // }
+            $model->link = $post['SeoUrl']['slug'];
+            $seo->slug = $post['SeoUrl']['slug'];
 
-            if($model->save()){
+            $isValid = $model->validate();
+            $isValid = $seo->validate() && $isValid;
+            if ($isValid) {
+                $model->save(false);
+                $seo->query = 'new_cate='.$model->id;
+                $seo->save(false);
                 return $this->redirect(['index']);
             }
+
+            
         }
 
         return $this->render('update', [
             'model' => $model,
+            'seo' => $seo,
             'dataGroups' => $dataGroups,
             'datacat' => $datacat,
         ]);
@@ -175,7 +202,14 @@ class CategoriesController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+
+        $seo = new SeoUrl();
+        $idSeo = $seo->getSeoID($model->link);
+        if ($idSeo) {
+            $this->findModelSeo($idSeo)->delete();
+        } 
+        $model->delete();
 
         return $this->redirect(['index']);
     }
@@ -198,6 +232,15 @@ class CategoriesController extends Controller
     public function findUserModel($id)
     {
         if (($model = Categories::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function findModelSeo($id)
+    {
+        if (($model = SeoUrl::findOne($id)) !== null) {
             return $model;
         }
 

@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create Categories', ['create'], ['class' => 'btn btn-success']) ?>
+        <span class="pull-right">Tổng số : <?=$dataProvider->getTotalCount(); ?> danh mục tin</span>
     </p>
 
     <?= GridView::widget([

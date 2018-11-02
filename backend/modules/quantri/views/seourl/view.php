@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'seo_url_id:url',
             'language_id',
-            'title',
             'query',
             'slug',
         ],

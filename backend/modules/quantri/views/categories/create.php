@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\modules\quantri\models\Categories */
 
-$this->title = 'Create Categories';
+$this->title = 'Thêm danh mục tin tức';
 $this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'seo' => $seo,
         'datacat' => $datacat,
         'dataGroups' => $dataGroups,
     ]) ?>

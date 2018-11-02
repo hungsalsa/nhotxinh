@@ -128,45 +128,40 @@ class MenusController extends Controller
             3 => 'Trang nội dung'
         );
 
-        $dataLinkCat = array();
 
-        switch ($model->type) {
-            case 1:{
-                $catProduct = new Productcategory();
-                $dataLinkCat = $catProduct->getCategoryParent();
-                if(empty($dataLinkCat)){
-                    $dataLinkCat = array();
-                }
-                break;
+        if($model->type == 1){
+            $catProduct = new Productcategory();
+            $dataLinkCat = $catProduct->getCategoryParent();
+            if(empty($dataLinkCat)){
+                $dataLinkCat = array();
             }
-            case 2:{
-                $categories = new Categories();
-                $dataLinkCat = $categories->getCategoryParent();
-                if(empty($dataLinkCat)){
-                    $dataLinkCat = array();
-                }
+        }else if($model->type == 2){
+            $categories = new Categories();
+            $dataLinkCat = $categories->getCategoryParent();
+            if(empty($dataLinkCat)){
+                $dataLinkCat = array();
             }
-                
-            
-            default:{
-                $page = new Pages();
-                $dataLinkCat = $page->getPageAll();
-                if(empty($dataLinkCat)){
-                    $dataLinkCat = array();
-                }
+        }else {
+            $page = new Pages();
+            $dataLinkCat = $page->getPageAll();
+            if(empty($dataLinkCat)){
+                $dataLinkCat = array();
             }
         }
 
+        
+        // echo $dataLinkCat[$model->link_cate];
+        // echo $model->type;
+        // print_r($dataLinkCat);
+        // echo $model->link_cate;die;
         $model->updated_at = time();
         $model->user_id = Yii::$app->user->id;
-        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
-        //     return $this->redirect(['view', 'id' => $model->id]);
-        // }
+
         if ($model->load($post = Yii::$app->request->post()) ) {
             if ($post['Menus']['parent_id'] =='') {
                 $model->parent_id = 0;
             }
-        // echo '<pre>';print_r($model);die;
+        // echo '<pre>';print_r($post);die;
 
             // if (!empty($post['Product']['models_id'])) {
             //     $models_ids = $post['Product']['models_id'];

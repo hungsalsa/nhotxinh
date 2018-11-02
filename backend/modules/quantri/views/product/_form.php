@@ -17,30 +17,30 @@ use yii\helpers\Url;
     <?php $form = ActiveForm::begin([
         'id' => 'contact-form',
         'enableAjaxValidation' => true,
-        // 'validationUrl'=>Url::toRoute('product/validation'),
+        'validationUrl'=>Url::toRoute('product/validation'),
     ]); ?>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success pull-right']) ?>
     </div>
     <div>
       <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin SP
+      <ul class="nav nav-tabs" role="tablist" style="font-size: 1.5em">
+            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin SP
 
-        </a></li>
-        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Seo</a></li>
-        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Liên kết</a></li>
-        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-    </ul>
+            </a></li>
+            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" style="padding: 10px 30px">   Seo  </a></li>
+            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">  Liên kết  </a></li>
+            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+        </ul>
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
             <?= $form->field($model, 'pro_name',['options'=>['class'=>'col-md-6']],['enableAjaxValidation' => true])->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'image',['options'=>['class'=>'col-md-3']])->textInput(['maxlength' => true,'id'=>'imageFile','placeholder'=>'Click chọn ảnh']) ?>
+            <?= $form->field($model, 'image',['options'=>['class'=>'col-md-3']])->textInput(['maxlength' => true,'id'=>'imageFile','placeholder'=>'Chọn ảnh 195x243 pixel']) ?>
             <div class="col-md-1" style="height: 80px">
                 <img src="<?= (isset($model->image))? Yii::$app->request->hostInfo.'/'.$model->image:''?>" id="previewImage" alt="" style="height: 100%">
             </div>
-            
+            <div class="clearfix"></div>
             <?= $form->field($model, 'code',['options'=>['class'=>'col-md-3']])->textInput(['maxlength' => true]) ?>
 
             <?php 
@@ -95,7 +95,7 @@ use yii\helpers\Url;
 
         <div role="tabpanel" class="tab-pane" id="profile">
             <?= $form->field($model, 'title')->textInput(['maxlength' => true,'id'=>'title_slug'])?>
-            <?= $form->field($model, 'slug')->textInput(['maxlength' => true,'id'=>'slug_url'])?>
+            <?= $form->field($seo, 'slug')->textInput(['maxlength' => true,'id'=>'slug_url'])?>
             <?= $form->field($model, 'keyword')->textarea(['rows' => 6]) ?>
             <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
         </div>

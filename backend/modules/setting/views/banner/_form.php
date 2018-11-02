@@ -15,7 +15,7 @@ use kartik\checkbox\CheckboxX;
 
     <?= $form->field($model, 'image',['options' => ['class' => 'col-md-3']])->textInput(['maxlength' => true,'id'=>'imageFile','placeholder'=>'Chọn ảnh cỡ 1920x464 px']) ?>
     <div class="col-md-5" style="height: 80px">
-        <img src="<?= (isset($model->image))? Yii::$app->request->hostInfo.'/'.$model->image:''?>" id="previewImage" alt="" style="height: 100%">
+        <img src="<?= (isset($model->image))? $model->image:''?>" id="previewImage" alt="" style="height: 100%">
     </div>
 
     <?= $form->field($model, 'order',['options' => ['class' => 'col-md-2']])->textInput(['type'=>'number']) ?>
@@ -27,9 +27,9 @@ use kartik\checkbox\CheckboxX;
         ])->label(false);
     ?>
     <div class="clearfix"></div>
-    <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'url',['options' => ['class' => 'col-md-6']])->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'alt')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'alt',['options' => ['class' => 'col-md-6']])->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6,'class' => 'content']) ?>
 

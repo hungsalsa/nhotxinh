@@ -4,6 +4,8 @@ namespace frontend\controllers;
 
 use Yii;
 use frontend\models\News;
+use frontend\models\Menus;
+use frontend\models\Categories;
 use frontend\models\NewsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -34,10 +36,14 @@ class TinTucController extends Controller
         $slug = $request->get('slug','');
         $model = new News();
         $newInfo = $model->NewInfo($slug);
+        if (empty($newInfo)) {
+            throw new NotFoundHttpException("Trang này không tồn tại hoặc chưa cập nhập. Xin Quý khách quay lại sau"); 
+        } else {
+            return $this->render('view', [
+                'newInfo'=>$newInfo
+            ]);
+        }
 
-        return $this->render('view', [
-            'newInfo'=>$newInfo
-        ]);
     }
 
     /**
@@ -45,17 +51,40 @@ class TinTucController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    
+    public function actionList()
     {
+        $this->layout = 'view';
+        $request = \Yii::$app->request;
+        $slug = $request->get('slug','');
+
+        $menu = new Menus();
+        $cate = new Categories();
         $model = new News();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        $MenuInfo = $menu->getMenuInfo($slug);
+        // if(empty($MenuInfo)){
+        //     $newInfo = $model->NewInfo($slug);
+
+        //     return $this->render('view', [
+        //         'newInfo'=>$newInfo
+        //     ]);
+        // }else{
+        if(!empty($MenuInfo)){
+            $idCate = $cate->getListId($MenuInfo->link_cate);
+            array_push($idCate,$MenuInfo->link_cate);
+            // trar vee danh sach cac tin tuc
+            $dataNew = $model->getAllNewCateArray($idCate);
+
+
+            return $this->render('index', [
+                'dataNew' => $dataNew,
+            ]);
+        }else {
+            throw new NotFoundHttpException("Trang này không tồn tại hoặc chưa cập nhập. Xin Quý khách quay lại sau"); 
+        }
+        // }
     }
 
     /**
@@ -65,18 +94,18 @@ class TinTucController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+    // public function actionUpdate($id)
+    // {
+    //     $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+    //     if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    //         return $this->redirect(['view', 'id' => $model->id]);
+    //     }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
+    //     return $this->render('update', [
+    //         'model' => $model,
+    //     ]);
+    // }
 
     /**
      * Deletes an existing News model.

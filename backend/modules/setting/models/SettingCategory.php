@@ -3,6 +3,7 @@
 namespace backend\modules\setting\models;
 
 use Yii;
+use backend\modules\quantri\models\Productcategory;
 /**
  * This is the model class for table "tbl_setting_category".
  *
@@ -33,9 +34,10 @@ class SettingCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'status', 'created_at', 'updated_at', 'user_add','link_cate'], 'required'],
+             [['name', 'link_cate', 'title', 'description', 'status', 'created_at', 'updated_at', 'user_add'], 'required'],
             [['parent_id', 'link_cate', 'order', 'created_at', 'updated_at', 'user_add'], 'integer'],
-            [['name', 'slug_cate', 'icon'], 'string', 'max' => 255],
+            [['description'], 'string'],
+            [['name', 'slug', 'title', 'icon'], 'string', 'max' => 255],
             [['status'], 'string', 'max' => 4],
         ];
     }
@@ -50,7 +52,9 @@ class SettingCategory extends \yii\db\ActiveRecord
             'name' => 'Name',
             'parent_id' => 'Parent ID',
             'link_cate' => 'Link Cate',
-            'slug_cate' => 'Slug Cate',
+            'slug' => 'Đường dẫn',
+            'title' => 'Title',
+            'description' => 'Description',
             'order' => 'Order',
             'icon' => 'Icon',
             'status' => 'Status',
@@ -73,5 +77,15 @@ class SettingCategory extends \yii\db\ActiveRecord
             self::getParentSetCategory($value['id'],$level);
         }
         return $this->data;
+    }
+
+    public function getProductCategory()
+    {
+        return $this->hasOne(Productcategory::className(),['idCate'=>'link_cate']);
+    }
+
+    public function getParent()
+    {
+        return $this->hasOne(SettingCategory::className(),['parent_id'=>'id']);
     }
 }

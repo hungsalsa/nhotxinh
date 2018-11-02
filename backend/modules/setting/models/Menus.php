@@ -36,11 +36,12 @@ class Menus extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'type', 'status', 'created_at', 'updated_at', 'user_id'], 'required'],
+            [['name', 'slug', 'type', 'status', 'created_at', 'updated_at', 'user_id'], 'required'],
             [['type', 'parent_id', 'link_cate', 'order', 'created_at', 'updated_at', 'user_id'], 'integer'],
             [['introduction'], 'string'],
-            [['name', 'image'], 'string', 'max' => 255],
+            [['name', 'title', 'slug', 'image'], 'string', 'max' => 255],
             [['status'], 'string', 'max' => 4],
+            [['slug'], 'unique'],
         ];
     }
 
@@ -52,6 +53,8 @@ class Menus extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+             'title' => 'Title',
+            'slug' => 'Slug',
             'type' => 'Type',
             'introduction' => 'Introduction',
             'parent_id' => 'Parent ID',

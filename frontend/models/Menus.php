@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use Yii;
 use frontend\models\Productcategory;
+use frontend\models\Categories;
 /**
  * This is the model class for table "tbl_menus".
  *
@@ -69,17 +70,19 @@ class Menus extends \yii\db\ActiveRecord
     {
         return Menus::find()->asArray()->where('parent_id =:parent AND status =:Status',['parent'=>$parent,'Status'=>$status])->orderBy(['order' => SORT_ASC]) ->all();
     }
-    
+
+
     public function getLinkType($type,$idCate)
     {
-        $cate = new Productcategory();
+        $catePro = new Productcategory();
+        $cateNew = new Categories();
 
         switch ($type) {
             case 1:
-                $link = 'danh-sach/'.$cate->getSlugById($idCate);
+                $link = 'danh-sach/'.$catePro->getSlugById($idCate);
                 break;
             case 2:
-                $link = 'categories/listcate/';
+                $link = 'tin-tuc/'.$cateNew->getSlugById($idCate);
                 break;
             
             default:
@@ -87,5 +90,28 @@ class Menus extends \yii\db\ActiveRecord
                 break;
         }
         return $link;
+    }
+
+    // Hàm trả về ID trên menu
+    public function getIdByslug($lug,$status=1)
+    {
+        $data = Menus::find()->select('id')->where('slug =:Slug AND status =:Status',['Slug'=>$lug,'Status'=>$status])->one();
+        return $data->id;
+    }
+
+    // Hàm trả về link_cate liên kết đếm danh mục sp hay tin tức
+    public function getMenuInfo($slug,$status=1)
+    {
+        return Menus::find()->select('type, link_cate')->where('slug =:ID AND status =:Status',['ID'=>$slug,'Status'=>$status])->one();
+    }
+
+    public function getMenuInfoProduct($slug,$status=1)
+    {
+        $data = Menus::find()->select('link_cate')->asArray()->where('slug =:ID AND status =:Status AND type =:Type',['ID'=>$slug,'Status'=>$status, 'Type'=>1])->one();
+        if (empty($data)) {
+            return false;
+        } else {
+            return $data['link_cate'];
+        }
     }
 }

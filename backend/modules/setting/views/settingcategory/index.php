@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel backend\modules\setting\models\SettingCategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Setting Categories';
+$this->title = 'Setting Category';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="setting-category-index">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Setting Category', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Thêm mới', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -34,12 +34,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 return Html::a(Html::encode($data->name),Yii::$app->homeUrl.'setting/settingcategory/update?id='.$data->id);
                 },
             ],
-            'parent_id',
-            'link_cate',
+            // 'parent_id',
+            // 'link_cate',
+            [
+                'attribute'=>'parent_id',
+                'value'=>'parent.name'
+            ],
+            [
+                'attribute'=>'link_cate',
+                'value'=>'productCategory.cateName'
+            ],
             // 'order',
-            'slug_cate',
             //'icon',
-            //'status',
+            'status',
+            'slug',
+            //'title',
+            //'description:ntext',
             //'created_at',
             //'updated_at',
             //'user_add',

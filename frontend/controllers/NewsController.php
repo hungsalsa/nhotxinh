@@ -9,11 +9,6 @@ class NewsController extends \yii\web\Controller
         return $this->render('view');
     }
 
-    public function detail()
-    {
-    	echo 'sadasad';
-    }
-
     public function actionView($slug)
     {
     	$request = \Yii::$app->request;

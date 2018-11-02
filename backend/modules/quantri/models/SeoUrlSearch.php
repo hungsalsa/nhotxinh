@@ -19,7 +19,7 @@ class SeoUrlSearch extends SeoUrl
     {
         return [
             [['seo_url_id', 'language_id'], 'integer'],
-            [['title', 'query', 'slug'], 'safe'],
+            [['query', 'slug'], 'safe'],
         ];
     }
 
@@ -63,8 +63,7 @@ class SeoUrlSearch extends SeoUrl
             'language_id' => $this->language_id,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'query', $this->query])
+        $query->andFilterWhere(['like', 'query', $this->query])
             ->andFilterWhere(['like', 'slug', $this->slug]);
 
         return $dataProvider;

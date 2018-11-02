@@ -68,4 +68,32 @@ class Categories extends \yii\db\ActiveRecord
             'userAdd' => 'User Add',
         ];
     }
+
+    public function getSlugById($id)
+    {
+        $data = Categories::find()->select(['link'])->asArray()->where('status =:status AND id =:ID',['status'=>1,'ID'=>$id])->one();
+        return $data['link'];
+        unset($data);
+    }
+    
+    public function getIdBySlug($slug)
+    {
+        $data = Categories::find()->select(['id'])->asArray()->where('status =:status AND link =:slug',['status'=>1,'slug'=>$slug])->one();
+        return $data['id'];
+        unset($data);
+    }
+
+    // Hàm trả về Id khi biết parent
+    public function getListId($parent_id)
+    {
+        $data =  Categories::find()->select('id')->where('status =:status AND parent_id =:parent',['status'=>1,'parent'=>$parent_id])->all();
+        $id=array();
+        foreach ($data as $value) {
+            $id[$value->id] = $value->id;
+        }
+        return $id;
+    }
+
+    // Trả về tất cả danh sách có cùng cha
+    
 }

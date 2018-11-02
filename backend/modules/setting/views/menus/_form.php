@@ -15,7 +15,11 @@ use kartik\select2\Select2;
     <?php $form = ActiveForm::begin(); ?>
     
 
-    <?= $form->field($model, 'name',['options' => ['class' => 'col-md-4']])->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name',['options' => ['class' => 'col-md-3']])->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'title',['options' => ['class' => 'col-md-3']])->textInput(['maxlength' => true,'id'=>'title_slug'])?>
+    <?= $form->field($model, 'slug',['options' => ['class' => 'col-md-3']])->textInput(['maxlength' => true,'id'=>'slug_url'])?>
+
 
      <?php 
     echo $form->field($model, 'type',['options' => ['class' => 'col-md-3']])->widget(Select2::classname(), [
@@ -25,17 +29,17 @@ use kartik\select2\Select2;
                 'placeholder' => 'Select a Type ...',
                 'onchange' => 
                     '$.get( "'.Url::toRoute('/setting/menus/lists').'", { id: $(this).val() } )
-                                                .done(function( data ) {
-                                                    $( "#'.Html::getInputId($model, 'link_cate').'" ).html( data );
-                                                }
-                                            );'
+                        .done(function( data ) {
+                            $( "#'.Html::getInputId($model, 'link_cate').'" ).html( data );
+                        }
+                    );'
             ],
             'pluginOptions' => [
                 'allowClear' => true,
             ],
         ]);
     ?>
-
+    <div class="clearfix"></div>
     <?= $form->field($model, 'link_cate',['options' => ['class' => 'col-md-2']])->widget(Select2::classname(), [
             'data' => $dataLinkCat,
             'language' => 'en',
@@ -56,7 +60,7 @@ use kartik\select2\Select2;
         ]);
     ?>
 
-    <div class="clearfix"></div>
+    
 
     <?= $form->field($model, 'image',['options' => ['class' => 'col-md-3']])->textInput(['maxlength' => true,'id'=>'imageFile','placeholder'=>'Click chọn ảnh']) ?>
     <div class="col-md-1" style="height: 80px">
@@ -72,7 +76,7 @@ use kartik\select2\Select2;
         ])->label(false);
     ?>
 
-
+    
     <div class="clearfix"></div>
     <?= $form->field($model, 'introduction')->textarea(['rows' => 6]) ?>
     <div class="form-group">

@@ -40,7 +40,7 @@ use kartik\checkbox\CheckboxX;
 
     <?= $form->field($model, 'title',['options'=>['class'=>'col-md-4']])->textInput(['maxlength' => true,'id'=>'title_slug']) ?>
 
-    <?= $form->field($model, 'link',['options'=>['class'=>'col-md-3']])->textInput(['maxlength' => true,'id'=>'slug_url','placeholder' => 'Tự động sinh nếu để trông']) ?>
+    <?= $form->field($seo, 'slug',['options'=>['class'=>'col-md-3']])->textInput(['maxlength' => true,'id'=>'slug_url','placeholder' => 'Tự động sinh nếu để trông']) ?>
 
     <?= $form->field($model, 'images',['options' => ['class' => 'col-md-2']])->textInput(['maxlength' => true,'id'=>'imageFile','placeholder'=>'Click chọn ảnh']) ?>
     <div class="col-md-1" style="height: 80px">
@@ -49,16 +49,17 @@ use kartik\checkbox\CheckboxX;
 
     <?= $form->field($model, 'sort',['options' => ['class' => 'col-md-2']])->textInput() ?>
     <div class="clearfix"></div>
-    <?= $form->field($model, 'keyword')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'descriptions')->textarea(['rows' => 6]) ?>
-
+    <?= $form->field($model, 'keyword',['options' => ['class' => 'col-md-11']])->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'status',['options' => ['class' => 'activeform col-md-1']])->widget(CheckboxX::classname(),
         [
         'initInputType' => CheckboxX::INPUT_CHECKBOX,
         'options'=>['value' => $model->status],
         ])->label(false);
     ?>
+    <div class="clearfix"></div>
+    <?= $form->field($model, 'descriptions')->textarea(['rows' => 6]) ?>
+
+    
 
     <div class="form-group" style="float:left;margin:21px">
       <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

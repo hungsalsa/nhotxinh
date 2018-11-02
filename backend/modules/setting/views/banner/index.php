@@ -26,12 +26,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'image',
+            // 'id',
+            // 'image',
+            [
+                'format' => 'html',
+               'attribute'=>'image',
+               'value' => function($data) {
+                return Html::a(Html::img($data->image,['height'=>'100']),Yii::$app->homeUrl.'setting/banner/update?id='.$data->id);
+                },
+            ],
             'url:url',
             'alt',
             'order',
-            //'content:ntext',
+            'content:ntext',
             //'status',
             //'created_at',
             //'updated_at',

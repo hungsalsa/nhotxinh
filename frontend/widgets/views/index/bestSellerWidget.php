@@ -28,7 +28,7 @@
                                             </span>
                                             <span class="price-before-discount">$<?= $value['price'] ?></span>
                                         </div><!-- /.product-price -->
-                                        <div class="action m-t-10"><a href="#" class="lnk btn btn-primary">Add To Cart</a></div>
+                                        <div class="action m-t-10"><a href="" class="lnk btn btn-primary" onclick="addCart(<?= $value->id ?>)">Add To Cart</a></div>
                                     </div>
                                 </div><!-- /.col -->
                             </div><!-- /.product-micro-row -->

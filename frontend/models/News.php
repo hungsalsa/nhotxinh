@@ -79,7 +79,7 @@ class News extends \yii\db\ActiveRecord
 
     public function getNewByCate($idCate)
     {
-        return News::find()->asArray()->where('category_id =:cate AND status =:Status',['cate'=>$idCate,'Status'=>1])->all();
+        return News::find()->select(['name','link','images','short_description'])->asArray()->where('category_id =:cate AND status =:Status',['cate'=>$idCate,'Status'=>1])->all();
     }
 
     public function getAllBlog($status = 1)
@@ -100,5 +100,18 @@ class News extends \yii\db\ActiveRecord
     public function getProductNew($slug,$status = 1)
     {
         return News::find()->select(['related_products','related_news','updated_at','user_add'])->asArray()->where('link =:slug AND status =:Status',['slug'=>$slug,'Status'=>$status])->one();
+    }
+
+    // Hamf trả về danh sách cùng cha với danh sách mảng $parent_id = Array()
+    public function getAllNewCateArray($category_id)
+    {
+
+        // ->where(['in', 'product_id', $ids])
+        return $result = (new \yii\db\Query)
+                ->select(['name','link','images','short_description','user_add','updated_at'])
+                ->from('tbl_news n')
+                ->where(['n.category_id' => $category_id])
+                ->andWhere(['status' => 1])
+                ->all();
     }
 }

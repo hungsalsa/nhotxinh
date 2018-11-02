@@ -6,6 +6,8 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\behaviors\SluggableBehavior;
 use frontend\models\Productcategory;
+use yii\data\Pagination;
+use yii\web\Request;    
 /**
  * This is the model class for table "tbl_product".
  *
@@ -171,7 +173,6 @@ class Product extends \yii\db\ActiveRecord
     public function getAllProductByCateId($catId)
     {
         return Product::find()->asArray()->where(['in', 'product_category_id', $catId])->orderBy(['created_at' => SORT_DESC, ])->all();
-        // return Product::find()->asArray()->where('product_category_id =:proCat AND active =:status',['proCat'=>$catId,'status'=>1])->orderBy(['created_at' => SORT_DESC, ])->all();
     }
 
     public function getProByCateIdType($catId,$proType)
@@ -229,6 +230,90 @@ class Product extends \yii\db\ActiveRecord
         $cate = new Productcategory();
         $id = $cate->getIdByslug($slug);
         return Product::find()->asArray()->where('product_category_id =:ID AND active =:status',['ID'=>$id,'status'=>$status])->all();
+    }
+
+    // Ham trả về tất cả các sản phẩm nằm trong mảng Where ([id in array(1,2,3,4)])
+    public function getAllProductById($idlist)
+    {
+        return $result = (new \yii\db\Query)
+                ->select(['id','pro_name','image','price_sales','price','product_type_id','title','slug','product_category_id'])
+                ->from('tbl_product p')
+                ->where(['p.id' => $idlist])
+                ->andWhere(['active' => 1])
+                ->all();
+    }
+
+    public function getAllProductByIdCate($idCatelist)
+    {
+        $pages = $this->getPagerProduct($idCatelist);
+        // return $result = (new \yii\db\Query)
+        //         ->select(['id','pro_name','image','price_sales','short_introduction','price','product_type_id','title','slug','product_category_id'])
+        //         ->from('tbl_product p')
+        //         ->where(['p.product_category_id' => $idCatelist])
+        //         ->andWhere(['active' => 1])
+        //         ->all();
+        return Product::find()->asArray()->where(['IN', 'product_category_id', $idCatelist])
+                ->offset($pages->offset)->limit($pages->limit)->all();
+                // ->limit($pagination->limit)
+    // ->result_array();
+    }
+
+    public function getPagerProduct($cateIdList)
+    {
+        // $data = Product::find()->asArray()->where('product_category_id =:cateId AND active =:status',['cateId'=>$cateId,'status'=>true]);
+        $data = Product::find()->asArray()->where(['IN', 'product_category_id', $cateIdList])->all();
+        $pages = new Pagination([
+                    'totalCount' => count($data),
+                    'pageSize'=>6,
+                    // 'forcePageParam' => 'trang',
+                    // 'pageParam' => 'trang',
+                    // 'pageParam' => yii\widgets\Pagination::createUrl(100),
+                    // 'pageParam' => false,
+                    // 'pageSizeParam' => ''
+                    // 'pageParam' => 'start', 
+                    // 'defaultPageSize' => 2,
+                    'forcePageParam' => true,
+                    'pageSizeParam' => false,
+                    
+                    // 'queryParam' => false
+                    // 'route'=>'san-pham/<slug>/trang-<page:\d+>'
+                ]);
+
+
+        return $pages;
+    }
+
+    // Chuc nang tim kiem san pham
+    public function searchProduct($key,$status=true)
+    {
+        $data = self::find()->where('pro_name LIKE :key AND active=:status',[':key'=>'%'.$key.'%',':status'=>$status])->asArray()->all();
+        // $data->andWhere(['like', 'pro_name', '%'.$key.'%'])->asArray()->all();
+        return $data;
+    }
+
+    public function getPagerProductSearch($key)
+    {
+        // $data = Product::find()->asArray()->where('product_category_id =:cateId AND active =:status',['cateId'=>$cateId,'status'=>true]);
+        $data = Product::find()->asArray()->where(['LIKE', 'pro_name', '%'.$key.'%'])->all();
+        $pages = new Pagination([
+                    'totalCount' => count($data),
+                    'pageSize'=>6,
+                    // 'forcePageParam' => 'trang',
+                    // 'pageParam' => 'trang',
+                    // 'pageParam' => yii\widgets\Pagination::createUrl(100),
+                    // 'pageParam' => false,
+                    // 'pageSizeParam' => ''
+                    // 'pageParam' => 'start', 
+                    // 'defaultPageSize' => 2,
+                    'forcePageParam' => true,
+                    'pageSizeParam' => false,
+                    
+                    // 'queryParam' => false
+                    // 'route'=>'san-pham/<slug>/trang-<page:\d+>'
+                ]);
+
+
+        return $pages;
     }
 
 }

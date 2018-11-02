@@ -81,7 +81,8 @@ class ProductController extends Controller
     public function actionCreate()
     {
         $model = new Product();
-         $model->scenario = 'create';
+        // $model->scenario = 'create';
+        $seo = new SeoUrl();
 
         // if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
         //     Yii::$app->response->format = 'json';
@@ -120,11 +121,32 @@ class ProductController extends Controller
             $dataModel = array();
         }
 
+        $model->active = true;
         $model->created_at = time();
         $model->updated_at = time();
         $model->user_id = Yii::$app->user->id;
 
-        if ($model->load($postP = Yii::$app->request->post())) {
+        
+
+        if ($model->load($postP = Yii::$app->request->post())  && $seo->load(Yii::$app->request->post())) {
+            // echo '<pre>';print_r($postP);die;
+            // if (!$model->validate()) {
+            //     // validation failed: $errors is an array containing error messages
+            //     $errors = $model->errors;
+            //     // print_r($model->getErrors());die;
+            //     $str_error = '';
+            //     foreach ($errors as $value) {
+            //         if(count($value)){
+            //             foreach ($value as $value2) {
+            //                 $str_error .=$value2.'<br/>';
+            //             }
+            //         }else {
+            //             $str_error .=$value.'<br/>';
+            //         }
+            //     }
+
+            //     Yii::$app->session->setFlash('messeage',$str_error);
+            // }
 
             if ($postP['Product']['image']!='') {
                 $model->image = str_replace(Yii::$app->request->hostInfo.'/','',$postP['Product']['image']);
@@ -144,38 +166,23 @@ class ProductController extends Controller
             if($postP['Product']['models_id'] !=''){
                 $model->models_id = json_encode($postP['Product']['models_id']);
             }
+            
+            $seo->slug = trim($postP['SeoUrl']['slug']);
+            $model->slug = trim($postP['SeoUrl']['slug']);
 
-            if($postP['Product']['title'] !=''){
-                $model->slug = $this->createSlug($postP['Product']['title']);
-            }else{
-                $model->title = trim($postP['Product']['pro_name']);
-                $model->slug = $this->createSlug($postP['Product']['pro_name']);
-            }
-            if (!$model->validate()) {
-                // validation failed: $errors is an array containing error messages
-                $errors = $model->errors;
-                // print_r($model->getErrors());die;
-                $str_error = '';
-                foreach ($errors as $value) {
-                    if(count($value)){
-                        foreach ($value as $value2) {
-                            $str_error .=$value2.'<br/>';
-                        }
-                    }else {
-                        $str_error .=$value.'<br/>';
-                    }
-                }
-                
-                Yii::$app->session->setFlash('messeage',$str_error);
-            }
-            // print_r($this->createSlug($postP['Product']['pro_name']));die;
-            if($model->save()){
-                return $this->redirect(['view', 'id' => $model->id]);
+            $isValid = $model->validate();
+            $isValid = $seo->validate() && $isValid;
+            if ($isValid) {
+                $model->save(false);
+                $seo->query = 'product_id='.$model->id;
+                $seo->save(false);
+                return $this->redirect(['index']);
             }
         }
 
         return $this->render('create', [
             'model' => $model,
+            'seo' => $seo,
             'dataCate' => $dataCate,
             'dataType' => $dataType,
             'dataManufac' => $dataManufac,
@@ -195,6 +202,16 @@ class ProductController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
+        $seo = new SeoUrl();
+        $idSeo = $seo->getSeoID($model->slug);
+        if ($idSeo) {
+            $seo = $this->findModelSeo($idSeo);
+        } else {
+            $seo->slug = '';
+        }
+
+        // echo '<pre>';print_r($model);die;
 
         // $model->scenario = 'update';
 
@@ -246,32 +263,52 @@ class ProductController extends Controller
         $model->updated_at = time();
         $model->user_id = Yii::$app->user->id;
 
-        $seo = new SeoUrl();
         
         // Kiem tra load ajax
-        if (Yii::$app->request->isAjax && $model->load($postP = Yii::$app->request->post())) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
-            // Yii::$app->session->setFlash('messeage','aaaaaaaaaaa');
-        }
+        // if (Yii::$app->request->isAjax && $model->load($postP = Yii::$app->request->post())) {
+        //     Yii::$app->response->format = Response::FORMAT_JSON;
+        //     return ActiveForm::validate($model);
+        //     // Yii::$app->session->setFlash('messeage','aaaaaaaaaaa');
+        // }
        
-        if ($model->load($postP = Yii::$app->request->post())) {
-
-            // Kiem tra hop le cua rule
-            if ($model->hasErrors()) {
-                // validation fails
-                Yii::$app->session->setFlash('messeage','aaaaaaaaaaa');
-            } else {
-                // validation succeeds
-            }
-
-            // if ($model->validate()) {
-            //     // all inputs are valid
-            // } else {
+        if ($model->load($postP = Yii::$app->request->post()) && $seo->load(Yii::$app->request->post())) {
+            // Kiểm tra hợp lệ của model
+            // if (!$model->validate()) {
             //     // validation failed: $errors is an array containing error messages
             //     $errors = $model->errors;
-            //      Yii::$app->session->setFlash('messeage','aaaaaaaaaaa');
+            //     // print_r($model->getErrors());die;
+            //     $str_error = '';
+            //     foreach ($errors as $value) {
+            //         if(count($value)){
+            //             foreach ($value as $value2) {
+            //                 $str_error .=$value2.'<br/>';
+            //             }
+            //         }else {
+            //             $str_error .=$value.'<br/>';
+            //         }
+            //     }
+            //     Yii::$app->session->setFlash('messeage',$str_error);
             // }
+            // if (!$seo->validate()) {
+            //     // validation failed: $errors is an array containing error messages
+            //     $errors = $seo->errors;
+            //     // print_r($model->getErrors());die;
+            //     $str_error = '';
+            //     foreach ($errors as $value) {
+            //         if(count($value)){
+            //             foreach ($value as $value2) {
+            //                 $str_error .=$value2.'<br/>';
+            //             }
+            //         }else {
+            //             $str_error .=$value.'<br/>';
+            //         }
+            //     }
+            //     Yii::$app->session->setFlash('messeage',$str_error);
+            // }
+
+            
+            $model->slug = $postP['SeoUrl']['slug'];
+            $seo->slug = $postP['SeoUrl']['slug'];
 
             if ($postP['Product']['image']!='') {
                 $model->image = str_replace(Yii::$app->request->hostInfo.'/','',$postP['Product']['image']);
@@ -291,18 +328,20 @@ class ProductController extends Controller
                 $model->models_id = json_encode($postP['Product']['models_id']);
             }
             
-            if($postP['Product']['slug'] ==''){
-                $model->slug = $this->createSlug($postP['Product']['pro_name']);
+            $isValid = $model->validate();
+            $isValid = $seo->validate() && $isValid;
+            if ($isValid) {
+                $model->save(false);
+                $seo->query = 'product_id='.$model->id;
+                $seo->save(false);
+                return $this->redirect(['index']);
             }
-            $countslug = $seo->getCountSeoUrl($model->slug);
-             $infos = $seo->getSeoInfo('product/view/'.$id);
-            if($model->save() ){
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+
         }
 
         return $this->render('update', [
             'model' => $model,
+            'seo' => $seo,
             'dataCate' => $dataCate,
             'dataType' => $dataType,
             'dataManufac' => $dataManufac,
@@ -320,21 +359,21 @@ class ProductController extends Controller
         return isset($this->_errors[$attribute]) ? $this->_errors[$attribute] : [];
     }
 
-     private function createSlug($str) {
+    //  private function createSlug($str) {
 
-        $str = trim(mb_strtolower($str));
-        $str = preg_replace('/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/', 'a', $str);
-        $str = preg_replace('/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/', 'e', $str);
-        $str = preg_replace('/(ì|í|ị|ỉ|ĩ)/', 'i', $str);
-        $str = preg_replace('/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/', 'o', $str);
-        $str = preg_replace('/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/', 'u', $str);
-        $str = preg_replace('/(ỳ|ý|ỵ|ỷ|ỹ)/', 'y', $str);
-        $str = preg_replace('/(đ)/', 'd', $str);
-        $str = preg_replace('/[^a-z0-9-\s]/', '', $str);
-        $str = preg_replace('/([\s]+)/', '-', $str);
-        return $str;
+    //     $str = trim(mb_strtolower($str));
+    //     $str = preg_replace('/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/', 'a', $str);
+    //     $str = preg_replace('/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/', 'e', $str);
+    //     $str = preg_replace('/(ì|í|ị|ỉ|ĩ)/', 'i', $str);
+    //     $str = preg_replace('/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/', 'o', $str);
+    //     $str = preg_replace('/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/', 'u', $str);
+    //     $str = preg_replace('/(ỳ|ý|ỵ|ỷ|ỹ)/', 'y', $str);
+    //     $str = preg_replace('/(đ)/', 'd', $str);
+    //     $str = preg_replace('/[^a-z0-9-\s]/', '', $str);
+    //     $str = preg_replace('/([\s]+)/', '-', $str);
+    //     return $str;
 
-    }
+    // }
 
     /**
      * Deletes an existing Product model.
@@ -344,9 +383,14 @@ class ProductController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
+    {        
+        $seo = new SeoUrl();
+        $model = $this->findModel($id);
+        $idSeo = $seo->getSeoID($model->slug);
+        if($idSeo){
+            $this->findModelSeo($idSeo)->delete();
+        }
+            $model->delete();
         return $this->redirect(['index']);
     }
 
@@ -357,6 +401,15 @@ class ProductController extends Controller
      * @return Product the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
+    protected function findModelSeo($id)
+    {
+        if (($model = SeoUrl::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
     protected function findModel($id)
     {
         if (($model = Product::findOne($id)) !== null) {

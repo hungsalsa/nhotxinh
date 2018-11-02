@@ -6,10 +6,13 @@ use Yii;
 use backend\modules\setting\models\SettingCategory;
 use backend\modules\quantri\models\Productcategory;
 use backend\modules\setting\models\SettingCategorySearch;
+use backend\modules\quantri\models\SeoUrl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\base\Exception;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 /**
  * SettingcategoryController implements the CRUD actions for SettingCategory model.
  */
@@ -73,7 +76,12 @@ class SettingcategoryController extends Controller
     {
         $model = new SettingCategory();
 
+        $seo = new SeoUrl();
+
         $dataSetCate = $model->getParentSetCategory();
+        if(empty($dataSetCate)){
+            $dataSetCate = array();
+        }
 
         $catProduct = new Productcategory();
         $dataLinkCat = $catProduct->getCategoryParent();
@@ -81,24 +89,37 @@ class SettingcategoryController extends Controller
             $dataLinkCat = array();
         }
 
+        // echo '<pre>';print_r($dataLinkCat);die;
+
+        $model->status = true;
         $model->created_at = time();
         $model->updated_at = time();
         $model->user_add = Yii::$app->user->id;
 
-        
-        if ($model->load($post = Yii::$app->request->post()) ) {
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
+
+        if ($model->load($post = Yii::$app->request->post())) {
             
-            if ($post['SettingCategory']['parent_id']!='') {
+            if ($post['SettingCategory']['parent_id']=='') {
                 $model->parent_id = 0;
             }
 
+            $query = 'product_cate='.$post['SettingCategory']['link_cate'];
+            $slug = $seo->getSlugSeo($query);
+            $model->slug = $slug;
+
             if($model->save()){
+                unset($query,$post,$query);
                 return $this->redirect(['index']);
             }
         }
 
         return $this->render('create', [
             'model' => $model,
+            'seo' => $seo,
             'dataSetCate' => $dataSetCate,
             'dataLinkCat' => $dataLinkCat,
         ]);
@@ -115,6 +136,10 @@ class SettingcategoryController extends Controller
     {
         $model = $this->findModel($id);
 
+
+        $seo = new SeoUrl();
+
+
         $dataSetCate = $model->getParentSetCategory();
 
         $catProduct = new Productcategory();
@@ -123,35 +148,38 @@ class SettingcategoryController extends Controller
         if(empty($dataLinkCat)){
             $dataLinkCat = array();
         }
-// print_r($catProduct->getSlugcate(5));die;
 
         $model->updated_at = time();
         $model->user_add = Yii::$app->user->id;
 
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
+
         
-        if ($model->load($post = Yii::$app->request->post()) ) {
-            // echo '<pre>';
-            // print_r($model);
-            // print_r($catProduct->getSlugcate($post['SettingCategory']['link_cate']));
-            // print_r($post);
-            // die;  
+        if ($model->load($post = Yii::$app->request->post())) {
 
             // Sét parent_id = 0 neews ko chọn
-            if ($post['SettingCategory']['parent_id']=='') {
+            if ($post['SettingCategory']['parent_id'] =='') {
                 $model->parent_id = 0;
             }
 
-            $model->slug_cate = $catProduct->getSlugcate($post['SettingCategory']['link_cate']);
-            // echo $post['SettingCategory']['link_cate'].'<br>';echo $catProduct->getSlugcate($post['SettingCategory']['link_cate']);
-            // echo $model->slug_cate;die;
+            $query = 'product_cate='.$post['SettingCategory']['link_cate'];
+            $slug = $seo->getSlugSeo($query);
+            $model->slug = $slug;
 
+// echo '<pre>';print_r($post);
+// die;
             if($model->save()){
+                unset($query,$post,$query);
                 return $this->redirect(['index']);
             }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'seo' => $seo,
             'dataSetCate' => $dataSetCate,
             'dataLinkCat' => $dataLinkCat,
         ]);
@@ -181,6 +209,15 @@ class SettingcategoryController extends Controller
     protected function findModel($id)
     {
         if (($model = SettingCategory::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function findModelSeo($id)
+    {
+        if (($model = SeoUrl::findOne($id)) !== null) {
             return $model;
         }
 

@@ -109,4 +109,17 @@ class Productcategory extends \yii\db\ActiveRecord
         return $data['slug'];
         unset($data);
     }
+
+    // Trả về tất cả con của nó
+    public function getAllID($idCate)
+    {
+        $data = Productcategory::find()->select(['idCate'])->asArray()->where('active =:status AND product_parent_id =:idCate',['status'=>1,'idCate'=>$idCate])->all();
+        $idList = array();
+        $idList[] = $idCate;
+        foreach ($data as $value) {
+            $idList[] = $value['idCate'];
+        }
+        unset($data);
+        return $idList;
+    }
 }

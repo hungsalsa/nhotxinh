@@ -20,6 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create New Product', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Reset', ['index'], ['class' => 'btn btn-success']) ?>
+
+        <span class="pull-right">Tổng số : <?=$dataProvider->getTotalCount(); ?> sản phẩm</span>
     </p>
 
     <?= GridView::widget([
@@ -31,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            // 'id',
+            'id',
             // 'pro_name',
             [
                'attribute' => 'pro_name',
@@ -56,7 +58,11 @@ $this->params['breadcrumbs'][] = $this->title;
             //'salse',
             //'hot',
             //'best_seller',
-            // 'manufacturer_id',
+            [
+                'attribute'=>'manufacturer_id',
+                'value' => 'manufactures.ManName'
+            ],
+            
             //'guarantee',
             //'models_id',
             //'views',
@@ -65,8 +71,8 @@ $this->params['breadcrumbs'][] = $this->title;
             //'images_list',
             //'tags',
             [
-                'attribute' => 'cateName',
-                'label' => 'Danh mục SP'
+                'attribute' => 'product_category_id',
+                'value' => 'productCategory.cateName'
             ],
             // 'related_articles',
             // 'related_products',
@@ -93,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Trạng thái',
                 'filter'=>[1=>' Kích hoạt',0=>'Ẩn'],
             ],
-             [
+            [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'DS ảnh',
                 'headerOptions' => ['class' => 'col-md-1 text-center'],

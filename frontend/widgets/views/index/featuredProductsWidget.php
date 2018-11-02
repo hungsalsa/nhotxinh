@@ -32,7 +32,7 @@
                                     <button class="btn btn-primary icon" data-toggle="dropdown" type="button">
                                         <i class="fa fa-shopping-cart"></i>                                                 
                                     </button>
-                                    <button class="btn btn-primary" type="button">Add to cart</button>
+                                    <button class="btn btn-primary" type="button" onclick="addCart(<?= $value['id'] ?>)">Add to cart</button>
                                 </li>
                                 <li class="lnk wishlist">
                                     <a class="add-to-cart" href="detail.html" title="Wishlist">

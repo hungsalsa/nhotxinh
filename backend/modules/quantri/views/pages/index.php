@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Thêm mới trang', ['create'], ['class' => 'btn btn-success']) ?>
+        <span class="pull-right">Tổng số : <?=$dataProvider->getTotalCount(); ?> trang</span>
     </p>
 
     <?= GridView::widget([

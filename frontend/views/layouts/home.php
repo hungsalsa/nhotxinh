@@ -13,6 +13,7 @@ use common\widgets\Alert;
 use frontend\widgets\navBarWidget;
 use frontend\widgets\mainHeaderWidget;
 use frontend\widgets\footerWidget;
+use frontend\widgets\modalCartWidget;
 
 // use app\widgets\footerWidget;
 
@@ -64,7 +65,9 @@ AppAsset::register($this);
     <!-- ============================================================= FOOTER ============================================================= -->
     <?= footerWidget::widget() ?>
     <!-- ============================================================= FOOTER : END============================================================= -->
-
+    <!-- ===========    MODAL CART   ================= -->
+    <?= modalCartWidget::widget() ?>
+    <!-- ===========    MODAL CART   ================= -->
 <?php $this->endBody() ?>
 </body>
 </html>

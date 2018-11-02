@@ -77,6 +77,7 @@ class AnhspController extends Controller
         $listPro = $product->getAllPro();
         $proInfo = $product->getProinfo($id);
         
+        $model->status = true;
         $model->pro_id = $proInfo['id'];
         if ($model->load($post = Yii::$app->request->post()) ) {
 

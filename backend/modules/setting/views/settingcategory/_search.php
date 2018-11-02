@@ -27,6 +27,12 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'link_cate') ?>
 
     <?= $form->field($model, 'order') ?>
+    
+    <?= $form->field($model, 'slug') ?>
+
+    <?php // echo $form->field($model, 'title') ?>
+
+    <?php // echo $form->field($model, 'description') ?>
 
     <?php // echo $form->field($model, 'icon') ?>
 

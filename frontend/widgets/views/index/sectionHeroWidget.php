@@ -5,7 +5,6 @@
         <?php if (!empty($dataBanner)): ?>
             <?php foreach ($dataBanner as $value): ?>
                 
-            
         <div class="item" style="background-image: url(<?= $value['image'] ?>);">
             <div class="container-fluid">
                 <div class="caption vertical-center text-left">
@@ -14,13 +13,10 @@
                     </div>
 
                     <div class="excerpt m-t-20 fadeInDown-2 hidden-xs">
-
-                        <span>
-                            <?php// $value['content'] ?>
-                        </span>
+                            <?php $value['content'] ?>
                     </div>
                     <div class="button-holder fadeInDown-3">
-                        <a href="<?= $value['url'] ?>" class="btn btn-black btn-uppercase shop-now-button">Shop Now</a>
+                        <a href="<?= $value['url'] ?>.html" class="btn btn-black btn-uppercase shop-now-button">Shop Now</a>
                     </div>
                 </div><!-- /.caption -->
             </div><!-- /.container-fluid -->

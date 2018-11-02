@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create Imgprolist', ['createpro', 'id'=>$proInfo['id']], ['class' => 'btn btn-success']) ?>
+        <span class="pull-right">Tổng số : <?=$dataProvider->getTotalCount(); ?> ảnh</span>
     </p>
 
     <?= GridView::widget([

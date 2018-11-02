@@ -8,7 +8,8 @@ use backend\modules\quantri\models\SeoUrlSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 /**
  * SeourlController implements the CRUD actions for SeoUrl model.
  */
@@ -66,6 +67,11 @@ class SeourlController extends Controller
     {
         $model = new SeoUrl();
 
+        // if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+        //     Yii::$app->response->format = 'json';
+        //     return ActiveForm::validate($model);
+        // }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->seo_url_id]);
         }
@@ -85,8 +91,8 @@ class SeourlController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        echo '<pre>';
-        print_r($model);die;
+        // echo '<pre>';
+        // print_r($model);die;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->seo_url_id]);
         }

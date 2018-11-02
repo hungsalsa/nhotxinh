@@ -18,9 +18,9 @@
     			</a>
     		</li>
     		<li>
-    			<a href="user.html">
+    			<a href="<?= Yii::$app->homeUrl ?>quantri/userlogin">
     				<i class="pe-7s-user"></i>
-    				<p>User Profile</p>
+    				<p>Quản lý User Admin</p>
     			</a>
     		</li>
             <li class="list-group">
@@ -90,14 +90,9 @@
                     
                     <a href="<?= Yii::$app->homeUrl ?>setting/menus" class="list-group-item menudropdown" data-parent="#setting">Menus</a>
                     <a href="<?= Yii::$app->homeUrl ?>setting/banner" class="list-group-item menudropdown" data-parent="#setting">Banner</a>
-                    <a href="<?= Yii::$app->homeUrl ?>setting/settingcategory" class="list-group-item menudropdown" data-parent="#setting">Category</a>
-                     <a href="#menu2sub3" class="list-group-item menudropdown" data-toggle="collapse" aria-expanded="false">Phân quyền </a>
-                    <div class="collapse" id="menu2sub3">
-                        <a href="<?= Yii::$app->homeUrl ?>" class="list-group-item menudropdown" data-parent="#menu2sub3">Các quyền</a>
-                        <a href="<?= Yii::$app->homeUrl ?>" class="list-group-item menudropdown" data-parent="#menu2sub3">Gán quyền</a>
-                        <a href="<?= Yii::$app->homeUrl ?>quantri/news" class="list-group-item menudropdown" data-parent="#menu2sub3">Tin tức</a>
-                        <a href="#menu2sub2sub1" class="list-group-item menudropdown" data-toggle="collapse" aria-expanded="false">Subitem 3 c </a>
-                    </div>
+                    <a href="<?= Yii::$app->homeUrl ?>setting/settingcategory" class="list-group-item menudropdown" data-parent="#setting">sidebar Category</a>
+                    <a href="<?= Yii::$app->homeUrl ?>setting/settingcategories" class="list-group-item menudropdown" data-parent="#setting">sidebar Categories</a>
+                    <a href="<?= Yii::$app->homeUrl ?>setting/settingbrands" class="list-group-item menudropdown" data-parent="#setting">Nhãn hiệu</a>
                 </div>
             </li>
             <li>
@@ -107,36 +102,36 @@
     			</a>
     		</li>
 
-    		<li>
-    			<a href="typography.html">
-    				<i class="pe-7s-news-paper"></i>
-    				<p>Typography</p>
-    			</a>
-    		</li>
-    		<li>
-    			<a href="<?= Yii::$app->homeUrl ?>setting/menus">
-    				<i class="pe-7s-science"></i>
-    				<p>Icons</p>
-    			</a>
-    		</li>
-    		<li>
-    			<a href="maps.html">
-    				<i class="pe-7s-map-marker"></i>
-    				<p>Maps</p>
-    			</a>
-    		</li>
-    		<li>
-    			<a href="notifications.html">
-    				<i class="pe-7s-bell"></i>
-    				<p>Notifications</p>
-    			</a>
-    		</li>
-    		<li class="active-pro">
-    			<a href="upgrade.html">
-    				<i class="pe-7s-rocket"></i>
-    				<p>Upgrade to PRO</p>
-    			</a>
-    		</li>
+    		<!-- <li>
+                <a href="typography.html">
+                    <i class="pe-7s-news-paper"></i>
+                    <p>Typography</p>
+                </a>
+            </li>
+            <li>
+                <a href="<?= Yii::$app->homeUrl ?>setting/menus">
+                    <i class="pe-7s-science"></i>
+                    <p>Icons</p>
+                </a>
+            </li>
+            <li>
+                <a href="maps.html">
+                    <i class="pe-7s-map-marker"></i>
+                    <p>Maps</p>
+                </a>
+            </li>
+            <li>
+                <a href="notifications.html">
+                    <i class="pe-7s-bell"></i>
+                    <p>Notifications</p>
+                </a>
+            </li>
+            <li class="active-pro">
+                <a href="upgrade.html">
+                    <i class="pe-7s-rocket"></i>
+                    <p>Upgrade to PRO</p>
+                </a>
+            </li> -->
     	</ul>
     </div>
 </div>

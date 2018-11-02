@@ -6,6 +6,7 @@ use Yii;
 use backend\modules\quantri\models\News;
 use backend\modules\quantri\models\Categories;
 use backend\modules\quantri\models\Product;
+use backend\modules\quantri\models\SeoUrl;
 use backend\modules\quantri\models\NewsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -123,6 +124,14 @@ class NewsController extends Controller
     {
         $model = $this->findModel($id);
 
+        $seo = new SeoUrl();
+        $idSeo = $seo->getSeoID($model->link);
+        if ($idSeo) {
+            $seo = $this->findModelSeo($idSeo);
+        } else {
+            $seo->slug = '';
+        }
+
         $categories = new Categories();
         $datacat = $categories->getCategoryParent();
         if (empty($datacat)) {
@@ -144,7 +153,11 @@ class NewsController extends Controller
         $model->updated_at=time();
         $model->user_add = Yii::$app->user->id;
 
-        if ($model->load($post = Yii::$app->request->post()) ) {
+        if ($model->load($post = Yii::$app->request->post()) && $seo->load(Yii::$app->request->post())) {
+
+            $model->link = $post['SeoUrl']['slug'];
+            $seo->slug = $post['SeoUrl']['slug'];
+
             if ($post['News']['images']!='') {
                 $model->images = str_replace(Yii::$app->request->hostInfo.'/','',$post['News']['images']);
             }
@@ -156,13 +169,19 @@ class NewsController extends Controller
                 $model->related_news = json_encode($post['News']['related_news']);
             }
 
-            if($model->save()){
+            $isValid = $model->validate();
+            $isValid = $seo->validate() && $isValid;
+            if ($isValid) {
+                $model->save(false);
+                $seo->query = 'new_id='.$model->id;
+                $seo->save(false);
                 return $this->redirect(['index']);
             }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'seo' => $seo,
             'datacat' => $datacat,
             'dataProduct' => $dataProduct,
             'dataNews' => $dataNews,
@@ -178,7 +197,14 @@ class NewsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $seo = new SeoUrl();
+        $model = $this->findModel($id);
+        $idSeo = $seo->getSeoID($model->link);
+        if($idSeo){
+            $this->findModelSeo($idSeo)->delete();
+        }
+        $model->delete();
+
 
         return $this->redirect(['index']);
     }
@@ -193,6 +219,14 @@ class NewsController extends Controller
     protected function findModel($id)
     {
         if (($model = News::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    protected function findModelSeo($id)
+    {
+        if (($model = SeoUrl::findOne($id)) !== null) {
             return $model;
         }
 

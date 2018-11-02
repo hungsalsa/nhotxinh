@@ -47,26 +47,42 @@ return [
             'baseUrl'=>$baseUrl,
             'showScriptName' => false,
             'enablePrettyUrl' => true,
-            // 'enableStrictParsing' => true,
+            // 'suffix' => '/',
+            // 'enableStrictParsing' => false,
             'rules' => [
+                // '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                'gio-hang/addcart/<id:\d+>/<num:\d+>' => 'gio-hang/addcart',
+                'gio-hang/delcart/<id:\d+>' => 'gio-hang/delcart',
+                'gio-hang/updatecart/<id:\d+>/<num:\d+>' => 'gio-hang/updatecart',
+                // '<controller:\w+>/<action:\w+>/<slug:\w+>' => '<controller>/<action>',
+                // '<controller:\w+>/<action:\w+>/<id:\d+>/<soluong:\d+>' => '<controller>/<action>/',
                 // 'product/<id:\d+>/<slug>' => 'product/view',
-                '<slug>' => 'product/view',
-                'danh-sach/<slug>' => 'product/danhsach',
-                'tin-tuc/<slug>' => 'tin-tuc/view',
-                // 'danh-muc'=>'product/listpro',
+                'tin-tuc/<slug>.html' => 'tin-tuc/view',
+                'tin-tuc/<slug>' => 'tin-tuc/list',
+                '<slug>.html' => 'product/view',
+                'san-pham/<slug>' => 'product/danhsach',
+                // 'san-pham/<slug>/trang-<page:\d+>' => 'product/danhsach',
+
+
+
+
+                // 'chi-tiet/<slug>' => 'tin-tuc/view',
+                // 'san-pham/<slug>'=>'product/listpro/<id:\d+>',
                 // 'tin-tuc/<slug>' => 'categories/danhsach',
                 // '<slug>'=>'<id:\d+>/<slug>',
                 // ':slug.html'=>'product/view'
                 // '<controller:\w+>/<slug:\d+>' => '<controller>/view',
                 // 'product/<slug:\w+>' => 'product/view',
               //   // '<controller:\w+>/<slug:\w+>' => '<controller>/view',
+            
+              // '<action:\w+>/<slug:\d+>' => '<controller>/<action>',
               '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-              // '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+              '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 
                 // 'product'=>'product/index',
                 // 'danh'=>'product/listpro',
                 // '<slug:[a-zA-Z0-9]+>-<id:\d+>'=>'product/view',
-                // '<slug>/<id:\d+>' => 'product/view',
+                // '<slug>' => 'product/view',
                 // 'product/view/<id:\d+>' => 'product/view', 
                 // 'product/<slug>' => 'product/slug',
                 // '<:slug>-<id:\d+>' => 'product/view',
@@ -76,4 +92,13 @@ return [
         
     ],
     'params' => $params,
+
+    // 'container' => [
+    //     'definitions' => [
+    //         'yii\widgets\LinkPager' => [
+    //             'firstPageLabel' => 'First',
+    //             'lastPageLabel'  => 'Last'
+    //         ]
+    //     ]
+    // ],
 ];

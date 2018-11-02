@@ -27,7 +27,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'name',
+            // 'name',
+            [
+               'attribute' => 'name',
+               'format' => 'raw',
+               'value'=>function ($data) {
+                return Html::a(Html::encode($data->name),Yii::$app->homeUrl.'setting/menus/update?id='.$data->id);
+                },
+            ],
+             'title',
+            'slug',
             'type',
             'link_cate',
             'parent_id',

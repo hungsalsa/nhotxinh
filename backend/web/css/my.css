@@ -16,3 +16,6 @@ div.activeform{
     color: #ff0000;
 }
 .sidebar-wrapper ul.nav>li.list-group>div.collapse>div.collapse{margin-left: 10px;width: 95%;}
+ul.tab_header {
+    font-size: 20px;
+}

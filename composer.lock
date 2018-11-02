@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "66834376cfac47bfb1ae255134c298f8",
+    "content-hash": "fc67e10ec8cc32f5128159b8953a45ae",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -1311,6 +1311,51 @@
             "time": "2018-09-07T08:11:16+00:00"
         },
         {
+            "name": "loveorigami/yii2-reversed-pagination",
+            "version": "2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/loveorigami/yii2-reversed-pagination.git",
+                "reference": "ff9742b759da5ef7a6bd6ae3cc7b2cd9a5b09fe8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/loveorigami/yii2-reversed-pagination/zipball/ff9742b759da5ef7a6bd6ae3cc7b2cd9a5b09fe8",
+                "reference": "ff9742b759da5ef7a6bd6ae3cc7b2cd9a5b09fe8",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "loveorigami\\pagination\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrey Lukyanov",
+                    "email": "loveorigami@mail.ru",
+                    "homepage": "http://loveorigami.info",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Yii2 reversed pagination",
+            "homepage": "https://github.com/loveorigami/yii2-reversed-pagination",
+            "keywords": [
+                "Behavior",
+                "slug",
+                "yii",
+                "yii2"
+            ],
+            "time": "2014-11-16T00:00:00+00:00"
+        },
+        {
             "name": "rmrevin/yii2-fontawesome",
             "version": "2.17.1",
             "source": {
@@ -1361,6 +1406,53 @@
                 "yii"
             ],
             "time": "2017-01-11T14:05:47+00:00"
+        },
+        {
+            "name": "sjaakp/yii2-alphapager",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sjaakp/yii2-alphapager.git",
+                "reference": "e1545d7fb21f55de92d09c8f2be6942b4064aae1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sjaakp/yii2-alphapager/zipball/e1545d7fb21f55de92d09c8f2be6942b4064aae1",
+                "reference": "e1545d7fb21f55de92d09c8f2be6942b4064aae1",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "sjaakp\\alphapager\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sjaak Priester",
+                    "email": "sjaak@sjaakpriester.nl",
+                    "homepage": "http://sjaakpriester.nl"
+                }
+            ],
+            "description": "Page data on initial character in Yii2.",
+            "keywords": [
+                "ListView",
+                "extension",
+                "gridview",
+                "pagination",
+                "paging",
+                "widget",
+                "yii",
+                "yii2"
+            ],
+            "time": "2015-06-23T09:40:35+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

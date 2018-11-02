@@ -12,15 +12,15 @@ use backend\modules\quantri\models\Product;
  */
 class ProductSearch extends Product
 {
-    public $cateName;
+    // public $cateName;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'price', 'price_sales', 'order', 'manufacturer_id', 'guarantee', 'views', 'product_category_id', 'created_at', 'updated_at', 'user_id'], 'integer'],
-            [['pro_name', 'title', 'slug', 'keyword', 'description', 'short_introduction', 'content', 'start_sale', 'end_sale', 'active', 'product_type_id', 'salse', 'hot', 'best_seller', 'models_id', 'code', 'image', 'images_list', 'tags', 'related_articles', 'related_products','cateName'], 'safe'],
+            [['id', 'price', 'price_sales', 'order', 'guarantee', 'views', 'created_at', 'updated_at', 'user_id'], 'integer'],
+            [['pro_name', 'title', 'slug', 'keyword', 'description', 'short_introduction', 'content', 'start_sale', 'end_sale', 'active', 'product_type_id', 'salse', 'hot', 'best_seller', 'models_id', 'code', 'image', 'images_list', 'tags', 'related_articles', 'related_products', 'product_category_id', 'manufacturer_id',], 'safe'],
         ];
     }
 
@@ -47,16 +47,16 @@ class ProductSearch extends Product
 
         
         // add conditions that should always apply here
-        $query->joinWith("categories");
+        
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        $dataProvider->sort->attributes['cateName'] = [
-            'asc' =>['cateName' => SORT_ASC],
-            'desc' => ['cateName' => SORT_DESC]
-        ];
+        // $dataProvider->sort->attributes['cateName'] = [
+        //     'asc' =>['cateName' => SORT_ASC],
+        //     'desc' => ['cateName' => SORT_DESC]
+        // ];
 
         $this->load($params);
 
@@ -66,6 +66,9 @@ class ProductSearch extends Product
             return $dataProvider;
         }
 
+        $query->joinWith("productCategory cate");
+        $query->joinWith("manufactures manufactures");
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
@@ -74,10 +77,9 @@ class ProductSearch extends Product
             'start_sale' => $this->start_sale,
             'end_sale' => $this->end_sale,
             'order' => $this->order,
-            'manufacturer_id' => $this->manufacturer_id,
+            // 'manufacturer_id' => $this->manufacturer_id,
             'guarantee' => $this->guarantee,
             'views' => $this->views,
-            'product_category_id' => $this->product_category_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'user_id' => $this->user_id,
@@ -99,10 +101,11 @@ class ProductSearch extends Product
             ->andFilterWhere(['like', 'code', $this->code])
             ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'images_list', $this->images_list])
-            ->andFilterWhere(['like', 'cateName', $this->cateName])
             ->andFilterWhere(['like', 'tags', $this->tags])
             ->andFilterWhere(['like', 'related_articles', $this->related_articles])
-            ->andFilterWhere(['like', 'related_products', $this->related_products]);
+            ->andFilterWhere(['like', 'related_products', $this->related_products])
+            ->andFilterWhere(['like', 'cate.cateName', $this->product_category_id])
+            ->andFilterWhere(['like', 'manufactures.ManName', $this->manufacturer_id]);
 
         return $dataProvider;
     }

@@ -1,57 +1,19 @@
 <div id="brands-carousel" class="logo-slider wow fadeInUp">
-    <h3 class="section-title">Our Brands</h3>
+    <h3 class="section-title">Các nhãn hiệu</h3>
     <div class="logo-slider-inner"> 
         <div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
-            <div class="item m-t-15">
-                <a href="#" class="image">
-                    <img data-echo="<?= Yii::$app->homeUrl ?>vender/images/brands/brand1.png" src="<?= Yii::$app->homeUrl ?>vender/images/blank.gif" alt="">
-                </a>    
-            </div><!--/.item-->
-            <div class="item m-t-10">
-                <a href="#" class="image">
-                    <img data-echo="<?= Yii::$app->homeUrl ?>vender/images/brands/brand2.png" src="<?= Yii::$app->homeUrl ?>vender/images/blank.gif" alt="">
-                </a>    
-            </div><!--/.item-->
-            <div class="item">
-                <a href="#" class="image">
-                    <img data-echo="<?= Yii::$app->homeUrl ?>vender/images/brands/brand3.png" src="<?= Yii::$app->homeUrl ?>vender/images/blank.gif" alt="">
-                </a>    
-            </div><!--/.item-->
-            <div class="item">
-                <a href="#" class="image">
-                    <img data-echo="<?= Yii::$app->homeUrl ?>vender/images/brands/brand4.png" src="<?= Yii::$app->homeUrl ?>vender/images/blank.gif" alt="">
-                </a>    
-            </div><!--/.item-->
-            <div class="item">
-                <a href="#" class="image">
-                    <img data-echo="<?= Yii::$app->homeUrl ?>vender/images/brands/brand5.png" src="<?= Yii::$app->homeUrl ?>vender/images/blank.gif" alt="">
-                </a>    
-            </div><!--/.item-->
-            <div class="item">
-                <a href="#" class="image">
-                    <img data-echo="<?= Yii::$app->homeUrl ?>vender/images/brands/brand6.png" src="<?= Yii::$app->homeUrl ?>vender/images/blank.gif" alt="">
-                </a>    
-            </div><!--/.item-->
-            <div class="item">
-                <a href="#" class="image">
-                    <img data-echo="<?= Yii::$app->homeUrl ?>vender/images/brands/brand2.png" src="<?= Yii::$app->homeUrl ?>vender/images/blank.gif" alt="">
-                </a>    
-            </div><!--/.item-->
-            <div class="item">
-                <a href="#" class="image">
-                    <img data-echo="<?= Yii::$app->homeUrl ?>vender/images/brands/brand4.png" src="<?= Yii::$app->homeUrl ?>vender/images/blank.gif" alt="">
-                </a>    
-            </div><!--/.item-->
-            <div class="item">
-                <a href="#" class="image">
-                    <img data-echo="<?= Yii::$app->homeUrl ?>vender/images/brands/brand1.png" src="<?= Yii::$app->homeUrl ?>vender/images/blank.gif" alt="">
-                </a>    
-            </div><!--/.item-->
-            <div class="item">
-                <a href="#" class="image">
-                    <img data-echo="<?= Yii::$app->homeUrl ?>vender/images/brands/brand5.png" src="<?= Yii::$app->homeUrl ?>vender/images/blank.gif" alt="">
-                </a>    
-            </div><!--/.item-->
+            
+            <?php if (!empty($dataBrands)): ?>
+                <?php foreach ($dataBrands as $dataBrand): ?>
+
+
+                    <div class="item m-t-10">
+                        <a href="#" class="image">
+                            <img data-echo="<?= Yii::$app->homeUrl.$dataBrand['image'] ?>" src="<?= Yii::$app->homeUrl ?>vender/images/blank.gif" alt="">
+                        </a>    
+                    </div><!--/.item-->
+                <?php endforeach ?>
+            <?php endif ?>
         </div><!-- /.owl-carousel #logo-slider -->
     </div><!-- /.logo-slider-inner -->
 </div><!-- /.logo-slider -->

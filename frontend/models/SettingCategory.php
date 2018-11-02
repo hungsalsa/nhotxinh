@@ -60,24 +60,9 @@ class SettingCategory extends \yii\db\ActiveRecord
         ];
     }
 
-    public $data;
-    public function getCategoryParent($parent = 0,$level = '')
-    {
-        $result = SettingCategory::find()->asArray()->where('status =:Active AND parent_id =:parent',['Active' =>1, 'parent'=>$parent])->all();
-        $level .='--| ';
-        foreach ($result as $key=>$value) {
-            if($parent == 0){
-                $level='';
-            }
-            $this->data[$value['id']] = $level.$value['name'];
-            self::getCategoryParent($value['id'],$level);
-        }
-
-        return $this->data;
-    }
-
+    
     public function getAllCat($parent = 0,$status = 1)
     {
-        return SettingCategory::find()->select(['id','name', 'parent_id','link_cate','slug_cate','order','icon'])->asArray()->where('status =:Active AND parent_id =:parent',['Active' =>1,'parent'=>$parent])->orderBy(['order'=>SORT_ASC])->all();
+        return SettingCategory::find()->select(['id','name', 'parent_id','link_cate','slug','order','icon'])->asArray()->where('status =:Active AND parent_id =:parent',['Active' =>1,'parent'=>$parent])->orderBy(['order'=>SORT_ASC])->all();
     }
 }

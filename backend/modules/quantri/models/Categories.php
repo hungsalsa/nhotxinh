@@ -38,11 +38,12 @@ class Categories extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cateName', 'groupId', 'status', 'created_at', 'updated_at', 'userAdd'], 'required','message'=>'{attribute} không được để trống'],
+            [['cateName', 'groupId', 'status', 'created_at', 'updated_at', 'userAdd','descriptions','title'], 'required','message'=>'{attribute} không được để trống'],
             [['groupId', 'parent_id', 'sort', 'created_at', 'updated_at', 'userAdd'], 'integer','message'=>'{attribute} không phải là số'],
             [['descriptions'], 'string'],
             [['cateName', 'link', 'images', 'title', 'keyword'], 'string', 'max' => 255,'message'=>'{attribute} dài nhất 255 ký tự'],
             [['status'], 'string', 'max' => 4],
+            [['cateName'], 'unique'],
         ];
     }
 

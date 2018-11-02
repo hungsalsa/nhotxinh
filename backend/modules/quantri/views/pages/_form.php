@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use kartik\checkbox\CheckboxX;
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model backend\modules\quantri\models\Pages */
 /* @var $form yii\widgets\ActiveForm */
@@ -11,13 +12,18 @@ use kartik\checkbox\CheckboxX;
 
 <div class="pages-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(
+        [
+            'enableAjaxValidation' => true,
+            'validationUrl'=>Url::toRoute('pages/validation'),
+        ]
+    ); ?>
 
     <?= $form->field($model, 'name',['options'=>['class'=>'col-md-4']])->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'title',['options'=>['class'=>'col-md-4']])->textInput(['maxlength' => true,'id'=>'title_slug']) ?>
 
-    <?= $form->field($model, 'slug',['options'=>['class'=>'col-md-3']])->textInput(['maxlength' => true,'id'=>'slug_url']) ?>
+    <?= $form->field($seo, 'slug',['options'=>['class'=>'col-md-3']])->textInput(['maxlength' => true,'id'=>'slug_url']) ?>
 
 
     <?= $form->field($model, 'status',['options' => ['class' => 'activeform col-md-1']])->widget(CheckboxX::classname(),

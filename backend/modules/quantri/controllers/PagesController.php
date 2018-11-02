@@ -6,11 +6,12 @@ use Yii;
 use backend\modules\quantri\models\Pages;
 use backend\modules\quantri\models\Product;
 use backend\modules\quantri\models\News;
+use backend\modules\quantri\models\SeoUrl;
 use backend\modules\quantri\models\PagesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\widgets\ActiveForm;
 /**
  * PagesController implements the CRUD actions for Pages model.
  */
@@ -68,6 +69,7 @@ class PagesController extends Controller
     public function actionCreate()
     {
         $model = new Pages();
+        $seo = new SeoUrl();
 
         $product = new Product();
         $dataProduct = $product->getAllPro();
@@ -75,6 +77,7 @@ class PagesController extends Controller
         $news = new News();
         $dataNews = $news->getAllNews();
 
+        $model->status = true;
         $model->created_at = time();
         $model->updated_at = time();
         $model->user_id = Yii::$app->user->id;
@@ -87,7 +90,14 @@ class PagesController extends Controller
                 $model->tag_news = json_encode($post['Pages']['tag_news']);
             }
 
+            $model->slug = $post['SeoUrl']['slug'];
+
+            // echo '<pre>';print_r($post);
+            // die;
+
             if($model->save()){
+                $seo->query = 'pages_id='.$model->id;
+                $seo->save();
                 return $this->redirect(['index']);
             }
         }
@@ -96,6 +106,7 @@ class PagesController extends Controller
             'model' => $model,
             'dataProduct' => $dataProduct,
             'dataNews' => $dataNews,
+            'seo' => $seo,
         ]);
     }
 
@@ -109,6 +120,13 @@ class PagesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $seo = new SeoUrl();
+        $idSeo = $seo->getSeoID($model->slug);
+        if ($idSeo) {
+            $seo = $this->findModelSeo($idSeo);
+        } else {
+            $seo->slug = '';
+        }
 
         $product = new Product();
         $dataProduct = $product->getAllPro();
@@ -144,6 +162,7 @@ class PagesController extends Controller
             'model' => $model,
             'dataProduct' => $dataProduct,
             'dataNews' => $dataNews,
+            'seo' => $seo,
         ]);
     }
 
@@ -171,6 +190,23 @@ class PagesController extends Controller
     protected function findModel($id)
     {
         if (($model = Pages::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionValidation() {
+        $model = new SeoUrl();
+       if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
+    }
+
+    protected function findModelSeo($id)
+    {
+        if (($model = SeoUrl::findOne($id)) !== null) {
             return $model;
         }
 

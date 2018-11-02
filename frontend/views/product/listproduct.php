@@ -1,589 +1,454 @@
 <?php 
 use yii\helpers\Url;
+use frontend\widgets\categoriesWidget;
+use yii\widgets\LinkPager;
 $this->title = 'ádada';
  ?>
 <div class='col-md-3 sidebar'>
    <!-- ================================== TOP NAVIGATION ================================== -->
-   <div class="side-menu animate-dropdown outer-bottom-xs">
-      <div class="head"><i class="icon fa fa-align-justify fa-fw"></i> Categories</div>
-      <nav class="yamm megamenu-horizontal" role="navigation">
-         <ul class="nav">
-            <li class="dropdown menu-item">
-               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-desktop fa-fw"></i>Computer</a>
-               <ul class="dropdown-menu mega-menu">
-                  <li class="yamm-content">
-                     <div class="row">
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Lenovo</a></li>
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Fuhlen</a></li>
-                              <li><a href="category.html">Longsleeves</a></li>
-                           </ul>
+   <!-- <div class="side-menu animate-dropdown outer-bottom-xs">
+         <div class="head"><i class="icon fa fa-align-justify fa-fw"></i> Categories</div>
+         <nav class="yamm megamenu-horizontal" role="navigation">
+            <ul class="nav">
+               <li class="dropdown menu-item">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-desktop fa-fw"></i>Computer</a>
+                  <ul class="dropdown-menu mega-menu">
+                     <li class="yamm-content">
+                        <div class="row">
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Lenovo</a></li>
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Fuhlen</a></li>
+                                 <li><a href="category.html">Longsleeves</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Apple</a></li>
+                                 <li><a href="category.html">Tees & Tanks</a></li>
+                                 <li><a href="category.html">Graphic Tees</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Polos</a></li>
+                                 <li><a href="category.html">Sweaters</a></li>
+                                 <li><a href="category.html">Shirts</a></li>
+                                 <li><a href="category.html">Hoodies</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Apple</a></li>
+                                 <li><a href="category.html">Tees & Tanks</a></li>
+                                 <li><a href="category.html">Graphic Tees</a></li>
+                              </ul>
+                           </div>
+                           /.col
                         </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Apple</a></li>
-                              <li><a href="category.html">Tees & Tanks</a></li>
-                              <li><a href="category.html">Graphic Tees</a></li>
-                           </ul>
+                        /.row
+                     </li>
+                     /.yamm-content                    
+                  </ul>
+                  /.dropdown-menu            
+               </li>
+               /.menu-item
+               <li class="dropdown menu-item">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-mobile fa-fw"></i>Smart Phone</a>
+                  ================================== MEGAMENU VERTICAL ==================================
+                  <ul class="dropdown-menu mega-menu">
+                     <li class="yamm-content">
+                        <div class="row">
+                           <div class="col-xs-12 col-sm-12 col-lg-4">
+                              <ul>
+                                 <li><a href="#">Computer Cases &amp; Accessories</a></li>
+                                 <li><a href="#">CPUs, Processors</a></li>
+                                 <li><a href="#">Fans, Heatsinks &amp; Cooling</a></li>
+                                 <li><a href="#">Graphics, Video Cards</a></li>
+                                 <li><a href="#">Interface, Add-On Cards</a></li>
+                                 <li><a href="#">Laptop Replacement Parts</a></li>
+                                 <li><a href="#">Memory (RAM)</a></li>
+                                 <li><a href="#">Motherboards</a></li>
+                                 <li><a href="#">Motherboard &amp; CPU Combos</a></li>
+                                 <li><a href="#">Motherboard Components &amp; Accs</a></li>
+                              </ul>
+                           </div>
+                           <div class="col-xs-12 col-sm-12 col-lg-4">
+                              <ul>
+                                 <li><a href="#">Power Supplies Power</a></li>
+                                 <li><a href="#">Power Supply Testers Sound</a></li>
+                                 <li><a href="#">Sound Cards (Internal)</a></li>
+                                 <li><a href="#">Video Capture &amp; TV Tuner Cards</a></li>
+                                 <li><a href="#">Other</a></li>
+                              </ul>
+                           </div>
+                           <div class="dropdown-banner-holder">
+                              <a href="#"><img alt="" src="<?= Yii::$app->homeUrl?>vender/images/banners/banner-side.png" /></a>
+                           </div>
                         </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Polos</a></li>
-                              <li><a href="category.html">Sweaters</a></li>
-                              <li><a href="category.html">Shirts</a></li>
-                              <li><a href="category.html">Hoodies</a></li>
-                           </ul>
+                        /.row
+                     </li>
+                     /.yamm-content                    
+                  </ul>
+                  /.dropdown-menu
+                  ================================== MEGAMENU VERTICAL ==================================            
+               </li>
+               /.menu-item
+               <li class="dropdown menu-item">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-apple fa-fw"></i>Apple Store</a>
+                  <ul class="dropdown-menu mega-menu">
+                     <li class="yamm-content">
+                        <div class="row">
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Lenovo</a></li>
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Fuhlen</a></li>
+                                 <li><a href="category.html">Longsleeves</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Apple</a></li>
+                                 <li><a href="category.html">Tees & Tanks</a></li>
+                                 <li><a href="category.html">Graphic Tees</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Polos</a></li>
+                                 <li><a href="category.html">Sweaters</a></li>
+                                 <li><a href="category.html">Shirts</a></li>
+                                 <li><a href="category.html">Hoodies</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Apple</a></li>
+                                 <li><a href="category.html">Tees & Tanks</a></li>
+                                 <li><a href="category.html">Graphic Tees</a></li>
+                              </ul>
+                           </div>
+                           /.col
                         </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Apple</a></li>
-                              <li><a href="category.html">Tees & Tanks</a></li>
-                              <li><a href="category.html">Graphic Tees</a></li>
-                           </ul>
+                        /.row
+                     </li>
+                     /.yamm-content                    
+                  </ul>
+                  /.dropdown-menu            
+               </li>
+               /.menu-item
+               <li class="dropdown menu-item">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-camera fa-fw"></i>Camera</a>
+                  <ul class="dropdown-menu mega-menu">
+                     <li class="yamm-content">
+                        <div class="row">
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Lenovo</a></li>
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Fuhlen</a></li>
+                                 <li><a href="category.html">Longsleeves</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Apple</a></li>
+                                 <li><a href="category.html">Tees & Tanks</a></li>
+                                 <li><a href="category.html">Graphic Tees</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Polos</a></li>
+                                 <li><a href="category.html">Sweaters</a></li>
+                                 <li><a href="category.html">Shirts</a></li>
+                                 <li><a href="category.html">Hoodies</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Apple</a></li>
+                                 <li><a href="category.html">Tees & Tanks</a></li>
+                                 <li><a href="category.html">Graphic Tees</a></li>
+                              </ul>
+                           </div>
+                           /.col
                         </div>
-                        <!-- /.col -->
-                     </div>
-                     <!-- /.row -->
-                  </li>
-                  <!-- /.yamm-content -->                    
-               </ul>
-               <!-- /.dropdown-menu -->            
-            </li>
-            <!-- /.menu-item -->
-            <li class="dropdown menu-item">
-               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-mobile fa-fw"></i>Smart Phone</a>
-               <!-- ================================== MEGAMENU VERTICAL ================================== -->
-               <ul class="dropdown-menu mega-menu">
-                  <li class="yamm-content">
-                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-lg-4">
-                           <ul>
-                              <li><a href="#">Computer Cases &amp; Accessories</a></li>
-                              <li><a href="#">CPUs, Processors</a></li>
-                              <li><a href="#">Fans, Heatsinks &amp; Cooling</a></li>
-                              <li><a href="#">Graphics, Video Cards</a></li>
-                              <li><a href="#">Interface, Add-On Cards</a></li>
-                              <li><a href="#">Laptop Replacement Parts</a></li>
-                              <li><a href="#">Memory (RAM)</a></li>
-                              <li><a href="#">Motherboards</a></li>
-                              <li><a href="#">Motherboard &amp; CPU Combos</a></li>
-                              <li><a href="#">Motherboard Components &amp; Accs</a></li>
-                           </ul>
+                        /.row
+                     </li>
+                     /.yamm-content                    
+                  </ul>
+                  /.dropdown-menu            
+               </li>
+               /.menu-item
+               <li class="dropdown menu-item">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-headphones fa-fw"></i>TV & Audio</a>
+                  <ul class="dropdown-menu mega-menu">
+                     <li class="yamm-content">
+                        <div class="row">
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Lenovo</a></li>
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Fuhlen</a></li>
+                                 <li><a href="category.html">Longsleeves</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Apple</a></li>
+                                 <li><a href="category.html">Tees & Tanks</a></li>
+                                 <li><a href="category.html">Graphic Tees</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Polos</a></li>
+                                 <li><a href="category.html">Sweaters</a></li>
+                                 <li><a href="category.html">Shirts</a></li>
+                                 <li><a href="category.html">Hoodies</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Apple</a></li>
+                                 <li><a href="category.html">Tees & Tanks</a></li>
+                                 <li><a href="category.html">Graphic Tees</a></li>
+                              </ul>
+                           </div>
+                           /.col
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-lg-4">
-                           <ul>
-                              <li><a href="#">Power Supplies Power</a></li>
-                              <li><a href="#">Power Supply Testers Sound</a></li>
-                              <li><a href="#">Sound Cards (Internal)</a></li>
-                              <li><a href="#">Video Capture &amp; TV Tuner Cards</a></li>
-                              <li><a href="#">Other</a></li>
-                           </ul>
+                        /.row
+                     </li>
+                     /.yamm-content                    
+                  </ul>
+                  /.dropdown-menu            
+               </li>
+               /.menu-item
+               <li class="dropdown menu-item">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-gamepad fa-fw"></i>Game & Video</a>
+                  <ul class="dropdown-menu mega-menu">
+                     <li class="yamm-content">
+                        <div class="row">
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Lenovo</a></li>
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Fuhlen</a></li>
+                                 <li><a href="category.html">Longsleeves</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Apple</a></li>
+                                 <li><a href="category.html">Tees & Tanks</a></li>
+                                 <li><a href="category.html">Graphic Tees</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Polos</a></li>
+                                 <li><a href="category.html">Sweaters</a></li>
+                                 <li><a href="category.html">Shirts</a></li>
+                                 <li><a href="category.html">Hoodies</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Apple</a></li>
+                                 <li><a href="category.html">Tees & Tanks</a></li>
+                                 <li><a href="category.html">Graphic Tees</a></li>
+                              </ul>
+                           </div>
+                           /.col
                         </div>
-                        <div class="dropdown-banner-holder">
-                           <a href="#"><img alt="" src="<?= Yii::$app->homeUrl?>vender/images/banners/banner-side.png" /></a>
+                        /.row
+                     </li>
+                     /.yamm-content                    
+                  </ul>
+                  /.dropdown-menu            
+               </li>
+               /.menu-item
+               <li class="dropdown menu-item">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-location-arrow fa-fw"></i>Car Electronic</a>
+                  <ul class="dropdown-menu mega-menu">
+                     <li class="yamm-content">
+                        <div class="row">
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Lenovo</a></li>
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Fuhlen</a></li>
+                                 <li><a href="category.html">Longsleeves</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Apple</a></li>
+                                 <li><a href="category.html">Tees & Tanks</a></li>
+                                 <li><a href="category.html">Graphic Tees</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Polos</a></li>
+                                 <li><a href="category.html">Sweaters</a></li>
+                                 <li><a href="category.html">Shirts</a></li>
+                                 <li><a href="category.html">Hoodies</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Apple</a></li>
+                                 <li><a href="category.html">Tees & Tanks</a></li>
+                                 <li><a href="category.html">Graphic Tees</a></li>
+                              </ul>
+                           </div>
+                           /.col
                         </div>
-                     </div>
-                     <!-- /.row -->
-                  </li>
-                  <!-- /.yamm-content -->                    
-               </ul>
-               <!-- /.dropdown-menu -->
-               <!-- ================================== MEGAMENU VERTICAL ================================== -->            
-            </li>
-            <!-- /.menu-item -->
-            <li class="dropdown menu-item">
-               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-apple fa-fw"></i>Apple Store</a>
-               <ul class="dropdown-menu mega-menu">
-                  <li class="yamm-content">
-                     <div class="row">
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Lenovo</a></li>
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Fuhlen</a></li>
-                              <li><a href="category.html">Longsleeves</a></li>
-                           </ul>
+                        /.row
+                     </li>
+                     /.yamm-content                    
+                  </ul>
+                  /.dropdown-menu            
+               </li>
+               /.menu-item
+               <li class="dropdown menu-item">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-history fa-fw"></i>Old Products</a>
+                  ================================== MEGAMENU VERTICAL ==================================
+                  <ul class="dropdown-menu mega-menu">
+                     <li class="yamm-content">
+                        <div class="row">
+                           <div class="col-xs-12 col-sm-12 col-lg-4">
+                              <ul>
+                                 <li><a href="#">Computer Cases &amp; Accessories</a></li>
+                                 <li><a href="#">CPUs, Processors</a></li>
+                                 <li><a href="#">Fans, Heatsinks &amp; Cooling</a></li>
+                                 <li><a href="#">Graphics, Video Cards</a></li>
+                                 <li><a href="#">Interface, Add-On Cards</a></li>
+                                 <li><a href="#">Laptop Replacement Parts</a></li>
+                                 <li><a href="#">Memory (RAM)</a></li>
+                                 <li><a href="#">Motherboards</a></li>
+                                 <li><a href="#">Motherboard &amp; CPU Combos</a></li>
+                                 <li><a href="#">Motherboard Components &amp; Accs</a></li>
+                              </ul>
+                           </div>
+                           <div class="col-xs-12 col-sm-12 col-lg-4">
+                              <ul>
+                                 <li><a href="#">Power Supplies Power</a></li>
+                                 <li><a href="#">Power Supply Testers Sound</a></li>
+                                 <li><a href="#">Sound Cards (Internal)</a></li>
+                                 <li><a href="#">Video Capture &amp; TV Tuner Cards</a></li>
+                                 <li><a href="#">Other</a></li>
+                              </ul>
+                           </div>
+                           <div class="dropdown-banner-holder">
+                              <a href="#"><img alt="" src="<?= Yii::$app->homeUrl?>vender/images/banners/banner-side.png" /></a>
+                           </div>
                         </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Apple</a></li>
-                              <li><a href="category.html">Tees & Tanks</a></li>
-                              <li><a href="category.html">Graphic Tees</a></li>
-                           </ul>
+                        /.row
+                     </li>
+                     /.yamm-content                    
+                  </ul>
+                  /.dropdown-menu
+                  ================================== MEGAMENU VERTICAL ==================================            
+               </li>
+               /.menu-item
+               <li class="dropdown menu-item">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-microphone fa-fw"></i>Accessories</a>
+                  <ul class="dropdown-menu mega-menu">
+                     <li class="yamm-content">
+                        <div class="row">
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Lenovo</a></li>
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Fuhlen</a></li>
+                                 <li><a href="category.html">Longsleeves</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Apple</a></li>
+                                 <li><a href="category.html">Tees & Tanks</a></li>
+                                 <li><a href="category.html">Graphic Tees</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Polos</a></li>
+                                 <li><a href="category.html">Sweaters</a></li>
+                                 <li><a href="category.html">Shirts</a></li>
+                                 <li><a href="category.html">Hoodies</a></li>
+                              </ul>
+                           </div>
+                           /.col
+                           <div class="col-sm-12 col-md-3">
+                              <ul class="links list-unstyled">
+                                 <li><a href="category.html">Microsoft</a></li>
+                                 <li><a href="category.html">Apple</a></li>
+                                 <li><a href="category.html">Tees & Tanks</a></li>
+                                 <li><a href="category.html">Graphic Tees</a></li>
+                              </ul>
+                           </div>
+                           /.col
                         </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Polos</a></li>
-                              <li><a href="category.html">Sweaters</a></li>
-                              <li><a href="category.html">Shirts</a></li>
-                              <li><a href="category.html">Hoodies</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Apple</a></li>
-                              <li><a href="category.html">Tees & Tanks</a></li>
-                              <li><a href="category.html">Graphic Tees</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                     </div>
-                     <!-- /.row -->
-                  </li>
-                  <!-- /.yamm-content -->                    
-               </ul>
-               <!-- /.dropdown-menu -->            
-            </li>
-            <!-- /.menu-item -->
-            <li class="dropdown menu-item">
-               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-camera fa-fw"></i>Camera</a>
-               <ul class="dropdown-menu mega-menu">
-                  <li class="yamm-content">
-                     <div class="row">
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Lenovo</a></li>
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Fuhlen</a></li>
-                              <li><a href="category.html">Longsleeves</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Apple</a></li>
-                              <li><a href="category.html">Tees & Tanks</a></li>
-                              <li><a href="category.html">Graphic Tees</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Polos</a></li>
-                              <li><a href="category.html">Sweaters</a></li>
-                              <li><a href="category.html">Shirts</a></li>
-                              <li><a href="category.html">Hoodies</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Apple</a></li>
-                              <li><a href="category.html">Tees & Tanks</a></li>
-                              <li><a href="category.html">Graphic Tees</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                     </div>
-                     <!-- /.row -->
-                  </li>
-                  <!-- /.yamm-content -->                    
-               </ul>
-               <!-- /.dropdown-menu -->            
-            </li>
-            <!-- /.menu-item -->
-            <li class="dropdown menu-item">
-               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-headphones fa-fw"></i>TV & Audio</a>
-               <ul class="dropdown-menu mega-menu">
-                  <li class="yamm-content">
-                     <div class="row">
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Lenovo</a></li>
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Fuhlen</a></li>
-                              <li><a href="category.html">Longsleeves</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Apple</a></li>
-                              <li><a href="category.html">Tees & Tanks</a></li>
-                              <li><a href="category.html">Graphic Tees</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Polos</a></li>
-                              <li><a href="category.html">Sweaters</a></li>
-                              <li><a href="category.html">Shirts</a></li>
-                              <li><a href="category.html">Hoodies</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Apple</a></li>
-                              <li><a href="category.html">Tees & Tanks</a></li>
-                              <li><a href="category.html">Graphic Tees</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                     </div>
-                     <!-- /.row -->
-                  </li>
-                  <!-- /.yamm-content -->                    
-               </ul>
-               <!-- /.dropdown-menu -->            
-            </li>
-            <!-- /.menu-item -->
-            <li class="dropdown menu-item">
-               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-gamepad fa-fw"></i>Game & Video</a>
-               <ul class="dropdown-menu mega-menu">
-                  <li class="yamm-content">
-                     <div class="row">
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Lenovo</a></li>
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Fuhlen</a></li>
-                              <li><a href="category.html">Longsleeves</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Apple</a></li>
-                              <li><a href="category.html">Tees & Tanks</a></li>
-                              <li><a href="category.html">Graphic Tees</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Polos</a></li>
-                              <li><a href="category.html">Sweaters</a></li>
-                              <li><a href="category.html">Shirts</a></li>
-                              <li><a href="category.html">Hoodies</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Apple</a></li>
-                              <li><a href="category.html">Tees & Tanks</a></li>
-                              <li><a href="category.html">Graphic Tees</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                     </div>
-                     <!-- /.row -->
-                  </li>
-                  <!-- /.yamm-content -->                    
-               </ul>
-               <!-- /.dropdown-menu -->            
-            </li>
-            <!-- /.menu-item -->
-            <li class="dropdown menu-item">
-               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-location-arrow fa-fw"></i>Car Electronic</a>
-               <ul class="dropdown-menu mega-menu">
-                  <li class="yamm-content">
-                     <div class="row">
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Lenovo</a></li>
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Fuhlen</a></li>
-                              <li><a href="category.html">Longsleeves</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Apple</a></li>
-                              <li><a href="category.html">Tees & Tanks</a></li>
-                              <li><a href="category.html">Graphic Tees</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Polos</a></li>
-                              <li><a href="category.html">Sweaters</a></li>
-                              <li><a href="category.html">Shirts</a></li>
-                              <li><a href="category.html">Hoodies</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Apple</a></li>
-                              <li><a href="category.html">Tees & Tanks</a></li>
-                              <li><a href="category.html">Graphic Tees</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                     </div>
-                     <!-- /.row -->
-                  </li>
-                  <!-- /.yamm-content -->                    
-               </ul>
-               <!-- /.dropdown-menu -->            
-            </li>
-            <!-- /.menu-item -->
-            <li class="dropdown menu-item">
-               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-history fa-fw"></i>Old Products</a>
-               <!-- ================================== MEGAMENU VERTICAL ================================== -->
-               <ul class="dropdown-menu mega-menu">
-                  <li class="yamm-content">
-                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-lg-4">
-                           <ul>
-                              <li><a href="#">Computer Cases &amp; Accessories</a></li>
-                              <li><a href="#">CPUs, Processors</a></li>
-                              <li><a href="#">Fans, Heatsinks &amp; Cooling</a></li>
-                              <li><a href="#">Graphics, Video Cards</a></li>
-                              <li><a href="#">Interface, Add-On Cards</a></li>
-                              <li><a href="#">Laptop Replacement Parts</a></li>
-                              <li><a href="#">Memory (RAM)</a></li>
-                              <li><a href="#">Motherboards</a></li>
-                              <li><a href="#">Motherboard &amp; CPU Combos</a></li>
-                              <li><a href="#">Motherboard Components &amp; Accs</a></li>
-                           </ul>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-lg-4">
-                           <ul>
-                              <li><a href="#">Power Supplies Power</a></li>
-                              <li><a href="#">Power Supply Testers Sound</a></li>
-                              <li><a href="#">Sound Cards (Internal)</a></li>
-                              <li><a href="#">Video Capture &amp; TV Tuner Cards</a></li>
-                              <li><a href="#">Other</a></li>
-                           </ul>
-                        </div>
-                        <div class="dropdown-banner-holder">
-                           <a href="#"><img alt="" src="<?= Yii::$app->homeUrl?>vender/images/banners/banner-side.png" /></a>
-                        </div>
-                     </div>
-                     <!-- /.row -->
-                  </li>
-                  <!-- /.yamm-content -->                    
-               </ul>
-               <!-- /.dropdown-menu -->
-               <!-- ================================== MEGAMENU VERTICAL ================================== -->            
-            </li>
-            <!-- /.menu-item -->
-            <li class="dropdown menu-item">
-               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-microphone fa-fw"></i>Accessories</a>
-               <ul class="dropdown-menu mega-menu">
-                  <li class="yamm-content">
-                     <div class="row">
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Lenovo</a></li>
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Fuhlen</a></li>
-                              <li><a href="category.html">Longsleeves</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Apple</a></li>
-                              <li><a href="category.html">Tees & Tanks</a></li>
-                              <li><a href="category.html">Graphic Tees</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Polos</a></li>
-                              <li><a href="category.html">Sweaters</a></li>
-                              <li><a href="category.html">Shirts</a></li>
-                              <li><a href="category.html">Hoodies</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-sm-12 col-md-3">
-                           <ul class="links list-unstyled">
-                              <li><a href="category.html">Microsoft</a></li>
-                              <li><a href="category.html">Apple</a></li>
-                              <li><a href="category.html">Tees & Tanks</a></li>
-                              <li><a href="category.html">Graphic Tees</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.col -->
-                     </div>
-                     <!-- /.row -->
-                  </li>
-                  <!-- /.yamm-content -->                    
-               </ul>
-               <!-- /.dropdown-menu -->            
-            </li>
-            <!-- /.menu-item -->
-         </ul>
-         <!-- /.nav -->
-      </nav>
-      <!-- /.megamenu-horizontal -->
-   </div>
-   <!-- /.side-menu -->
+                        /.row
+                     </li>
+                     /.yamm-content                    
+                  </ul>
+                  /.dropdown-menu            
+               </li>
+               /.menu-item
+            </ul>
+            /.nav
+         </nav>
+         /.megamenu-horizontal
+      </div>
+      /.side-menu
+       -->   
+   <?= categoriesWidget::widget() ?>
    <!-- ================================== TOP NAVIGATION : END ================================== -->                  
-   <div class="sidebar-module-container">
+   <!-- <div class="sidebar-module-container">
       <h3 class="section-title">shop by</h3>
       <div class="sidebar-filter">
-         <!-- ============================================== SIDEBAR CATEGORY ============================================== -->
-         <div class="sidebar-widget wow fadeInUp outer-bottom-xs ">
-            <div class="widget-header m-t-20">
-               <h4 class="widget-title">Category</h4>
-            </div>
-            <div class="sidebar-widget-body m-t-10">
-               <div class="accordion">
-                  <div class="accordion-group">
-                     <div class="accordion-heading">
-                        <a href="#collapseOne" data-toggle="collapse" class="accordion-toggle collapsed">
-                        Camera
-                        </a>
-                     </div>
-                     <!-- /.accordion-heading -->
-                     <div class="accordion-body collapse" id="collapseOne" style="height: 0px;">
-                        <div class="accordion-inner">
-                           <ul>
-                              <li><a href="#">gaming</a></li>
-                              <li><a href="#">office</a></li>
-                              <li><a href="#">kids</a></li>
-                              <li><a href="#">for women</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.accordion-inner -->
-                     </div>
-                     <!-- /.accordion-body -->
-                  </div>
-                  <!-- /.accordion-group -->
-                  <div class="accordion-group">
-                     <div class="accordion-heading">
-                        <a href="#collapseTwo" data-toggle="collapse" class="accordion-toggle collapsed">
-                        Desktops
-                        </a>
-                     </div>
-                     <!-- /.accordion-heading -->
-                     <div class="accordion-body collapse" id="collapseTwo" style="height: 0px;">
-                        <div class="accordion-inner">
-                           <ul>
-                              <li><a href="#">gaming</a></li>
-                              <li><a href="#">office</a></li>
-                              <li><a href="#">kids</a></li>
-                              <li><a href="#">for women</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.accordion-inner -->
-                     </div>
-                     <!-- /.accordion-body -->
-                  </div>
-                  <!-- /.accordion-group -->
-                  <div class="accordion-group">
-                     <div class="accordion-heading">
-                        <a href="#collapseThree" data-toggle="collapse" class="accordion-toggle collapsed">
-                        Pants
-                        </a>
-                     </div>
-                     <!-- /.accordion-heading -->
-                     <div class="accordion-body collapse" id="collapseThree" style="height: 0px;">
-                        <div class="accordion-inner">
-                           <ul>
-                              <li><a href="#">gaming</a></li>
-                              <li><a href="#">office</a></li>
-                              <li><a href="#">kids</a></li>
-                              <li><a href="#">for women</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.accordion-inner -->
-                     </div>
-                     <!-- /.accordion-body -->
-                  </div>
-                  <!-- /.accordion-group -->
-                  <div class="accordion-group">
-                     <div class="accordion-heading">
-                        <a href="#collapseFour" data-toggle="collapse" class="accordion-toggle collapsed">
-                        Bags
-                        </a>
-                     </div>
-                     <!-- /.accordion-heading -->
-                     <div class="accordion-body collapse" id="collapseFour" style="height: 0px;">
-                        <div class="accordion-inner">
-                           <ul>
-                              <li><a href="#">gaming</a></li>
-                              <li><a href="#">office</a></li>
-                              <li><a href="#">kids</a></li>
-                              <li><a href="#">for women</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.accordion-inner -->
-                     </div>
-                     <!-- /.accordion-body -->
-                  </div>
-                  <!-- /.accordion-group -->
-                  <div class="accordion-group">
-                     <div class="accordion-heading">
-                        <a href="#collapseFive" data-toggle="collapse" class="accordion-toggle collapsed">
-                        Hats
-                        </a>
-                     </div>
-                     <!-- /.accordion-heading -->
-                     <div class="accordion-body collapse" id="collapseFive" style="height: 0px;">
-                        <div class="accordion-inner">
-                           <ul>
-                              <li><a href="#">gaming</a></li>
-                              <li><a href="#">office</a></li>
-                              <li><a href="#">kids</a></li>
-                              <li><a href="#">for women</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.accordion-inner -->
-                     </div>
-                     <!-- /.accordion-body -->
-                  </div>
-                  <!-- /.accordion-group -->
-                  <div class="accordion-group">
-                     <div class="accordion-heading">
-                        <a href="#collapseSix" data-toggle="collapse" class="accordion-toggle collapsed">
-                        Accessories
-                        </a>
-                     </div>
-                     <!-- /.accordion-heading -->
-                     <div class="accordion-body collapse" id="collapseSix" style="height: 0px;">
-                        <div class="accordion-inner">
-                           <ul>
-                              <li><a href="#">gaming</a></li>
-                              <li><a href="#">office</a></li>
-                              <li><a href="#">kids</a></li>
-                              <li><a href="#">for women</a></li>
-                           </ul>
-                        </div>
-                        <!-- /.accordion-inner -->
-                     </div>
-                     <!-- /.accordion-body -->
-                  </div>
-                  <!-- /.accordion-group -->
-               </div>
-               <!-- /.accordion -->
-            </div>
-            <!-- /.sidebar-widget-body -->
-         </div>
-         <!-- /.sidebar-widget -->
-         <!-- ============================================== SIDEBAR CATEGORY : END ============================================== -->
-         <!-- ============================================== PRICE SILDER============================================== -->
+         
+         ============================================== PRICE SILDER==============================================
          <div class="sidebar-widget outer-bottom-xs wow fadeInUp">
             <div class="widget-header">
                <h4 class="widget-title">Price Slider</h4>
@@ -597,14 +462,14 @@ $this->title = 'ádada';
                   <input type="text" id="amount" style="border:0; color:#666666; font-weight:bold;text-align:center;">
                   <input type="text" class="price-slider" value="" >
                </div>
-               <!-- /.price-range-holder -->
+               /.price-range-holder
                <a href="#" class="lnk btn btn-primary">Show Now</a>
             </div>
-            <!-- /.sidebar-widget-body -->
+            /.sidebar-widget-body
          </div>
-         <!-- /.sidebar-widget -->
-         <!-- ============================================== PRICE SILDER : END ============================================== -->
-         <!-- ============================================== MANUFACTURES============================================== -->
+         /.sidebar-widget
+         ============================================== PRICE SILDER : END ==============================================
+         ============================================== MANUFACTURES==============================================
          <div class="sidebar-widget outer-bottom-xs wow fadeInUp">
             <div class="widget-header">
                <h4 class="widget-title">Manufactures</h4>
@@ -618,14 +483,14 @@ $this->title = 'ádada';
                   <li><a href="#">Chanel</a></li>
                   <li><a href="#">Other Brand</a></li>
                </ul>
-               <!--<a href="#" class="lnk btn btn-primary">Show Now</a>-->
+               <a href="#" class="lnk btn btn-primary">Show Now</a>
             </div>
-            <!-- /.sidebar-widget-body -->
+            /.sidebar-widget-body
          </div>
-         <!-- /.sidebar-widget -->
-         <!-- ============================================== MANUFACTURES: END ==============   ================================ -->
-
-         <!-- ============================================== PRODUCT TAGS ============================================== -->
+         /.sidebar-widget
+         ============================================== MANUFACTURES: END ==============   ================================
+         
+         ============================================== PRODUCT TAGS ==============================================
          <div class="sidebar-widget product-tag wow fadeInUp">
             <h3 class="section-title">Product tags</h3>
             <div class="sidebar-widget-body outer-top-xs">
@@ -640,12 +505,12 @@ $this->title = 'ádada';
                   <a class="item" title="Toys" href="category.html">Toys</a>
                   <a class="item" title="Rose" href="category.html">Rose</a>
                </div>
-               <!-- /.tag-list -->
+               /.tag-list
             </div>
-            <!-- /.sidebar-widget-body -->
+            /.sidebar-widget-body
          </div>
-         <!-- /.sidebar-widget -->
-         <!-- ============================================== PRODUCT TAGS : END ============================================== -->                          <!-- ============================================== COLOR============================================== -->
+         /.sidebar-widget
+         ============================================== PRODUCT TAGS : END ==============================================                          ============================================== COLOR==============================================
          <div class="sidebar-widget  wow fadeInUp outer-top-vs ">
             <div id="advertisement" class="advertisement">
                <div class="item bg-color">
@@ -658,14 +523,14 @@ $this->title = 'ádada';
                            on selected items
                         </div>
                      </div>
-                     <!-- /.caption -->
+                     /.caption
                   </div>
-                  <!-- /.container-fluid -->
+                  /.container-fluid
                </div>
-               <!-- /.item -->
+               /.item
                <div class="item" style="background-image: url('<?= Yii::$app->homeUrl?>vender/images/advertisement/1.jpg');">
                </div>
-               <!-- /.item -->
+               /.item
                <div class="item bg-color">
                   <div class="container-fluid">
                      <div class="caption vertical-top text-left">
@@ -676,18 +541,18 @@ $this->title = 'ádada';
                            on selected items
                         </div>
                      </div>
-                     <!-- /.caption -->
+                     /.caption
                   </div>
-                  <!-- /.container-fluid -->
+                  /.container-fluid
                </div>
-               <!-- /.item -->
+               /.item
             </div>
-            <!-- /.owl-carousel -->
+            /.owl-carousel
          </div>
-         <!-- ============================================== COLOR: END ============================================== -->
+         ============================================== COLOR: END ==============================================
       </div>
-      <!-- /.sidebar-filter -->
-   </div>
+      /.sidebar-filter
+   </div> -->
    <!-- /.sidebar-module-container -->
 </div>
 <!-- /.sidebar -->
@@ -727,67 +592,75 @@ $this->title = 'ádada';
             <!-- /.filter-tabs -->
          </div>
          <!-- /.col -->
-         <div class="col col-sm-12 col-md-6">
-            <div class="col col-sm-3 col-md-6 no-padding">
-               <div class="lbl-cnt">
-                  <span class="lbl">Sort by</span>
-                  <div class="fld inline">
-                     <div class="dropdown dropdown-small dropdown-med dropdown-white inline">
-                        <button data-toggle="dropdown" type="button" class="btn dropdown-toggle">
-                        Position <span class="caret"></span>
-                        </button>
-                        <ul role="menu" class="dropdown-menu">
-                           <li role="presentation"><a href="#">position</a></li>
-                           <li role="presentation"><a href="#">Price:Lowest first</a></li>
-                           <li role="presentation"><a href="#">Price:HIghest first</a></li>
-                           <li role="presentation"><a href="#">Product Name:A to Z</a></li>
-                        </ul>
-                     </div>
-                  </div>
-                  <!-- /.fld -->
-               </div>
-               <!-- /.lbl-cnt -->
-            </div>
-            <!-- /.col -->
-            <div class="col col-sm-3 col-md-6 no-padding">
-               <div class="lbl-cnt">
-                  <span class="lbl">Show</span>
-                  <div class="fld inline">
-                     <div class="dropdown dropdown-small dropdown-med dropdown-white inline">
-                        <button data-toggle="dropdown" type="button" class="btn dropdown-toggle">
-                        1 <span class="caret"></span>
-                        </button>
-                        <ul role="menu" class="dropdown-menu">
-                           <li role="presentation"><a href="#">1</a></li>
-                           <li role="presentation"><a href="#">2</a></li>
-                           <li role="presentation"><a href="#">3</a></li>
-                           <li role="presentation"><a href="#">4</a></li>
-                           <li role="presentation"><a href="#">5</a></li>
-                           <li role="presentation"><a href="#">6</a></li>
-                           <li role="presentation"><a href="#">7</a></li>
-                           <li role="presentation"><a href="#">8</a></li>
-                           <li role="presentation"><a href="#">9</a></li>
-                           <li role="presentation"><a href="#">10</a></li>
-                        </ul>
-                     </div>
-                  </div>
-                  <!-- /.fld -->
-               </div>
-               <!-- /.lbl-cnt -->
-            </div>
-            <!-- /.col -->
-         </div>
-         <!-- /.col -->
-         <div class="col col-sm-6 col-md-4 text-right">
-            <div class="pagination-container">
-               <ul class="list-inline list-unstyled">
-                  <li class="prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                  <li><a href="#">1</a></li>
-                  <li class="active"><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li class="next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
-               </ul>
+        <!--  <div class="col col-sm-12 col-md-6">
+           <div class="col col-sm-3 col-md-6 no-padding">
+              <div class="lbl-cnt">
+                 <span class="lbl">Sort by</span>
+                 <div class="fld inline">
+                    <div class="dropdown dropdown-small dropdown-med dropdown-white inline">
+                       <button data-toggle="dropdown" type="button" class="btn dropdown-toggle">
+                       Position <span class="caret"></span>
+                       </button>
+                       <ul role="menu" class="dropdown-menu">
+                          <li role="presentation"><a href="#">position</a></li>
+                          <li role="presentation"><a href="#">Price:Lowest first</a></li>
+                          <li role="presentation"><a href="#">Price:HIghest first</a></li>
+                          <li role="presentation"><a href="#">Product Name:A to Z</a></li>
+                       </ul>
+                    </div>
+                 </div>
+                 /.fld
+              </div>
+              /.lbl-cnt
+           </div>
+           /.col
+           <div class="col col-sm-3 col-md-6 no-padding">
+              <div class="lbl-cnt">
+                 <span class="lbl">Show</span>
+                 <div class="fld inline">
+                    <div class="dropdown dropdown-small dropdown-med dropdown-white inline">
+                       <button data-toggle="dropdown" type="button" class="btn dropdown-toggle">
+                       1 <span class="caret"></span>
+                       </button>
+        
+                       <ul role="menu" class="dropdown-menu">
+        
+                          <li role="presentation"><a href="#">1</a></li>
+                          <li role="presentation"><a href="#">2</a></li>
+                          <li role="presentation"><a href="#">3</a></li>
+                          <li role="presentation"><a href="#">4</a></li>
+                          <li role="presentation"><a href="#">5</a></li>
+                          <li role="presentation"><a href="#">6</a></li>
+                          <li role="presentation"><a href="#">7</a></li>
+                          <li role="presentation"><a href="#">8</a></li>
+                          <li role="presentation"><a href="#">9</a></li>
+                          <li role="presentation"><a href="#">10</a></li>
+                       </ul>
+                    </div>
+                 </div>
+                 /.fld
+              </div>
+              /.lbl-cnt
+           </div>
+           /.col
+        </div>
+        /.col -->
+         <div class="col col-sm-6 col-md-10">
+            <div class="text-right">
+                <?php
+                  echo    LinkPager::widget([
+                        'pagination' => $pages,
+                        'firstPageLabel'=>'|<',
+                        'lastPageLabel'=>'>|',
+                        'prevPageLabel'=>'<<',
+                        'nextPageLabel'=>'>>',
+                        'maxButtonCount'=>3,
+                        // 'linkAttributes'=>['class' => 'page-link'],
+                        // 'route' => 'article/index'
+                        // 'pageParam' => 'page',
+
+                     ]);
+                   ?>
                <!-- /.list-inline -->
             </div>
             <!-- /.pagination-container -->     
@@ -808,7 +681,7 @@ $this->title = 'ádada';
                            <div class="product-image">
                               <div class="image">
                                 
-                                 <a href="<?= Url::to(['product/view', 'slug' => $value['slug']]) ?>"><img  src="<?= Yii::$app->homeUrl ?>vender/images/blank.gif" data-echo="<?= Yii::$app->homeUrl.$value['image'] ?>" alt="<?= 'sad' ?>" width="98%"></a>
+                                 <ahref="<?= Url::to(['product/view', 'slug' => $value['slug']]) ?>"><img id="img_<?= $value['id'] ?>"  src="<?= Yii::$app->homeUrl ?>vender/images/blank.gif" data-echo="<?= Yii::$app->homeUrl.$value['image'] ?>" alt="<?= 'sad' ?>" width="98%"></a>
                               </div>
                               <!-- /.image -->  
                               <?php 
@@ -821,11 +694,11 @@ $this->title = 'ádada';
                            </div>
                            <!-- /.product-image -->
                            <div class="product-info text-left">
-                              <h3 class="name"><a href="<?= Url::to(['product/view', 'slug' => $value['slug']]) ?>"><?= $value['pro_name'] ?></a></h3>
+                              <h3 class="name"><a id="txtPro_<?= $value['id'] ?>" href="<?= Url::to(['product/view', 'slug' => $value['slug']]) ?>"><?= $value['pro_name'] ?></a></h3>
                               <div class="rating rateit-small"></div>
                               <div class="description"></div>
                               <div class="product-price">   
-                                 <span class="price">
+                                 <span class="price" id="txtPrice_<?= $value['id'] ?>">
                                  <?= number_format((int)$value['price_sales'], 0, ',', '.');  ?> VNĐ                </span>
                                  <span class="price-before-discount"><?= ($value['price'])?number_format((int)$value['price_sales'], 0, ',', '.').' VNĐ':'' ?></span>
                               </div>
@@ -834,7 +707,7 @@ $this->title = 'ádada';
                            <!-- /.product-info -->
                            <div class="cart clearfix animate-effect">
                               <div class="action">
-                                 <button class="btn btn-primary" type="button">Add to cart</button>
+                                 <button class="btn btn-primary" type="button" onclick="addCart(<?= $value['id'] ?>,1)">Add to cart</button>
                                  <button class="left btn btn-primary" type="button"><i class="icon fa fa-heart"></i></button>
                                  <button class="left btn btn-primary" type="button"><i class="fa fa-retweet"></i></button>                      
                               </div>
@@ -867,7 +740,7 @@ $this->title = 'ádada';
                            <div class="col col-sm-4 col-lg-4">
                               <div class="product-image">
                                  <div class="image">
-                                    <img width="98%" data-echo="<?= Yii::$app->homeUrl.$value['image'] ?>" src="<?= Yii::$app->homeUrl?>vender/images/blank.gif" alt="">
+                                    <img id="img_<?= $value['id'] ?>" width="98%" data-echo="<?= Yii::$app->homeUrl.$value['image'] ?>" src="<?= Yii::$app->homeUrl?>vender/images/blank.gif" alt="">
                                  </div>
                               </div>
                               <!-- /.product-image -->
@@ -875,7 +748,7 @@ $this->title = 'ádada';
                            <!-- /.col -->
                            <div class="col col-sm-8 col-lg-8">
                               <div class="product-info">
-                                 <h3 class="name"><a href="<?= Yii::$app->homeUrl.'product/view/'.$value['id'] ?>"><?= $value['pro_name'] ?></a></h3>
+                                 <h3 class="name"><a id="txtPro_<?= $value['id'] ?>" href="<?= Yii::$app->homeUrl.'product/view/'.$value['id'] ?>"><?= $value['pro_name'] ?></a></h3>
                                  <div class="rating rateit-small"></div>
                                  <div class="product-price">    
                                     <span class="price">
@@ -923,17 +796,28 @@ $this->title = 'ádada';
       <!-- /.tab-content -->
       <div class="clearfix filters-container">
          <div class="text-right">
-            <div class="pagination-container">
-               <ul class="list-inline list-unstyled">
-                  <li class="prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>
+              
+                  <?php
+                  echo    LinkPager::widget([
+                        'pagination' => $pages,
+                        'firstPageLabel'=>'|<',
+                        'lastPageLabel'=>'>|',
+                        'prevPageLabel'=>'<<',
+                        'nextPageLabel'=>'>>',
+                        'maxButtonCount'=>3,
+                        // 'linkAttributes'=>['class' => 'page-link'],
+                        // 'route' => 'article/index'
+                        // 'pageParam' => 'page',
+
+                     ]);
+                   ?>
+                  <!-- <li class="prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>
                   <li><a href="#">1</a></li>
                   <li class="active"><a href="#">2</a></li>
                   <li><a href="#">3</a></li>
                   <li><a href="#">4</a></li>
-                  <li class="next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
-               </ul>
+                  <li class="next"><a href="#"><i class="fa fa-angle-right"></i></a></li> -->
                <!-- /.list-inline -->
-            </div>
             <!-- /.pagination-container -->                             
          </div>
          <!-- /.text-right -->
@@ -943,3 +827,28 @@ $this->title = 'ádada';
    <!-- /.search-result-container -->
 </div>
 <!-- /.col -->
+
+<!-- 'options' => ['class' => 'page-item'],
+    //First option value
+    'firstPageLabel' => '&nbsp;',
+    //Last option value
+    'lastPageLabel' => '&nbsp;',
+    //Previous option value
+    'prevPageLabel' => '&nbsp;',
+    //Next option value
+    'nextPageLabel' => '&nbsp;',
+    //Current Active option value
+    'activePageCssClass' => 'active',
+    //Max count of allowed options
+    'maxButtonCount' => 8,
+    'disableCurrentPageButton'=>true,
+
+    // Css for each options. Links
+    'linkOptions' => ['class' => ''],
+    'disabledPageCssClass' => 'disabled',
+
+    // Customzing CSS class for navigating link
+    'prevPageCssClass' => 'prev',
+    'nextPageCssClass' => 'next',
+    'firstPageCssClass' => 'p-first',
+    'lastPageCssClass' => 'p-last', -->

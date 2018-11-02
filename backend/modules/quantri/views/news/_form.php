@@ -17,13 +17,12 @@ use kartik\checkbox\CheckboxX;
 
     <div>
       <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist">
+      <ul class="nav nav-tabs tab_header" role="tablist">
         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin
 
         </a></li>
         <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Seo</a></li>
         <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Liên kết</a></li>
-        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
@@ -57,7 +56,7 @@ use kartik\checkbox\CheckboxX;
 
                 <div role="tabpanel" class="tab-pane" id="profile">
                     <?= $form->field($model, 'htmltitle',['options' => ['class' => 'col-md-6']])->textInput(['maxlength' => true,'id'=>'title_slug']) ?>
-                    <?= $form->field($model, 'link',['options' => ['class' => 'col-md-6']])->textInput(['maxlength' => true,'id'=>'slug_url']) ?>
+                    <?= $form->field($seo, 'slug',['options' => ['class' => 'col-md-6']])->textInput(['maxlength' => true,'id'=>'slug_url']) ?>
                     <?= $form->field($model, 'htmlkeyword')->textInput(['maxlength' => true]) ?>
                     <?= $form->field($model, 'htmldescriptions')->textarea(['rows' => 6]) ?>
                 </div>
@@ -92,9 +91,7 @@ use kartik\checkbox\CheckboxX;
                 ]);
                 ?>
             </div>
-            <div role="tabpanel" class="tab-pane" id="settings">
 
-            </div>
         </div>
     </div>
 

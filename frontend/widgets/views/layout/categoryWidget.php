@@ -7,17 +7,19 @@ if (!empty($dataCateSet)): ?>
    <h3 class="section-title">Category</h3>
    <div class="sidebar-widget-body m-t-10">
       <div class="accordion">
-         <?php $i=1; foreach ($dataCateSet as $value): ?>
-            
-         <div class="accordion-group">
+         <?php $i=1; foreach ($dataCateSet as $value): 
+            $catesub = $cate->getAllCat($value['id']);
+         ?>
+             
+            <div class="accordion-group">
             <div class="accordion-heading">
-               <a href="#collapseOne_<?= $i ?>" data-toggle="collapse" class="accordion-toggle collapsed">
+               <a href="<?= count($catesub)? "#collapseOne_".$i:Yii::$app->homeUrl.'san-pham/'.$value['slug']; ?>" <?= count($catesub)? 'data-toggle="collapse"':'' ?> class="accordion-toggle collapsed">
                <?= $value['name'] ?>
                </a>
             </div>
             <!-- /.accordion-heading -->
             <?php 
-            $catesub = $cate->getAllCat($value['id']);
+            
             ?>   
             <?php if (!empty($catesub)): ?>
 
@@ -25,7 +27,7 @@ if (!empty($dataCateSet)): ?>
                <div class="accordion-inner">
                   <ul>
                      <?php foreach ($catesub as $valuesub): ?>
-                     <li><a href="<?= Yii::$app->homeUrl.'danh-sach/'.$valuesub['slug_cate'] ?>"><?= $valuesub['name'] ?></a></li>
+                     <li><a href="<?= Yii::$app->homeUrl.'san-pham/'.$valuesub['slug'] ?>"><?= $valuesub['name'] ?></a></li>
                      <?php endforeach ?>
                   </ul>
                </div>

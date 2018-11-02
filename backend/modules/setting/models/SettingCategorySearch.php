@@ -18,8 +18,9 @@ class SettingCategorySearch extends SettingCategory
     public function rules()
     {
         return [
-            [['id', 'parent_id', 'link_cate', 'order', 'created_at', 'updated_at', 'user_add'], 'integer'],
-            [['name', 'slug_cate', 'icon', 'status'], 'safe'],
+            [['id', 'order', 'created_at', 'updated_at', 'user_add'], 'integer'],
+            [['name', 'slug', 'title', 'description', 'icon', 'link_cate', 'parent_id', 'status'], 'safe'],
+            [['name', 'slug'], 'trim'],
         ];
     }
 
@@ -57,11 +58,14 @@ class SettingCategorySearch extends SettingCategory
             return $dataProvider;
         }
 
+        $query->joinWith('productCategory cate');
+        $query->joinWith('parent pa');
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'parent_id' => $this->parent_id,
-            'link_cate' => $this->link_cate,
+            // 'parent_id' => $this->parent_id,
+            // 'link_cate' => $this->link_cate,
             'order' => $this->order,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
@@ -69,9 +73,13 @@ class SettingCategorySearch extends SettingCategory
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'slug_cate', $this->slug_cate])
+            ->andFilterWhere(['like', 'slug', $this->slug])
+            ->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'icon', $this->icon])
-            ->andFilterWhere(['like', 'status', $this->status]);
+            ->andFilterWhere(['like', 'status', $this->status])
+            ->andFilterWhere(['like', 'cate.cateName', $this->link_cate])
+            ->andFilterWhere(['like', 'pa.name', $this->parent_id]);
 
         return $dataProvider;
     }

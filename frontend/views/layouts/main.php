@@ -14,6 +14,7 @@ use frontend\widgets\navBarWidget;
 use frontend\widgets\mainHeaderWidget;
 use frontend\widgets\footerWidget;
 use frontend\widgets\brandsCarouselWidget;
+use frontend\widgets\modalCartWidget;
 
 AppAsset::register($this);
 ?>
@@ -68,7 +69,7 @@ AppAsset::register($this);
     <div class="body-content outer-top-xs">
         <div class='container'>
             <div class="homepage-container">
-                <div class='row single-product outer-bottom-sm'>
+                <div class='row single-product outer-bottom-sm' id="content">
                     <?= $content ?>
                 </div>
                 <?= brandsCarouselWidget::widget() ?>
@@ -80,8 +81,12 @@ AppAsset::register($this);
     <!-- ============================================================= FOOTER ============================================================= -->
     <?= footerWidget::widget() ?>
     <!-- ============================================================= FOOTER : END============================================================= -->
-
+    
+    <!-- MODAL SU DUNG GIO HANG -->
+    <?= modalCartWidget::widget() ?>
+    <!-- MODAL SU DUNG GIO HANG -->
 <?php $this->endBody() ?>
 </body>
+
 </html>
 <?php $this->endPage() ?>

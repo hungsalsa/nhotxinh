@@ -22,7 +22,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'language_id') ?>
 
-    <?= $form->field($model, 'title') ?>
 
     <?= $form->field($model, 'query') ?>
 

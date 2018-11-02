@@ -30,10 +30,13 @@ class SeoUrl extends \yii\db\ActiveRecord
     {
         return [
             [['language_id'], 'integer'],
-            [['title', 'query', 'slug'], 'required'],
-            [['title', 'query', 'slug'], 'string', 'max' => 255],
-            ['slug','checkurl_seo','on' => 'create'],
-            ['slug','checkurlUpdate','on' => 'update'],
+            [['slug'], 'required','message'=>'{attribute} không được để trống'],
+            [['query', 'slug'], 'string', 'max' => 255],
+            // [['slug'], 'unique','message'=>'{attribute} này đã có xin chọn đường dẫn khác'],
+            // Phải kiểm tra 2 trường giống nhau thì báo lỗi
+            [['slug'], 'unique','message'=>'{attribute} này đã có xin chọn đường dẫn khác'],
+            // [['slug', 'query'], 'unique', 'targetAttribute' => ['slug', 'query'],'message'=>'{attribute} này đã có xin chọn đường dẫn khác'],
+            
         ];
     }
 
@@ -45,43 +48,21 @@ class SeoUrl extends \yii\db\ActiveRecord
         return [
             'seo_url_id' => 'Seo Url ID',
             'language_id' => 'Language ID',
-            'title' => 'Title',
             'query' => 'Query',
-            'slug' => 'Slug',
+            'slug' => 'Đường dẫn',
         ];
     }
-    public function checkurl_seo($attribute, $params)
+
+    public function getSeoID($slug)
     {
-        $slug = $this->getCountSeoUrl($this->$attribute);
-        if ($slug) {
-            $this->addError($attribute, 'đường dẫn này đã có');
-        }
-    }
-    public function checkurlUpdate($attribute, $params)
-    {
-        $slug = $this->getCountSeoUrl($this->$attribute);
-        if ($slug > 1) {
-            $this->addError($attribute, 'đường dẫn này đã có');
-        }
+        return SeoUrl::find()->select('seo_url_id')->where('slug =:Slug',['Slug'=>$slug])->one();
     }
 
+    // Hàm trả về slug cho sidebar category setting
 
-    public function getCountSeoUrl($slug)
+    public function getSlugSeo($query)
     {
-        return SeoUrl::find()->asArray()->where('slug=:slug',['slug'=>$slug])->all();
-    }
-
-    public function getSeoInfo($query)
-    {
-        return SeoUrl::find()->where('query=:Query',['Query'=>$query])->one();
-    }
-
-    public function findModel($id)
-    {
-        if (($model = SeoUrl::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
+        $data =  SeoUrl::find()->select('slug')->where('query =:Slug',['Slug'=>$query])->one();
+        return $data->slug;
     }
 }

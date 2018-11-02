@@ -127,44 +127,49 @@ $menu = new Menus();
                               </ul>
                             </li>
                             
-                            <?php foreach ($dataMenu as $key => $value): ?>
-                                <?php 
-                                // $link_1 = $menu->getLinkType($value['type']); 
-                                // if($value['link_cate']==''){
-                                //      $link_1 = str_replace(strstr($link_1,'/'),'',$link_1);
-                                // }else{
-                                //     $link_1 .= $value['link_cate'];
-                                // }
-                                ?> 
-
-                            <li class="dropdown<?= ($value['type']!=3)?' yamm':'' ?>">
-                                <a href="##"<?php if ($value['type']!=3): ?> data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown"<?php endif ?>><?= $value['name'] ?></a> 
-                                <?php $dataMenuSub1 = $menu->getMenusByParent($value['id']); ?> 
-                                <?php if (!empty($dataMenuSub1) && $value['type']!=3): ?>
+                            <?php foreach ($dataMenu as $key => $dataMenu): ?>
+                                
+                            <li class="dropdown<?= ($dataMenu['type']!=3)?' yamm-fw':'' ?>">
+                                <a href="<?= Yii::$app->homeUrl.$dataMenu['slug'].'.html'; ?>" <?php if ($dataMenu['type']!=3): ?> data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown"<?php endif ?>><?= $dataMenu['name'] ?></a> 
+                                <?php $dataMenuSub1 = $menu->getMenusByParent($dataMenu['id']); ?> 
+                                <?php if (!empty($dataMenuSub1) && $dataMenu['type']!=3): ?>
                                 <ul class="dropdown-menu">
                                    <li>
                                       <div class="yamm-content">
                                          <div class="row">
-                                            <div class='col-sm-12'>
+                                            <div class='col-sm-8 col-md-8'>
+                                                    <div class="row">
+                                                      <div class='col-md-10'>
                                               
-                                                   <?php foreach ($dataMenuSub1 as $key1 => $value1): ?>
-                                                   <?php if (count($dataMenuSub1)): ?>
-                                                    <div class="col-xs-12 col-sm-12 <?php if (count($dataMenuSub1)==2) {echo 'col-md-6'; } elseif(count($dataMenuSub1)>2){echo 'col-md-4'; }else{echo 'col-md-12'; } ?>">
-                                                      <h2 class="title"><a href="<?= Yii::$app->homeUrl.$menu->getLinkType($value1['type'],$value1['link_cate']) ?>"><?= $value1['name'] ?></a></h2>
-                                                      <?php $dataMenuSub2 = $menu->getMenusByParent($value1['id']);  ?>
+                                                   <?php $i=1; foreach ($dataMenuSub1 as $key1 => $dataMenuSub1): 
+                                                    $slug_1 = '';
+                                                    if ($dataMenuSub1['type'] == 1) {
+                                                      $slug_1 = 'san-pham';
+                                                    } 
+                                                    if($dataMenuSub1['type'] == 2) {
+                                                      $slug_1 = 'tin-tuc';
+                                                    }
+                                                    // echo '<pre>';echo $slug_1;print_r($dataMenuSub1);
+                                                   ?>
+                                                    <div class="col-xs-12 col-sm-6 col-md-4">
+                                                      <h2 class="title"><a href="<?= Yii::$app->homeUrl.$slug_1.'/'.$dataMenuSub1['slug']; ?>"><?= $dataMenuSub1['name'] ?></a></h2>
+                                                      <?php $dataMenuSub2 = $menu->getMenusByParent($dataMenuSub1['id']);  ?>
                                                       <?php if (!empty($dataMenuSub2)): ?>
                                                       <ul class="links">
-                                                        <?php foreach ($dataMenuSub2 as $key2 => $value2): ?>
-                                                         <li><a href="<?= Yii::$app->homeUrl.$menu->getLinkType($value2['type'],$value2['link_cate']) ?>"><?= $value2['name'] ?></a></li>
+                                                        <?php foreach ($dataMenuSub2 as $key2 => $dataMenuSub2): ?>
+                                                         <li><a href="<?= Yii::$app->homeUrl.$dataMenu['slug'].'/'.$dataMenuSub2['slug'].'.html'; ?>"><?= $dataMenuSub2['name'] ?></a></li>
                                                         <?php endforeach ?>
                                                          
                                                       </ul>
-                                                  <?php endif ?>
+                                                     <?php endif ?>
                                                    </div>
-                                                   
                                                    <!-- /.col --> 
+                                                   <?php if ($i%3 == 0): ?>
+                                                     <div class="clearfix"></div>
                                                    <?php endif ?>
-                                                <?php endforeach ?> 
+                                                <?php $i++; endforeach;unset($i); ?> 
+                                                   </div>
+                                                   </div>
                                             
                                             </div>
                                          </div>
@@ -175,6 +180,7 @@ $menu = new Menus();
                                 </ul>
                                 <?php endif ?>
                              </li>
+
                             <?php endforeach ?>
 
                         </ul><!-- /.navbar-nav -->
