@@ -21,10 +21,10 @@
                <tbody>
                		<?php 
                      $subtotal = $amount = 0;
-                     foreach ($cart as $key => $value): ?>
+                     foreach ($cart as $key => $value): $image = str_replace("uploads", "icon", $value['image'])?>
                   <tr>
                      
-                     <td class="cart-image"> <a class="entry-thumbnail" href="detail.html"> <img id="img_<?= $key ?>" height="90px" src="<?= $value['image'] ?>" alt=""> </a> </td>
+                     <td class="cart-image"> <a class="entry-thumbnail" href="detail.html"> <img id="img_<?= $key ?>" height="90px" src="<?= $image ?>" alt=""> </a> </td>
                      <td class="cart-product-name-info">
                         <h4 class='cart-product-description' id="txtPro_<?= $key ?>"><a href="<?= Yii::$app->homeUrl.$value['slug'] ?>.html"><?= $value['pro_name'] ?></a></h4>
                         <!-- <div class="row">
@@ -49,7 +49,7 @@
                            </div> -->
                            
                            <a href="javascript:void(0)" onclick="itemDown(<?= $key ?>)" style="position: absolute; left: -19px; top: 9px;"><i class="fa fa-minus"></i></a>
-                           <input onchange="onchange_num(<?= $key ?>)" type="number" min="1" value="<?= $value['pro_sl'] ?>" id="quantity_<?= $key ?>" name="quantity_<?= $key ?>" style="padding: 0 11px;"> 
+                           <input onchange="onchange_num(<?= $key ?>)" type="number" min="1" value="<?= $value['pro_sl'] ?>" id="quantity_<?= $key ?>" name="quantity_<?= $key ?>" style="padding: 0 11px;" class="text-center"> 
                            <a href="javascript:void(0)" onclick="itemUp(<?= $key ?>)" style="position: absolute; right: -19px; top: 9px;"><i class="fa fa-plus"></i></a>
                            <?php $amount += (int)$value['pro_sl'] ?>
                         </div>

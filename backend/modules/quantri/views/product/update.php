@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\modules\quantri\models\Product */
 
-$this->title = 'Update Product: {nameAttribute}';
+$this->title = 'Chỉnh sửa sản phẩm :'.$model->pro_name;
 $this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
@@ -16,7 +16,6 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
-        'seo' => $seo,
         'dataCate' => $dataCate,
         'dataType' => $dataType,
         'dataManufac' => $dataManufac,

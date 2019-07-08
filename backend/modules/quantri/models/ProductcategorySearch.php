@@ -18,7 +18,7 @@ class ProductcategorySearch extends Productcategory
     public function rules()
     {
         return [
-            [['idCate', 'order', 'product_parent_id', 'created_at', 'updated_at', 'user_id'], 'integer'],
+            [['idCate', 'order', 'product_parent_id', 'created_at', 'updated_at', 'userCreated', 'userUpdated'], 'integer'],
             [['title', 'cateName', 'slug', 'keyword', 'description', 'content', 'short_introduction', 'home_page', 'image', 'active'], 'safe'],
         ];
     }
@@ -65,7 +65,8 @@ class ProductcategorySearch extends Productcategory
             'product_parent_id' => $this->product_parent_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'user_id' => $this->user_id,
+            'userCreated' => $this->userCreated,
+            'userUpdated' => $this->userUpdated,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])

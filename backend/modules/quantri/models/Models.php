@@ -29,10 +29,11 @@ class Models extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'active'], 'required'],
-            [['parent_id', 'order'], 'integer'],
+            [['name', 'active', 'created_at', 'updated_at', 'userCreated', 'userUpdated'], 'required'],
+            [['parent_id', 'order', 'created_at', 'updated_at', 'userCreated', 'userUpdated'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['active'], 'string', 'max' => 4],
+            // [['active'], 'string', 'max' => 4],
+            [['name'], 'unique'],
         ];
     }
 
@@ -43,10 +44,14 @@ class Models extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Các dòng xe',
+            'name' => 'Tên xe',
             'parent_id' => 'Parent ID',
-            'active' => 'Active',
-            'order' => 'Order',
+            'active' => 'Kích hoạt',
+            'order' => 'Sắp xếp',
+            'created_at' => 'Ngày tạo',
+            'updated_at' => 'Ngày chỉnh sửa',
+            'userCreated' => 'Người tạo',
+            'userUpdated' => 'Người sửa',
         ];
     }
 

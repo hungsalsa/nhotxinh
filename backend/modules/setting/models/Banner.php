@@ -16,7 +16,7 @@ use Yii;
  * @property int $status
  * @property int $created_at
  * @property int $updated_at
- * @property int $user_id
+ * @property int $userCreated
  */
 class Banner extends \yii\db\ActiveRecord
 {
@@ -34,11 +34,12 @@ class Banner extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['image', 'status', 'created_at', 'updated_at', 'user_id'], 'required'],
-            [['order', 'created_at', 'updated_at', 'user_id'], 'integer'],
+            [[/*'image', */'status', 'created_at', 'updated_at', 'userCreated', 'userUpdated'], 'required'],
+            [['created_at', 'updated_at', 'userCreated', 'userUpdated'], 'integer'],
             [['content'], 'string'],
-            [['image', 'url', 'alt'], 'string', 'max' => 255],
-            [['status'], 'string', 'max' => 4],
+            [['order'], 'number'],
+            [['name', 'image', 'url', 'alt'], 'string', 'max' => 255],
+            // [['status'], 'string', 'max' => 4],
         ];
     }
 
@@ -49,15 +50,25 @@ class Banner extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'image' => 'Image',
-            'url' => 'Url',
-            'alt' => 'Alt',
-            'order' => 'Order',
+            'name' => 'Tên hiển thị',
+            'image' => 'Ảnh',
+            'url' => 'Liên kết',
+            'alt' => 'Seo Alt Banner',
+            'order' => 'Sắp xếp',
             'content' => 'Content',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-            'user_id' => 'User ID',
+            'status' => 'Kích hoạt',
+            'created_at' => 'Ngày tạo',
+            'updated_at' => 'Ngày sửa',
+            'userCreated' => 'Người sửa',
+            'userUpdated' => 'Người sửa',
         ];
+    }
+
+
+    public function checkBannerImage($id,$image)
+    {
+        return self::find()->where(['image'=>$image])
+        ->andWhere(['!=','id',$id])
+        ->count();
     }
 }

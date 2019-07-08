@@ -34,6 +34,11 @@ class AnhspController extends Controller
      * Lists all Imgprolist models.
      * @return mixed
      */
+    public function beforeAction($action) 
+    { 
+        $this->enableCsrfValidation = false; 
+        return parent::beforeAction($action); 
+    }
     public function actionIndex($id)
     {
         $product = new Product();

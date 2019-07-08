@@ -20,7 +20,7 @@ use Yii;
  * @property int $parent_id
  * @property int $created_at
  * @property int $updated_at
- * @property int $user_id
+ * @property int $userCreated
  */
 class Manufactures extends \yii\db\ActiveRecord
 {
@@ -38,11 +38,11 @@ class Manufactures extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ManName', 'title', 'slug', 'active', 'description', 'created_at', 'updated_at', 'user_id'], 'required'],
-            [['order', 'parent_id', 'created_at', 'updated_at', 'user_id'], 'integer'],
+            [['ManName', 'title', 'slug', 'active', 'description', 'created_at', 'updated_at', 'userCreated'], 'required'],
+            [['order', 'parent_id', 'created_at', 'updated_at', 'userCreated','userUpdated'], 'integer'],
             [['content', 'description', 'keyword'], 'string'],
             [['ManName', 'title', 'slug', 'image'], 'string', 'max' => 255],
-            [['active'], 'string', 'max' => 4],
+            // [['active'], 'string', 'max' => 4],
         ];
     }
 
@@ -65,7 +65,8 @@ class Manufactures extends \yii\db\ActiveRecord
             'parent_id' => 'Parent ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'user_id' => 'User ID',
+            'userCreated' => 'User ID',
+            'userUpdated' => 'userUpdated ID',
         ];
     }
 

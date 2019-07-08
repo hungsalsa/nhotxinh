@@ -12,15 +12,15 @@ use backend\modules\quantri\models\Product;
  */
 class ProductSearch extends Product
 {
-    // public $cateName;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'price', 'price_sales', 'order', 'guarantee', 'views', 'created_at', 'updated_at', 'user_id'], 'integer'],
-            [['pro_name', 'title', 'slug', 'keyword', 'description', 'short_introduction', 'content', 'start_sale', 'end_sale', 'active', 'product_type_id', 'salse', 'hot', 'best_seller', 'models_id', 'code', 'image', 'images_list', 'tags', 'related_articles', 'related_products', 'product_category_id', 'manufacturer_id',], 'safe'],
+            [['id', 'price', 'price_sales', 'manufacturer_id', 'guarantee', 'models_id', 'views', 'product_category_id', 'created_at', 'updated_at', 'userCreated', 'userUpdated'], 'integer'],
+            [['pro_name', 'title', 'slug', 'keyword', 'description', 'short_introduction', 'content', 'start_sale', 'end_sale', 'active', 'product_type_id', 'salse', 'hot', 'best_seller', 'code', 'image', 'images_list', 'tags', 'related_articles', 'related_products'], 'safe'],
+            [['order'], 'number'],
         ];
     }
 
@@ -42,21 +42,13 @@ class ProductSearch extends Product
      */
     public function search($params)
     {
-        $query = Product::find()->from('tbl_product p');
-    // $query->with("Productcategory"); // eager load to reduce number of queries
+        $query = Product::find();
 
-        
         // add conditions that should always apply here
-        
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        // $dataProvider->sort->attributes['cateName'] = [
-        //     'asc' =>['cateName' => SORT_ASC],
-        //     'desc' => ['cateName' => SORT_DESC]
-        // ];
 
         $this->load($params);
 
@@ -66,9 +58,6 @@ class ProductSearch extends Product
             return $dataProvider;
         }
 
-        $query->joinWith("productCategory cate");
-        $query->joinWith("manufactures manufactures");
-
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
@@ -77,12 +66,15 @@ class ProductSearch extends Product
             'start_sale' => $this->start_sale,
             'end_sale' => $this->end_sale,
             'order' => $this->order,
-            // 'manufacturer_id' => $this->manufacturer_id,
+            'manufacturer_id' => $this->manufacturer_id,
             'guarantee' => $this->guarantee,
+            'models_id' => $this->models_id,
             'views' => $this->views,
+            'product_category_id' => $this->product_category_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'user_id' => $this->user_id,
+            'userCreated' => $this->userCreated,
+            'userUpdated' => $this->userUpdated,
         ]);
 
         $query->andFilterWhere(['like', 'pro_name', $this->pro_name])
@@ -92,20 +84,17 @@ class ProductSearch extends Product
             ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'short_introduction', $this->short_introduction])
             ->andFilterWhere(['like', 'content', $this->content])
-            ->andFilterWhere(['like', 'p.active', $this->active])
+            ->andFilterWhere(['like', 'active', $this->active])
             ->andFilterWhere(['like', 'product_type_id', $this->product_type_id])
             ->andFilterWhere(['like', 'salse', $this->salse])
             ->andFilterWhere(['like', 'hot', $this->hot])
             ->andFilterWhere(['like', 'best_seller', $this->best_seller])
-            ->andFilterWhere(['like', 'models_id', $this->models_id])
             ->andFilterWhere(['like', 'code', $this->code])
             ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'images_list', $this->images_list])
             ->andFilterWhere(['like', 'tags', $this->tags])
             ->andFilterWhere(['like', 'related_articles', $this->related_articles])
-            ->andFilterWhere(['like', 'related_products', $this->related_products])
-            ->andFilterWhere(['like', 'cate.cateName', $this->product_category_id])
-            ->andFilterWhere(['like', 'manufactures.ManName', $this->manufacturer_id]);
+            ->andFilterWhere(['like', 'related_products', $this->related_products]);
 
         return $dataProvider;
     }

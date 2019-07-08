@@ -4,42 +4,8 @@ namespace backend\modules\quantri\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
-/**
- * This is the model class for table "tbl_product".
- *
- * @property int $id
- * @property string $pro_name
- * @property string $title
- * @property string $slug
- * @property string $keyword
- * @property string $description
- * @property string $short_introduction
- * @property string $content
- * @property int $price
- * @property int $price_sales
- * @property string $start_sale
- * @property string $end_sale
- * @property int $order
- * @property int $active
- * @property string $product_type_id
- * @property int $salse
- * @property int $hot
- * @property int $best_seller
- * @property int $manufacturer_id Hãng sản xuất ra sản phẩm
- * @property int $guarantee
- * @property string $models_id Loại xe sử dụng sản phẩm
- * @property int $views
- * @property string $code Mã sản phẩm nếu có
- * @property string $image
- * @property string $images_list
- * @property string $tags
- * @property int $product_category_id
- * @property string $related_articles
- * @property string $related_products
- * @property int $created_at
- * @property int $updated_at
- * @property int $user_id
- */
+use backend\models\User;
+use backend\modules\quantri\models\related\ProductRelatedTypeInterdependent;
 class Product extends \yii\db\ActiveRecord
 {
     /**
@@ -56,14 +22,24 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pro_name', 'slug', 'description', 'content', 'product_category_id', 'created_at', 'updated_at', 'user_id','price_sales','manufacturer_id'], 'required'],
+            /*[['pro_name', 'slug', 'description', 'content', 'product_category_id', 'created_at', 'updated_at', 'userCreated','price_sales','manufacturer_id','models_id'], 'required'],
             [['keyword', 'description', 'short_introduction', 'content'], 'string'],
-            [['price', 'price_sales', 'order', 'manufacturer_id', 'guarantee', 'views', 'product_category_id', 'created_at', 'updated_at', 'user_id'], 'integer'],
-            [['start_sale', 'end_sale', 'models_id', 'related_articles', 'related_products'], 'safe'],
+            [['price', 'price_sales', 'order', 'manufacturer_id', 'guarantee', 'views', 'product_category_id', 'created_at', 'updated_at', 'models_id', 'userCreated'], 'integer'],
+            [['start_sale', 'end_sale', 'related_articles', 'related_products'], 'safe'],
             [['pro_name', 'title', 'slug', 'code', 'image', 'images_list', 'tags'], 'string', 'max' => 255],
-            [['active', 'salse', 'hot', 'best_seller'], 'string', 'max' => 4],
+            // [['active', 'salse', 'hot', 'best_seller'], 'string', 'max' => 4],
             [['pro_name', 'slug'], 'unique', 'targetAttribute' => ['pro_name', 'slug']],
-            // , 'related_products' 'product_type_id', 'models_id',, 'related_articles' 
+            [['pro_name'], 'unique'],*/
+            // , 'related_products' 'product_type_id', 'models_id',, 'related_articles'
+
+            [['pro_name', 'slug', 'description', 'content', 'product_category_id', 'created_at', 'updated_at', 'userCreated', 'userUpdated'], 'required'],
+            [['keyword', 'description', 'short_introduction', 'content'], 'string'],
+            [['price', 'price_sales', 'order', 'manufacturer_id', 'guarantee', 'models_id', 'views', 'product_category_id', 'created_at', 'updated_at', 'userCreated', 'userUpdated'], 'integer'],
+            [['start_sale',  'product_type_id', 'end_sale', 'related_articles', 'related_products'], 'safe'],
+            [['pro_name', 'title', 'slug','code', 'image', 'images_list', 'tags'], 'string', 'max' => 255],
+            [['pro_name', 'slug'], 'unique', 'targetAttribute' => ['pro_name', 'slug']],
+            ['pro_name', 'unique','message' => '{attribute} đã tồn tại, bạn hãy chọn tên khác' ],
+
         ];
     }
 
@@ -86,13 +62,13 @@ class Product extends \yii\db\ActiveRecord
             'start_sale' => 'Ngày đầu giảm giá',
             'end_sale' => 'Ngày cuối giảm giá',
             'order' => 'Sắp xếp',
-            'active' => 'Trạng thái',
+            'active' => 'Kích hoạt',
             'product_type_id' => 'Loại sản phẩm',
-            'salse' => 'Salse',
-            'hot' => 'Hot',
-            'best_seller' => 'Best Seller',
+            'salse' => 'Giảm giá',
+            'hot' => 'Nổi bật',
+            'best_seller' => 'Bán chạy',
             'manufacturer_id' => 'Hãng sản xuất',
-            'guarantee' => 'Guarantee',
+            'guarantee' => 'Bảo hành',
             'models_id' => 'Xe sử dụng',
             'views' => 'Số lượt xem',
             'code' => 'Mã sản phẩm',
@@ -102,13 +78,39 @@ class Product extends \yii\db\ActiveRecord
             'product_category_id' => 'Danh mục sản phẩm',
             'related_articles' => 'Bài viết liên quan',
             'related_products' => 'Sản phẩm liên quan',
+            'userCreated' => 'User ID',
             'created_at' => 'Ngày tạo',
-            'updated_at' => 'Updated At',
-            'user_id' => 'User ID',
+            'updated_at' => 'Ngày sửa',
+            'userCreated' => 'Người tạo',
+            'userUpdated' => 'Người sửa',
         ];
     }
 
-    
+    public function getTypeproduct()
+    {
+        return $this->hasOne(ProductRelatedTypeInterdependent::className(),['pro_id'=>'id']);
+    }
+    public function getUserupdate()
+    {
+        return $this->hasOne(User::className(),['id'=>'userUpdated']);
+    }
+    public function getUseradd()
+    {
+        return $this->hasOne(User::className(),['id'=>'userCreated']);
+    }
+
+    // Laays tat ca cac vi tri cua san pham voi status vij tri = true
+    public function getProtype($idPro)
+    {
+        $data = self::find()->alias('p')
+        ->innerJoinWith([
+            'typeproduct' => function($query) use ($searchword) {
+                $query->where(['like', 'typeproduct.title', $searchword]);
+            },
+        ])
+        ->all();
+        return $data;
+    }
     // Lay tat ca san pham
     public function getAllPro()
     {

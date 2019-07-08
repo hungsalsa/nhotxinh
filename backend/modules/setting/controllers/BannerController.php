@@ -8,7 +8,7 @@ use backend\modules\setting\models\BannerSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\web\UploadedFile;
 /**
  * BannerController implements the CRUD actions for Banner model.
  */
@@ -42,6 +42,7 @@ class BannerController extends Controller
     {
         $searchModel = new BannerSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->sort->defaultOrder = ['order' => SORT_ASC,'created_at' => SORT_DESC,'updated_at' => SORT_DESC];
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -73,10 +74,19 @@ class BannerController extends Controller
 
         $model->created_at = time();
         $model->updated_at = time();
-        $model->user_id = Yii::$app->user->id;
+        $model->userCreated = Yii::$app->user->id;
+        $model->userUpdated = Yii::$app->user->id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load($post = Yii::$app->request->post())) {
+            $fileUpload = UploadedFile::getInstance($model,'image');
+            
+            $fileUpload->saveAs('banner/'. $fileUpload->baseName . '.' . $fileUpload->extension);
+            $model->image = 'banner/'. $fileUpload->name;
+            if ($post['Banner']['order']=='') {
+                $model->order = 999;
+            }
+            if($model->save())
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -93,12 +103,54 @@ class BannerController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->layout = '@backend/views/layouts/edit';
         $model = $this->findModel($id);
 
         $model->updated_at = time();
-        $model->user_id = Yii::$app->user->id;
+        $model->userUpdated = Yii::$app->user->id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        /*Lấy thông tin file ảnh cũ*/
+
+        $file_path_current =  $_SERVER['DOCUMENT_ROOT'] .'/'. $model->image;
+        $image_curent = $model->image;
+
+        if ($model->load($post = Yii::$app->request->post())) {
+            $model->image = $image_curent;
+            $fileUpload = UploadedFile::getInstance($model,'image');
+            if ($fileUpload) {
+                
+            
+            if (file_exists($file = $_SERVER['DOCUMENT_ROOT'].'/banner/'.$fileUpload->name)){
+                Yii::$app->getSession()->setFlash('messeage', $file." da ton tai");
+                $model->image ='banner/'.$fileUpload->name;
+            }else {
+                if (file_exists($file_path_current)){
+                    if ($image_curent != 'banner/'.$fileUpload->name) {
+                        // Kieemr tra tat ca cac banner khac xem co anh nay khong
+                        $checkBanner = new Banner();
+                        $checkBanner_count = $checkBanner->checkBannerImage($id,$image_curent);
+                        // dbg($checkBanner_count);
+                        if ($checkBanner_count==0) {
+                            if(unlink($file_path_current)){
+                             echo "File deleted";
+                         }
+                     }
+                     $fileUpload->saveAs($_SERVER['DOCUMENT_ROOT'].'/banner/'. $fileUpload->baseName . '.' . $fileUpload->extension);
+                     $model->image = 'banner/'. $fileUpload->name;
+                 }
+             }
+             else{
+                $fileUpload->saveAs($_SERVER['DOCUMENT_ROOT'].'/banner/'. $fileUpload->baseName . '.' . $fileUpload->extension);
+                $model->image = 'banner/'. $fileUpload->name;
+                echo "File current is not exists";
+            }
+        }
+}
+
+            if ($post['Banner']['order']=='') {
+                $model->order = 999;
+            }
+            if($model->save())
             return $this->redirect(['index']);
         }
 

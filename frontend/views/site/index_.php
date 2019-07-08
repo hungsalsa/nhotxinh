@@ -1,53 +1,83 @@
 <?php
-
-/* @var $this yii\web\View */
-
-$this->title = 'My Yii Application';
+use frontend\widgets\index\topNavigation;
+use frontend\widgets\index\hotDeals;
+use frontend\widgets\index\specialOffer;
+use frontend\widgets\index\productTags;
+use frontend\widgets\index\specialDeals;
+use frontend\widgets\index\newsletter;
+use frontend\widgets\index\Testimonials;
+use frontend\widgets\index\sectionHero;
+use frontend\widgets\index\infoBoxes;
+use frontend\widgets\index\scrollTabs;
+use frontend\widgets\index\wideProducts;
+use frontend\widgets\index\featuredProducts;
+use frontend\widgets\index\wideBanners;
+use frontend\widgets\index\bestSeller;
+use frontend\widgets\index\blogSlider;
+use frontend\widgets\index\newArrivals;
+$this->title = 'Làm website cho troi';
 ?>
-<div class="site-index">
-
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
-
-    </div>
+<!-- ============================================== SIDEBAR ============================================== -->	
+<div class="col-xs-12 col-sm-12 col-md-3 sidebar">
+	<!-- ================================== TOP NAVIGATION ================================== -->
+	<?= topNavigation::widget() ?>
+	<!-- ================================== TOP NAVIGATION : END ================================== -->
+	<!-- ============================================== HOT DEALS ============================================== -->
+	<?= hotDeals::widget() ?>
+	<!-- ============================================== HOT DEALS: END ============================================== -->
+	<!-- ============================================== SPECIAL OFFER ============================================== -->
+	<?= specialOffer::widget() ?>
+	<!-- ============================================== SPECIAL OFFER : END ============================================== -->
+	<!-- ============================================== PRODUCT TAGS ============================================== -->
+	<?= productTags::widget() ?>
+	<!-- /.sidebar-widget -->
+	<!-- ============================================== PRODUCT TAGS : END ============================================== -->
+	<!-- ============================================== SPECIAL DEALS ============================================== -->
+	<?= specialDeals::widget() ?>
+	<!-- ============================================== SPECIAL DEALS : END ============================================== -->
+	<!-- ============================================== NEWSLETTER ============================================== -->
+	<?= newsletter::widget() ?>
+	<!-- ============================================== NEWSLETTER: END ============================================== -->
+	<!-- ============================================== Testimonials============================================== -->
+	<?= Testimonials::widget() ?>
+	<!-- ============================================== Testimonials: END ============================================== -->
+	<div class="home-banner">
+		<img src="<?= Yii::$app->homeUrl?>images/banners/LHS-banner.jpg" alt="Image">
+	</div>
 </div>
+<!-- /.sidemenu-holder -->
+<!-- ============================================== SIDEBAR : END ============================================== -->
+<!-- ============================================== CONTENT ============================================== -->
+<div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder">
+	<!-- ========================================== SECTION – HERO ========================================= -->
+	<?= sectionHero::widget() ?>
+	<!-- ========================================= SECTION – HERO : END ========================================= -->	
+	<!-- ============================================== INFO BOXES ============================================== -->
+	<?= infoBoxes::widget() ?>
+	<!-- ============================================== INFO BOXES : END ============================================== -->
+	<!-- ============================================== SCROLL TABS ============================================== -->
+	<?= scrollTabs::widget() ?>
+	<!-- /.scroll-tabs -->
+	<!-- ============================================== SCROLL TABS : END ============================================== -->
+	<!-- ============================================== WIDE PRODUCTS ============================================== -->
+	<?= wideProducts::widget() ?>
+	<!-- ============================================== WIDE PRODUCTS : END ============================================== -->
+	<!-- ============================================== FEATURED PRODUCTS ============================================== -->
+	<?= featuredProducts::widget() ?>
+	<!-- ============================================== FEATURED PRODUCTS : END ============================================== -->
+	<!-- ============================================== WIDE-BANNERS============================================== -->
+	<?= wideBanners::widget() ?>
+	<!-- /.wide-banners -->
+	<!-- ============================================== WIDE-BANNERS : END ============================================== -->
+	<!-- ============================================== BEST SELLER ============================================== -->
+	<?= bestSeller::widget() ?>
+	<!-- ============================================== BEST SELLER : END ============================================== -->	
+	<!-- ============================================== BLOG SLIDER ============================================== -->
+	<?= blogSlider::widget() ?>
+	<!-- ============================================== BLOG SLIDER : END ============================================== -->	
+	<!-- ============================================== FEATURED PRODUCTS ============================================== -->
+	<?= newArrivals::widget() ?>
+	<!-- ============================================== FEATURED PRODUCTS : END ============================================== -->
+</div>
+<!-- /.homebanner-holder -->
+<!-- ============================================== CONTENT : END ============================================== -->

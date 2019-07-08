@@ -18,7 +18,7 @@ class SettingCategoriesSearch extends SettingCategories
     public function rules()
     {
         return [
-            [['id', 'parent_id', 'link_cate', 'order', 'created_at', 'updated_at', 'user_add'], 'integer'],
+            [['id', 'parent_id', 'link_cate', 'order', 'created_at', 'updated_at', 'userCreated','userUpdated'], 'integer'],
             [['name', 'slug_cate', 'title', 'description', 'icon', 'status'], 'safe'],
         ];
     }
@@ -65,7 +65,8 @@ class SettingCategoriesSearch extends SettingCategories
             'order' => $this->order,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'user_add' => $this->user_add,
+            'userCreated' => $this->userCreated,
+            'userUpdated' => $this->userUpdated,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

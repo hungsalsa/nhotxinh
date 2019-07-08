@@ -29,7 +29,8 @@ class Producttype extends \yii\db\ActiveRecord
         return [
             [['status'], 'required'],
             [['typeName'], 'string', 'max' => 255],
-            [['status'], 'string', 'max' => 4],
+            [['status'], 'number', 'max' => 2],
+            [['typeName'], 'unique'],
         ];
     }
 

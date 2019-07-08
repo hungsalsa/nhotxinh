@@ -18,7 +18,7 @@ class ImgproListSearch extends Imgprolist
     public function rules()
     {
         return [
-            [['id', 'pro_id'], 'integer'],
+            [['idIma', 'pro_id'], 'integer'],
             [['image', 'title', 'alt', 'status'], 'safe'],
         ];
     }
@@ -59,7 +59,7 @@ class ImgproListSearch extends Imgprolist
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'idIma' => $this->idIma,
             'pro_id' => $this->pro_id,
         ]);
 

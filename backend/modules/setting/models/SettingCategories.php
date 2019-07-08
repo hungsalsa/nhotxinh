@@ -3,7 +3,7 @@
 namespace backend\modules\setting\models;
 
 use Yii;
-
+use backend\modules\quantri\models\Productcategory;
 /**
  * This is the model class for table "tbl_setting_categories".
  *
@@ -19,7 +19,7 @@ use Yii;
  * @property int $status
  * @property int $created_at
  * @property int $updated_at
- * @property int $user_add
+ * @property int $userCreated
  */
 class SettingCategories extends \yii\db\ActiveRecord
 {
@@ -37,11 +37,11 @@ class SettingCategories extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'link_cate', 'slug_cate', 'status', 'created_at', 'updated_at', 'user_add'], 'required'],
-            [['parent_id', 'link_cate', 'order', 'created_at', 'updated_at', 'user_add'], 'integer'],
+            [['name', 'link_cate', 'slug_cate', 'status', 'created_at', 'updated_at', 'userCreated'], 'required'],
+            [['parent_id', 'link_cate', 'order', 'created_at', 'updated_at', 'userCreated','userUpdated'], 'integer'],
             [['description'], 'string'],
             [['name', 'slug_cate', 'title', 'icon'], 'string', 'max' => 255],
-            [['status'], 'string', 'max' => 4],
+            // [['status'], 'string', 'max' => 4],
         ];
     }
 
@@ -52,19 +52,25 @@ class SettingCategories extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'parent_id' => 'Parent ID',
-            'link_cate' => 'Link Cate',
-            'slug_cate' => 'Slug Cate',
-            'title' => 'Title',
+            'name' => 'Tên hiển thị',
+            'parent_id' => ' Cha ',
+            'link_cate' => 'Liên kết sản phẩm',
+            'slug_cate' => 'Đường dẫn',
+            'title' => 'Seo Title',
             'description' => 'Description',
-            'order' => 'Order',
+            'order' => 'Sắp xếp',
             'icon' => 'Icon',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-            'user_add' => 'User Add',
+            'status' => 'Kích hoạt',
+            'created_at' => 'Ngày tạo',
+            'updated_at' => 'Ngày sửa',
+            'userCreated' => 'Người tạo',
+            'userUpdated' => 'Người sửa',
         ];
+    }
+
+    public function getCategory()
+    {
+        return $this->hasOne(Productcategory::className(),['idCate'=>'link_cate']);
     }
 
     public $data;

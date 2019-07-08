@@ -1,20 +1,21 @@
 <?php
-
-/* @var $this \yii\web\View */
-/* @var $content string */
-
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
+// use yii\bootstrap\Nav;
+// use yii\bootstrap\NavBar;
+// use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
-use common\widgets\Alert;
-// use frontend\widgets\topMenuWidget;
-use frontend\widgets\navBarWidget;
-use frontend\widgets\mainHeaderWidget;
+// use frontend\widgets\topMenu;
+use frontend\widgets\mainHeader;
+use frontend\widgets\headerNav;
+use frontend\widgets\index\brandsCarousel;
+use frontend\widgets\index\topNavigation;
+use frontend\widgets\index\hotDeals;
+use frontend\widgets\index\specialOffer;
+use frontend\widgets\index\productTags;
+use frontend\widgets\index\specialDeals;
+use frontend\widgets\index\newsletter;
+use frontend\widgets\index\Testimonials;
 use frontend\widgets\footerWidget;
-use frontend\widgets\brandsCarouselWidget;
-use frontend\widgets\modalCartWidget;
 
 AppAsset::register($this);
 ?>
@@ -25,67 +26,101 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <link rel="shortcut icon" href="<?= Yii::$app->homeUrl ?>vender/images/favicon.ico">
+
+
+    <?php 
+    echo Html::csrfMetaTags();
+    $this->registerMetaTag(['name' => 'copyright', 'content' => 'lopxin.com']);
+    $this->registerMetaTag(['name' => 'author', 'content' => 'lopxin.com']);
+    $this->registerMetaTag(['name' => 'robots', 'content' => 'INDEX,FOLLOW']);
+
+    $this->registerMetaTag(Yii::$app->params['og_site_name'], 'og_site_name');
+    $this->registerMetaTag(Yii::$app->params['og_type'], 'og_type');
+    $this->registerMetaTag(Yii::$app->params['og_locale'], 'og_locale');
+    // $this->registerMetaTag(Yii::$app->params['og_title'], 'og_title');
+    // $this->registerMetaTag(Yii::$app->params['og_description'], 'og_description');
+    // $this->registerMetaTag(Yii::$app->params['og_url'], 'og_url');
+    // $this->registerMetaTag(Yii::$app->params['og_image'], 'og_image');
+    
+    $this->registerLinkTag(['rel' => 'canonical', 'href' => Yii::$app->request->absoluteUrl]); 
+    ?>
+    <link rel="icon" type="image/ico" sizes="16x16" href="<?=Yii::$app->homeUrl ?>images/favicon.ico">
+    <title><?= Html::encode($this->title).' | lopxin.com' ?></title>
     <?php $this->head() ?>
-    <!-- HTML5 elements and media queries Support for IE8 : HTML5 shim and Respond.js -->
-    <!--[if lt IE 9]>
-        <script src="<?= Yii::$app->homeUrl ?>vender/js/html5shiv.js"></script>
-        <script src="<?= Yii::$app->homeUrl ?>vender/js/respond.min.js"></script>
-    <![endif]-->
 </head>
 <body class="cnt-home">
     <?php $this->beginBody() ?>
     <!-- ============================================== HEADER ============================================== -->
-    <header class="header-style-1 header-style-3">
-
-        <!-- ============================================== TOP MENU ============================================== -->
-        <?php// topMenuWidget::widget() ?>
-        <!-- ============================================== TOP MENU : END ============================================== -->
-        <!-- ============================================== MAIN HEADER ============================================== -->
-        <?= mainHeaderWidget::widget() ?>
-        <!-- ============================================== MAIN HEADER : END ============================================== -->
-
+    <header class="header-style-1">
+        <?php // topMenu::widget() ?>
+        <!-- ============================================== mainHeader : Start ============================================== -->
+        <?= mainHeader::widget() ?>
+        <!-- ============================================== mainHeader : END ============================================== -->
         <!-- ============================================== NAVBAR ============================================== -->
-        <?= navBarWidget::widget() ?>
-        <!-- ============================================== NAVBAR : END ============================================== -->
 
+        <?= headerNav::widget() ?>
+        <!-- ============================================== NAVBAR : END ============================================== -->
     </header>
-    <!-- ============================================== HEADER : END ============================================== -->
-    <!-- =========BREADCRUMB========================== -->
-    <div class="breadcrumb">
+        <!-- ============================================== HEADER : END ============================================== -->
+    <div class="body-content outer-top-xs" id="top-banner-and-menu">
         <div class="container">
-            <div class="breadcrumb-inner">
-                <ul class="list-inline list-unstyled">
-                    <li><a href="#">Home</a></li>
-                    <li class='active'>Smart Phone</li>
-                </ul>
-            </div><!-- /.breadcrumb-inner -->
-        </div><!-- /.container -->
-    </div><!-- /.breadcrumb -->
-    <!-- =========BREADCRUMB :END========================== -->
-    <!-- ============================================== BODY-CONTENT ============================================== -->
-    <div class="body-content outer-top-xs">
-        <div class='container'>
-            <div class="homepage-container">
-                <div class='row single-product outer-bottom-sm' id="content">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3 sidebar">
+                    <!-- ================================== TOP NAVIGATION ================================== -->
+                    <?= topNavigation::widget() ?>
+                    <!-- ================================== TOP NAVIGATION : END ================================== -->
+                    <!-- ============================================== HOT DEALS ============================================== -->
+                    <?= hotDeals::widget() ?>
+                    <!-- ============================================== HOT DEALS: END ============================================== -->
+                    <!-- ============================================== SPECIAL OFFER ============================================== -->
+                    <?= specialOffer::widget() ?>
+                    <!-- ============================================== SPECIAL OFFER : END ============================================== -->
+                    <!-- ============================================== PRODUCT TAGS ============================================== -->
+                    <?= productTags::widget() ?>
+                    <!-- /.sidebar-widget -->
+                    <!-- ============================================== PRODUCT TAGS : END ============================================== -->
+                    <!-- ============================================== SPECIAL DEALS ============================================== -->
+                    <?= specialDeals::widget() ?>
+                    <!-- ============================================== SPECIAL DEALS : END ============================================== -->
+                    <!-- ============================================== NEWSLETTER ============================================== -->
+                    <?= newsletter::widget() ?>
+                    <!-- ============================================== NEWSLETTER: END ============================================== -->
+                    <!-- ============================================== Testimonials============================================== -->
+                    <?= Testimonials::widget() ?>
+                    <!-- ============================================== Testimonials: END ============================================== -->
+                    <div class="home-banner">
+                        <img src="<?= Yii::$app->homeUrl?>images/banners/LHS-banner.jpg" alt="Image">
+                    </div>
+                </div>
+                <!-- /.sidemenu-holder -->
+                <!-- ============================================== SIDEBAR : END ============================================== -->
+                <!-- ============================================== CONTENT ============================================== -->
+                <div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder">
                     <?= $content ?>
                 </div>
-                <?= brandsCarouselWidget::widget() ?>
+                <!-- /.homebanner-holder -->
+                <!-- ============================================== CONTENT : END ============================================== -->
+                
             </div>
-        </div><!-- /#top-banner-and-menu -->
+            <!-- /.row -->
+                <!-- ============================================== BRANDS CAROUSEL ============================================== -->
+            <?= brandsCarousel::widget() ?>
+                <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
+        </div>
+        <!-- /.container -->
     </div>
-    <!-- ============================================== BODY-CONTENT :END ============================================== -->
-
+    <!-- /#top-banner-and-menu -->
     <!-- ============================================================= FOOTER ============================================================= -->
     <?= footerWidget::widget() ?>
     <!-- ============================================================= FOOTER : END============================================================= -->
+
     
-    <!-- MODAL SU DUNG GIO HANG -->
-    <?= modalCartWidget::widget() ?>
-    <!-- MODAL SU DUNG GIO HANG -->
-<?php $this->endBody() ?>
+
+
+
+
+
+    <?php $this->endBody() ?>
 </body>
 
 </html>

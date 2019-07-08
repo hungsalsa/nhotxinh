@@ -18,8 +18,8 @@ class BannerSearch extends Banner
     public function rules()
     {
         return [
-            [['id', 'order', 'created_at', 'updated_at', 'user_id'], 'integer'],
-            [['image', 'url', 'alt', 'content', 'status'], 'safe'],
+            [['id', 'order', 'created_at', 'updated_at', 'userCreated','userUpdated'], 'integer'],
+            [['image', 'url', 'alt', 'content', 'status','name'], 'safe'],
         ];
     }
 
@@ -60,10 +60,12 @@ class BannerSearch extends Banner
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'name' => $this->name,
             'order' => $this->order,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'user_id' => $this->user_id,
+            'userCreated' => $this->userCreated,
+            'userUpdated' => $this->userUpdated,
         ]);
 
         $query->andFilterWhere(['like', 'image', $this->image])

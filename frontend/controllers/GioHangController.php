@@ -26,16 +26,17 @@ class GioHangController extends \yii\web\Controller
     	}
 
         if($post = Yii::$app->request->post()){
-            $session['khachhang'] =[
-                'fullname'=> html_entity_decode($post['fullname']),
-                'phone'=> html_entity_decode($post['phone']),
-                'email'=> html_entity_decode($post['email']),
-                'note'=> html_entity_decode($post['note']),
-            ];
-            echo '<pre>';
-            echo htmlentities($session['khachhang']['fullname']);
-            print_r($session['khachhang']);
-            die;
+            dbg($post);
+            // $session['khachhang'] =[
+            //     'fullname'=> html_entity_decode($post['fullname']),
+            //     'phone'=> html_entity_decode($post['phone']),
+            //     'email'=> html_entity_decode($post['email']),
+            //     'note'=> html_entity_decode($post['note']),
+            // ];
+            // echo '<pre>';
+            // echo htmlentities($session['khachhang']['fullname']);
+            // print_r($session['khachhang']);
+            // die;
         }
 
         return $this->render('index',['cart'=>$session['cart'],'dataManu'=>$dataManu]);

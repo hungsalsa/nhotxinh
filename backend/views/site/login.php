@@ -15,8 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>Please fill out the following fields to login:</p>
 
-    <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-10">
             <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
                 <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
@@ -31,5 +30,4 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php ActiveForm::end(); ?>
         </div>
-    </div>
 </div>

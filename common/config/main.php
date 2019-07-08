@@ -9,7 +9,11 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        
+        'formatter' => [
+            'decimalSeparator' => ',',
+            'thousandSeparator' => '.',
+            // 'currencyCode' => 'VNĐ',
+        ],
     ],
     // 'cache' => [
     //     'class' => 'yii\caching\FileCache',

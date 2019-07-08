@@ -18,7 +18,7 @@ class MenusSearch extends Menus
     public function rules()
     {
         return [
-             [['id', 'type', 'parent_id', 'link_cate', 'order', 'created_at', 'updated_at', 'user_id'], 'integer'],
+             [['id', 'type', 'parent_id', 'link_cate', 'order', 'created_at', 'updated_at', 'userCreated'], 'integer'],
             [['name', 'title', 'slug', 'introduction', 'image', 'status'], 'safe'],
         ];
     }
@@ -66,7 +66,7 @@ class MenusSearch extends Menus
             'order' => $this->order,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'user_id' => $this->user_id,
+            'userCreated' => $this->userCreated,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

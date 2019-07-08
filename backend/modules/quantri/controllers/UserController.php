@@ -8,7 +8,7 @@ use backend\modules\quantri\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use backend\models\SignupForm;
 /**
  * UserController implements the CRUD actions for User model.
  */
@@ -62,6 +62,35 @@ class UserController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+    public function actionSignup()
+    {
+        // $this->layout = 'signup';
+        $model = new SignupForm();
+        $user = new User();
+
+        $authItems = ['admin'=>'Admin','manager'=>'Biên tập viên','author'=>'Cộng tác viên'];
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
+
+            // echo '<pre>';print_r($authItems);die;
+
+        if ($model->load($post = Yii::$app->request->post())) {
+            // dbg($_POST['SignupForm']['permission']);
+            if ($user = $model->signup()) {
+                Yii::$app->session->setFlash('messeage','Bạn đã thêm thành công :'.$user->username);
+                return $this->redirect(['index']);
+            }
+        }
+        return $this->render('signup', [
+            'model' => $model,
+            'user' => $user,
+            'authItems' => $authItems,
+        ]);
+    }
+    
     public function actionCreate()
     {
         $model = new User();

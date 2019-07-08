@@ -1,13 +1,65 @@
 <?php
 
 namespace frontend\controllers;
+use Yii;
+use yii\helpers\Url;
 use frontend\models\News;
+use frontend\models\product\FProductCategory;
+use frontend\models\product\FProduct;
+use frontend\models\product\FProductType;
 use yii\web\NotFoundHttpException;
 class CategoriesController extends \yii\web\Controller
 {
-    public function actionIndex()
+    public function actionIndex($slug,$page=1)
     {
-        return $this->render('index');
+        $category = FProductCategory::findOne(['slug'=>$slug]);
+        if($category){
+            $model = new FProductCategory();
+            $idCateChild = $model->getChildCate($category->idCate);
+
+            $model = new FProduct();
+            $dataProduct = $model->getProductByCateList($idCateChild,12);
+            $pages = $model->dataPagerProduct($idCateChild,12);
+            $model = new FProductType();
+            $productType = $model->getAllType();
+            // dbg($productType);
+            $data = [
+                'dataProduct'=>$dataProduct,
+                'pages'=>$pages,
+                'seo'=>[
+                    'title'=>$category->title
+                ]
+            ];
+
+            Yii::$app->view->registerMetaTag([
+                'name' => 'keywords',
+                'content' => $category->keyword
+            ]);
+            
+            Yii::$app->view->registerMetaTag([
+                'name' => 'description',
+                'content' => $category->description
+            ]);
+            Yii::$app->view->registerMetaTag([
+                'property' => 'og:title',
+                'content' => $category->title
+            ]);
+
+            Yii::$app->view->registerMetaTag([
+                'property' => 'og:url',
+                'content' => Url::to(['categories/index', 'slug'=>$category->slug, 'page' => $page],true)
+            ]);
+// foreach ($dataProduct as $value) {
+//     dbg($value);
+// }
+        // dbg($dataProduct);
+        }else {
+            throw new NotFoundHttpException('Dữ liệu này đang cập nhật, xin vui lòng quay lại sau');
+        }
+        return $this->render('index',[
+            'data'=>$data,
+            'productType'=>$productType,
+        ]);
     }
 
     public function actionListcate($id)
@@ -22,10 +74,4 @@ class CategoriesController extends \yii\web\Controller
         
     }
 
-    // public function actionDanhsach()
-    // {
-    //     $request = \Yii::$app->request;
-    //     $slug = $request->get('slug','');
-    //     echo $slug;
-    // }
 }

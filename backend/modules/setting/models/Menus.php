@@ -3,7 +3,7 @@
 namespace backend\modules\setting\models;
 
 use Yii;
-
+use backend\modules\quantri\models\Productcategory;
 /**
  * This is the model class for table "tbl_menus".
  *
@@ -18,7 +18,7 @@ use Yii;
  * @property int $status
  * @property int $created_at
  * @property int $updated_at
- * @property int $user_id
+ * @property int $userCreated
  */
 class Menus extends \yii\db\ActiveRecord
 {
@@ -36,11 +36,11 @@ class Menus extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'slug', 'type', 'status', 'created_at', 'updated_at', 'user_id'], 'required'],
-            [['type', 'parent_id', 'link_cate', 'order', 'created_at', 'updated_at', 'user_id'], 'integer'],
+            [['name', 'slug', 'type', 'status', 'created_at', 'updated_at', 'userCreated'], 'required'],
+            [['type', 'parent_id', 'link_cate', 'order', 'created_at', 'updated_at', 'userCreated','status','userUpdated'], 'integer'],
             [['introduction'], 'string'],
             [['name', 'title', 'slug', 'image'], 'string', 'max' => 255],
-            [['status'], 'string', 'max' => 4],
+            // [['status'], 'string', 'max' => 4],
             [['slug'], 'unique'],
         ];
     }
@@ -52,20 +52,26 @@ class Menus extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-             'title' => 'Title',
-            'slug' => 'Slug',
-            'type' => 'Type',
+            'name' => 'Tên hiển thị',
+            'title' => 'Tiêu đề',
+            'slug' => 'Đường dẫn',
+            'type' => 'Loại',
             'introduction' => 'Introduction',
-            'parent_id' => 'Parent ID',
-            'link_cate' => 'Link Cate',
-            'order' => 'Order',
-            'image' => 'Image',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-            'user_id' => 'User ID',
+            'parent_id' => 'Menu cha',
+            'link_cate' => 'Liên kết danh mục',
+            'order' => 'Sắp xếp',
+            'image' => 'Ảnh',
+            'status' => 'Kích hoạt',
+            'created_at' => 'Ngày tạo',
+            'updated_at' => 'Ngày sửa',
+            'userCreated' => 'Người tạo',
+            'userUpdated' => 'Người sửa',
         ];
+    }
+
+    public function getCategory()
+    {
+        return $this->hasOne(Productcategory::className(),['idCate'=>'link_cate']);
     }
 
     public $data;

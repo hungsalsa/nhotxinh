@@ -33,7 +33,7 @@ class Imgprolist extends \yii\db\ActiveRecord
             [['pro_id', 'image', 'status'], 'required'],
             [['pro_id'], 'integer'],
             [['image', 'title', 'alt'], 'string', 'max' => 255],
-            [['status'], 'string', 'max' => 4],
+            [['status'], 'number'],
         ];
     }
 
@@ -43,11 +43,11 @@ class Imgprolist extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'pro_id' => 'Pro ID',
-            'image' => 'Image',
+            'idIma' => 'ID',
+            'pro_id' => 'Sản phẩm',
+            'image' => 'Ảnh',
             'title' => 'Title',
-            'alt' => 'Alt',
+            'alt' => 'Seo Alt',
             'status' => 'Status',
         ];
     }

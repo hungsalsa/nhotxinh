@@ -62,6 +62,6 @@ class Banner extends \yii\db\ActiveRecord
 
     public function getAllBanner($status = 1)
     {
-        return Banner::find()->asArray()->where('status =:Status',['Status'=>$status])->orderBy(['order' => SORT_ASC]) ->all();
+        return Banner::find()->asArray()->where('status =:Status',['Status'=>$status])->orderBy(['order' => SORT_ASC,'updated_at' => SORT_DESC])->all();
     }
 }

@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
+    <p class="btn_save">
         <?= Html::a('Chỉnh sửa', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Danh sách', ['index'], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Xóa sản phẩm', ['delete', 'id' => $model->id], [
@@ -35,8 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'slug',
             'keyword:ntext',
             'description:ntext',
-            'short_introduction:ntext',
-            'content:ntext',
+            'short_introduction:html',
+            'content:html',
             'price',
             'price_sales',
             'start_sale',
@@ -55,12 +55,25 @@ $this->params['breadcrumbs'][] = $this->title;
             'image',
             'images_list',
             'tags',
-            'product_category_id',
+            [
+                'attribute'=>'product_category_id',
+                'value'=>$model->productCategory->cateName,
+            ],
+            [
+                'attribute' => 'product_category_id',
+                'value' => $model->productCategory->cateName
+            ],
             'related_articles',
             'related_products',
-            'created_at',
-            'updated_at',
-            'user_id',
+            [
+                'attribute' => 'created_at',
+                'format' => ['date', 'php:H:i d-m-Y']
+            ],
+            [
+                'attribute' => 'updated_at',
+                'format' => ['date', 'php:H:i d-m-Y']
+            ],
+            'userCreated',
         ],
     ]) ?>
 

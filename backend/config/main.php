@@ -61,7 +61,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                  // 'defaultRoute' => '/quantri/index',
+                  'defaultRoute' => '/quantri/product',
             ],
         ],
         'authManager' => [

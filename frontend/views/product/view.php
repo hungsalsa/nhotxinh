@@ -1,5 +1,6 @@
 <?php 
 use frontend\widgets\categoryWidget;
+use yii\helpers\Url;
 $this->title = $product['title']; 
 
 ?> 
@@ -30,10 +31,10 @@ $this->title = $product['title'];
             <div class="single-product-gallery-thumbs gallery-thumbs">
                <div id="owl-single-product-thumbnails">
                   <?php if (count($listImg)): $j=0;?>
-                     <?php foreach ($listImg as $listimg): ?>
+                     <?php foreach ($listImg as $listimg):  $image = str_replace("uploads", "icon", $listimg['image']);?>
                   <div class="item">
                      <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="<?= $j ?>" href="#slide<?= $j ?>">
-                     <img class="img-responsive" width="85" alt="<?= $listimg['alt'] ?>" src="<?= Yii::$app->homeUrl?>vender/images/blank.gif" data-echo="<?= Yii::$app->homeUrl.$listimg['image']?>"/>
+                     <img class="img-responsive" alt="<?= ($listimg['alt']=='')? 'áđâ':$listimg['alt'] ?>" src="<?= Yii::$app->homeUrl?>vender/images/blank.gif" data-echo="<?= Yii::$app->homeUrl.$image ?>"/>
                      </a>
                   </div>
                      <?php $j++; endforeach ?>
@@ -112,7 +113,7 @@ $this->title = $product['title'];
             <div class="quantity-container info-container">
                <div class="row">
                   <div class="col-sm-2">
-                     <span class="label">Qty :</span>
+                     <span class="label">Số lượng :</span>
                   </div>
                   <div class="col-sm-2">
                      <div class="cart-quantity">
@@ -126,7 +127,7 @@ $this->title = $product['title'];
                      </div>
                   </div>
                   <div class="col-sm-7">
-                     <a href="#" class="btn btn-primary" onclick="addCart(<?= $product['id']?>)"><i class="fa fa-shopping-cart inner-right-vs"></i> Thêm vào giỏ hàng</a>
+                     <a href="javascript:void(0)" class="btn btn-primary" onclick="addCart(<?= $product['id']?>)"><i class="fa fa-shopping-cart inner-right-vs"></i> Thêm vào giỏ hàng</a>
                   </div>
                </div>
                <!-- /.row -->
@@ -183,7 +184,7 @@ $this->title = $product['title'];
                <div class="product">
                   <div class="product-image">
                      <div class="image">
-                        <a href="detail.html"><img style="max-width: 195px;max-height: 243px" src="<?= Yii::$app->homeUrl?>vender/images/blank.gif" data-echo="<?= Yii::$app->homeUrl.$value['image'] ?>" alt="<?= $value['title'] ?> ?>"></a>
+                        <a href="<?= Url::to(['product/view', 'slug' => $value['slug']]) ?>"><img style="max-width: 195px;max-height: 243px" src="<?= Yii::$app->homeUrl?>vender/images/blank.gif" data-echo="<?= Yii::$app->homeUrl.$value['image'] ?>" alt="<?= $value['title'] ?> ?>"></a>
                      </div>
                      <!-- /.image -->
                      <?php if ($value['product_type_id'] != ''): 
@@ -197,21 +198,27 @@ $this->title = $product['title'];
                   </div>
                   <!-- /.product-image -->
                   <div class="product-info text-left">
-                     <h3 class="name"><a href="detail.html">LG Smart Phone LP68</a></h3>
+                     <h3 class="name"><a href="<?= Url::to(['product/view', 'slug' => $value['slug']]) ?>"><?= $value['pro_name'] ?></a></h3>
                      <div class="rating rateit-small"></div>
                      <div class="description"></div>
-                     <div class="product-price">	
-                        <span class="price">
-                        $650.99				</span>
-                        <span class="price-before-discount">$ 800</span>
-                     </div>
-                     <!-- /.product-price -->
+                     <div class="product-price"> 
+                        <?php if ($value['price_sales']): ?>
+                         <span class="price"> $<?= $value['price_sales'] ?></span> 
+                         <span class="price-before-discount">$ <?= $value['price'] ?></span>
+                           
+                        <?php else: ?>
+                         <span class="price"> $<?= $value['price'] ?></span> 
+                           
+                        <?php endif ?>
+                    </div><!-- /.product-price -->
+
+                     
                   </div>
                   <!-- /.product-info -->
                   <div class="cart clearfix animate-effect">
                      <div class="action">
                         <ul class="list-unstyled">
-                           <li class="add-cart-button btn-group">
+                           <li class="add-cart-button btn-group" onclick="addCart(<?= $value['id'] ?>)">
                               <button class="btn btn-primary icon" data-toggle="dropdown" type="button">
                               <i class="fa fa-shopping-cart"></i>													
                               </button>

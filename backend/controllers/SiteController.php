@@ -59,8 +59,14 @@ class SiteController extends Controller
      *
      * @return string
      */
+    public function beforeAction($action) 
+    { 
+        $this->enableCsrfValidation = false; 
+        return parent::beforeAction($action); 
+    }
     public function actionIndex()
     {
+        $this->layout = 'home';
         return $this->render('index');
     }
 

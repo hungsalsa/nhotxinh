@@ -674,14 +674,14 @@ $this->title = 'ádada';
          <div class="tab-pane active" id="grid-container">
             <div class="category-product  inner-top-vs">
                <div class="row">
-                  <?php $i=1; foreach ($productCat as $value): ?>
+                  <?php $i=1; foreach ($productCat as $value): $image = str_replace("uploads", "images-category", $value['image']);?>
                   <div class="col-sm-6 col-md-4">
                      <div class="products">
                         <div class="product">
                            <div class="product-image">
                               <div class="image">
                                 
-                                 <ahref="<?= Url::to(['product/view', 'slug' => $value['slug']]) ?>"><img id="img_<?= $value['id'] ?>"  src="<?= Yii::$app->homeUrl ?>vender/images/blank.gif" data-echo="<?= Yii::$app->homeUrl.$value['image'] ?>" alt="<?= 'sad' ?>" width="98%"></a>
+                                 <a href="<?= Url::to(['product/view', 'slug' => $value['slug']]) ?>"><img id="img_<?= $value['id'] ?>"  src="<?= Yii::$app->homeUrl ?>vender/images/blank.gif" data-echo="<?= Yii::$app->homeUrl.$image ?>" alt="<?= $value['pro_name'] ?>"></a>
                               </div>
                               <!-- /.image -->  
                               <?php 
@@ -699,7 +699,7 @@ $this->title = 'ádada';
                               <div class="description"></div>
                               <div class="product-price">   
                                  <span class="price" id="txtPrice_<?= $value['id'] ?>">
-                                 <?= number_format((int)$value['price_sales'], 0, ',', '.');  ?> VNĐ                </span>
+                                 <?= number_format((int)$value['price_sales'], 0, ',', '.');  ?> VNĐ  </span>
                                  <span class="price-before-discount"><?= ($value['price'])?number_format((int)$value['price_sales'], 0, ',', '.').' VNĐ':'' ?></span>
                               </div>
                               <!-- /.product-price -->
@@ -827,28 +827,3 @@ $this->title = 'ádada';
    <!-- /.search-result-container -->
 </div>
 <!-- /.col -->
-
-<!-- 'options' => ['class' => 'page-item'],
-    //First option value
-    'firstPageLabel' => '&nbsp;',
-    //Last option value
-    'lastPageLabel' => '&nbsp;',
-    //Previous option value
-    'prevPageLabel' => '&nbsp;',
-    //Next option value
-    'nextPageLabel' => '&nbsp;',
-    //Current Active option value
-    'activePageCssClass' => 'active',
-    //Max count of allowed options
-    'maxButtonCount' => 8,
-    'disableCurrentPageButton'=>true,
-
-    // Css for each options. Links
-    'linkOptions' => ['class' => ''],
-    'disabledPageCssClass' => 'disabled',
-
-    // Customzing CSS class for navigating link
-    'prevPageCssClass' => 'prev',
-    'nextPageCssClass' => 'next',
-    'firstPageCssClass' => 'p-first',
-    'lastPageCssClass' => 'p-last', -->

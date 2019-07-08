@@ -13,9 +13,9 @@ use kartik\select2\Select2;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <div class="form-group pull-right">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Hủy', ['index'], ['class' => 'btn btn-success']) ?>
+    <div class="form-group btn_save">
+        <?= Html::submitButton($model->isNewRecord ? 'Thêm mới':'Chỉnh sửa', ['class' => 'btn btn-success btn_luu']) ?>
+        <?= Html::a('  Hủy  ', ['index'], ['class' => 'btn btn-success btn_luu']) ?>
     </div>
     <div class="clearfix"></div>
     <?= $form->field($model, 'name',['options' => ['class' => 'col-md-4']])->textInput(['maxlength' => true]) ?>
@@ -58,11 +58,6 @@ use kartik\select2\Select2;
     <div class="clearfix"></div>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
 
     <?php ActiveForm::end(); ?>
 

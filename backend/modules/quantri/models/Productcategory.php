@@ -4,26 +4,7 @@ namespace backend\modules\quantri\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
-/**
- * This is the model class for table "tbl_product_category".
- *
- * @property int $idCate
- * @property string $title
- * @property string $cateName
- * @property string $slug
- * @property string $keyword
- * @property string $description
- * @property string $content
- * @property string $short_introduction
- * @property int $home_page
- * @property string $image
- * @property int $order
- * @property int $active
- * @property int $product_parent_id
- * @property int $created_at
- * @property int $updated_at
- * @property int $user_id
- */
+use backend\models\User;
 class Productcategory extends \yii\db\ActiveRecord
 {
     /**
@@ -40,11 +21,12 @@ class Productcategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'cateName', 'active', 'created_at', 'updated_at', 'user_id'], 'required','message'=>'{attribute} không được để trống'],
+            [['title', 'cateName', 'active'], 'required','message'=>'{attribute} không được để trống'],
             [['keyword', 'description', 'content', 'short_introduction'], 'string'],
-            [['order', 'product_parent_id', 'created_at', 'updated_at', 'user_id'], 'integer','message'=>'{attribute} không phải là số'],
+            [['product_parent_id', 'created_at', 'updated_at', 'userCreated', 'userUpdated','home_page', 'active'], 'integer','message'=>'{attribute} không phải là số'],
             [['title', 'cateName', 'slug', 'image'], 'string', 'max' => 255],
-            [['home_page', 'active'], 'string', 'max' => 4],
+            // [['home_page', 'active'], 'string', 'max' => 4],
+            [['order'], 'number'],
             [['cateName', 'slug'], 'unique', 'targetAttribute' => ['cateName', 'slug']],
         ];
     }
@@ -57,7 +39,7 @@ class Productcategory extends \yii\db\ActiveRecord
         return [
             'idCate' => 'Id Cate',
             'title' => 'Tiêu đề danh mục',
-            'cateName' => 'Tên danh mục sp',
+            'cateName' => 'Tên danh mục',
             'slug' => 'đường dẫn',
             'keyword' => 'Từ khóa',
             'description' => 'Description',
@@ -70,8 +52,13 @@ class Productcategory extends \yii\db\ActiveRecord
             'product_parent_id' => 'Danh mục cha',
             'created_at' => 'Ngày tạo',
             'updated_at' => 'Ngày chỉnh sửa',
-            'user_id' => 'user',
+            'userCreated' => 'Người tạo',
+            'userUpdated' => 'Người sửa',
         ];
+    }
+    public function getUseradd()
+    {
+        return $this->hasOne(User::className(),['id'=>'userCreated']);
     }
 
     public $data;
@@ -81,12 +68,11 @@ class Productcategory extends \yii\db\ActiveRecord
         $level .='--| ';
         foreach ($result as $key=>$value) {
             if($parent == 0){
-                $level='';
+                $level=' --| ';
             }
             $this->data[$value['idCate']] = $level.$value['cateName'];
             self::getCategoryParent($value['idCate'],$level);
         }
-
         return $this->data;
     }
 
@@ -104,5 +90,18 @@ class Productcategory extends \yii\db\ActiveRecord
     {
        $data = Productcategory::find()->select('slug')->asArray()->where('active =:active AND idCate=:id',['active'=>$status,'id'=>$idCate])->one();
        return $data['slug'];unset($data);
+    }
+
+    // Lấy tất cả các con của cateproduct
+    public function getChildCate($idCate)
+    {
+        $data = self::find()->select('idCate')
+        ->where('product_parent_id=:parent AND active =:active',[':parent'=>$idCate,'active'=>true])
+        ->asArray()
+        ->all();
+        $result = [$idCate];
+        $result += array_values(ArrayHelper::map($data,'idCate','idCate'));
+        // dbg($result);
+        return $result;
     }
 }

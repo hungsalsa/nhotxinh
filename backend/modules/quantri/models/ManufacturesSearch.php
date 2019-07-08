@@ -18,7 +18,7 @@ class ManufacturesSearch extends Manufactures
     public function rules()
     {
         return [
-            [['idMan', 'order', 'parent_id', 'created_at', 'updated_at', 'user_id'], 'integer'],
+            [['idMan', 'order', 'parent_id', 'created_at', 'updated_at', 'userCreated','userUpdated'], 'integer'],
             [['ManName', 'title', 'slug', 'image', 'active', 'content', 'description', 'keyword'], 'safe'],
         ];
     }
@@ -64,7 +64,8 @@ class ManufacturesSearch extends Manufactures
             'parent_id' => $this->parent_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'user_id' => $this->user_id,
+            'userCreated' => $this->userCreated,
+            'userUpdated' => $this->userUpdated,
         ]);
 
         $query->andFilterWhere(['like', 'ManName', $this->ManName])
